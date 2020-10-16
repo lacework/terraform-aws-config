@@ -1,0 +1,97 @@
+version: 2.1
+
+parameters:
+  slack-mentions:
+    type: string
+    default: 'afiune,scottford'
+  only_for_branches:
+    type: string
+    default: 'master'
+
+orbs:
+  slack: circleci/slack@3.4.2
+  jq: circleci/jq@2.1.0
+
+executors:
+  terraform:
+    docker:
+      - image: techallylw/terraform:latest
+  alpine:
+    docker:
+      - image: cibuilds/base:latest
+    resource_class: small
+
+jobs:
+  terraform-test:
+    executor: terraform
+    steps:
+      - checkout
+      - run: scripts/ci_tests.sh
+      - slack/status:
+          fail_only: true
+          mentions: << pipeline.parameters.slack-mentions >>
+          only_for_branches: <<pipeline.parameters.only_for_branches>>
+  verify-release:
+    executor: alpine
+    steps:
+      - checkout
+      - run: scripts/release.sh verify
+  trigger-release:
+    executor: alpine
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "16:06:ff:03:3b:41:49:06:ef:ac:af:58:b4:4b:1e:03"
+      - run: scripts/release.sh trigger
+  release:
+    executor: alpine
+    steps:
+      - checkout
+      - jq/install
+      - slack/notify:
+          mentions: << pipeline.parameters.slack-mentions >>
+          message: Releasing new version of this repository
+      - run: scripts/release.sh publish
+      - slack/status:
+          mentions: << pipeline.parameters.slack-mentions >>
+
+workflows:
+  version: 2
+  test-trigger-release:
+    jobs:
+      - terraform-test:
+          context:
+            - techally_api_key
+      - trigger-release:
+          requires:
+            - terraform-test
+          filters:
+            branches:
+              only: master
+
+  verify-release:
+    jobs:
+      - verify-release:
+          filters:
+             branches:
+               only: release
+
+  release-from-tag:
+    jobs:
+      - release:
+          filters:
+            tags:
+               only: /^v.*/
+            branches:
+              ignore: /.*/
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 12 * * *"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - terraform-test
