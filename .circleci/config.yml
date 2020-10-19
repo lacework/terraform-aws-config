@@ -6,7 +6,7 @@ parameters:
     default: 'afiune,scottford'
   only_for_branches:
     type: string
-    default: 'master'
+    default: 'main'
 
 orbs:
   slack: circleci/slack@3.4.2
@@ -84,7 +84,7 @@ workflows:
             - terraform13-test
           filters:
             branches:
-              only: master
+              only: main
 
   verify-release:
     jobs:
@@ -110,7 +110,7 @@ workflows:
           cron: "0 12 * * *"
           filters:
             branches:
-              only: master
+              only: main
     jobs:
       - terraform12-test:
           context:
