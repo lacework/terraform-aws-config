@@ -1,10 +1,10 @@
-provider "lacework" { }
+provider "lacework" {}
 
-provider "aws" { }
+provider "aws" {}
 
 module "aws_config" {
-	source                    = "../../"
-	iam_role_name             = "lw-custom-role"
-	lacework_integration_name = "account-abc"
-	external_id_length        = 1000
+  source                    = "../../"
+  iam_role_name             = "lw-custom-role"
+  lacework_integration_name = "account-abc"
+  external_id_length        = 1000
 }

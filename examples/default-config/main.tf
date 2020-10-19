@@ -1,7 +1,7 @@
-provider "lacework" { }
+provider "lacework" {}
 
-provider "aws" { }
+provider "aws" {}
 
 module "aws_config" {
-	source = "../../"
+  source = "../../"
 }

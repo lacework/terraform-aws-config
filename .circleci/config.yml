@@ -13,17 +13,29 @@ orbs:
   jq: circleci/jq@2.1.0
 
 executors:
-  terraform:
+  terraform12:
     docker:
-      - image: techallylw/terraform:latest
+      - image: techallylw/terraform:12
+  terraform13:
+    docker:
+      - image: techallylw/terraform:13
   alpine:
     docker:
       - image: cibuilds/base:latest
     resource_class: small
 
 jobs:
-  terraform-test:
-    executor: terraform
+  terraform12-test:
+    executor: terraform12
+    steps:
+      - checkout
+      - run: scripts/ci_tests.sh
+      - slack/status:
+          fail_only: true
+          mentions: << pipeline.parameters.slack-mentions >>
+          only_for_branches: <<pipeline.parameters.only_for_branches>>
+  terraform13-test:
+    executor: terraform13
     steps:
       - checkout
       - run: scripts/ci_tests.sh
@@ -60,12 +72,16 @@ workflows:
   version: 2
   test-trigger-release:
     jobs:
-      - terraform-test:
+      - terraform12-test:
+          context:
+            - techally_api_key
+      - terraform13-test:
           context:
             - techally_api_key
       - trigger-release:
           requires:
-            - terraform-test
+            - terraform12-test
+            - terraform13-test
           filters:
             branches:
               only: master
@@ -85,6 +101,8 @@ workflows:
                only: /^v.*/
             branches:
               ignore: /.*/
+          context:
+            - techally_releases
 
   nightly:
     triggers:
@@ -94,4 +112,9 @@ workflows:
             branches:
               only: master
     jobs:
-      - terraform-test
+      - terraform12-test:
+          context:
+            - techally_api_key
+      - terraform13-test:
+          context:
+            - techally_api_key
