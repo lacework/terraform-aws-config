@@ -126,6 +126,9 @@ update_changelog() {
 }
 
 load_list_of_changes() {
+  latest_version=$(find_latest_version)
+  local _list_of_changes=$(git log --no-merges --pretty="* %s (%an)([%h](https://github.com/${org_name}/${project_name}/commit/%H))" ${latest_version}..main)
+
   # init changes file
   true > CHANGES.md
 
