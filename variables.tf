@@ -44,3 +44,9 @@ variable "wait_time" {
   default     = "10s"
   description = "Amount of time to wait before the next resource is provisioned."
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "A map/dictionary of Tags to be assigned to created resources"
+  default     = {}
+}

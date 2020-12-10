@@ -5,11 +5,12 @@ locals {
 
 module "lacework_cfg_iam_role" {
   source                  = "lacework/iam-role/aws"
-  version                 = "~> 0.1"
+  version                 = "~> 0.1.0"
   create                  = var.use_existing_iam_role ? false : true
   iam_role_name           = var.iam_role_name
   lacework_aws_account_id = var.lacework_aws_account_id
   external_id_length      = var.external_id_length
+  tags                    = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
