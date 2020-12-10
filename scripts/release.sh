@@ -126,24 +126,22 @@ update_changelog() {
 }
 
 load_list_of_changes() {
-  latest_version=$(find_latest_version)
-  local _list_of_changes=$(git log --no-merges --pretty="* %s (%an)([%h](https://github.com/${org_name}/${project_name}/commit/%H))" ${latest_version}..main)
- # init changes file
-  echo "## Refactor" >> CHANGES.md	  true > CHANGES.md
-  echo "$_list_of_changes" | grep "\* refactor[:(]" >> CHANGES.md	
-  echo "## Performance Improvements" >> CHANGES.md	  _feat=$(echo "$_list_of_changes" | grep "\* feat[:(]")
-  echo "$_list_of_changes" | grep "\* perf[:(]" >> CHANGES.md	  _refactor=$(echo "$_list_of_changes" | grep "\* refactor[:(]")
-  echo "## Bug Fixes" >> CHANGES.md	  _perf=$(echo "$_list_of_changes" | grep "\* perf[:(]")
-  echo "$_list_of_changes" | grep "\* fix[:(]" >> CHANGES.md	  _fix=$(echo "$_list_of_changes" | grep "\* fix[:(]")
-  echo "## Documentation Updates" >> CHANGES.md	  _doc=$(echo "$_list_of_changes" | grep "\* doc[:(]")
-  echo "$_list_of_changes" | grep "\* doc[:(]" >> CHANGES.md	  _docs=$(echo "$_list_of_changes" | grep "\* docs[:(]")
-  echo "$_list_of_changes" | grep "\* docs[:(]" >> CHANGES.md	  _style=$(echo "$_list_of_changes" | grep "\* style[:(]")
-  echo "## Other Changes" >> CHANGES.md	  _chore=$(echo "$_list_of_changes" | grep "\* chore[:(]")
-  echo "$_list_of_changes" | grep "\* style[:(]" >> CHANGES.md	  _build=$(echo "$_list_of_changes" | grep "\* build[:(]")
-  echo "$_list_of_changes" | grep "\* chore[:(]" >> CHANGES.md	  _ci=$(echo "$_list_of_changes" | grep "\* ci[:(]")
-  echo "$_list_of_changes" | grep "\* build[:(]" >> CHANGES.md	  _test=$(echo "$_list_of_changes" | grep "\* test[:(]")
-  echo "$_list_of_changes" | grep "\* ci[:(]" >> CHANGES.md	
-  echo "$_list_of_changes" | grep "\* test[:(]" >> CHANGES.md	  if [ "$_feat" != "" ]; then
+  # init changes file
+  true > CHANGES.md
+
+  _feat=$(echo "$_list_of_changes" | grep "\* feat[:(]")
+  _refactor=$(echo "$_list_of_changes" | grep "\* refactor[:(]")
+  _perf=$(echo "$_list_of_changes" | grep "\* perf[:(]")
+  _fix=$(echo "$_list_of_changes" | grep "\* fix[:(]")
+  _doc=$(echo "$_list_of_changes" | grep "\* doc[:(]")
+  _docs=$(echo "$_list_of_changes" | grep "\* docs[:(]")
+  _style=$(echo "$_list_of_changes" | grep "\* style[:(]")
+  _chore=$(echo "$_list_of_changes" | grep "\* chore[:(]")
+  _build=$(echo "$_list_of_changes" | grep "\* build[:(]")
+  _ci=$(echo "$_list_of_changes" | grep "\* ci[:(]")
+  _test=$(echo "$_list_of_changes" | grep "\* test[:(]")
+
+  if [ "$_feat" != "" ]; then
     echo "## Features" >> CHANGES.md
     echo "$_feat" >> CHANGES.md
   fi
