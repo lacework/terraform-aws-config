@@ -128,23 +128,55 @@ update_changelog() {
 load_list_of_changes() {
   latest_version=$(find_latest_version)
   local _list_of_changes=$(git log --no-merges --pretty="* %s (%an)([%h](https://github.com/${org_name}/${project_name}/commit/%H))" ${latest_version}..main)
-  echo "## Features" > CHANGES.md
-  echo "$_list_of_changes" | grep "\* feat[:(]" >> CHANGES.md
-  echo "## Refactor" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* refactor[:(]" >> CHANGES.md
-  echo "## Performance Improvements" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* perf[:(]" >> CHANGES.md
-  echo "## Bug Fixes" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* fix[:(]" >> CHANGES.md
-  echo "## Documentation Updates" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* doc[:(]" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* docs[:(]" >> CHANGES.md
-  echo "## Other Changes" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* style[:(]" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* chore[:(]" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* build[:(]" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* ci[:(]" >> CHANGES.md
-  echo "$_list_of_changes" | grep "\* test[:(]" >> CHANGES.md
+ # init changes file
+  echo "## Refactor" >> CHANGES.md	  true > CHANGES.md
+  echo "$_list_of_changes" | grep "\* refactor[:(]" >> CHANGES.md	
+  echo "## Performance Improvements" >> CHANGES.md	  _feat=$(echo "$_list_of_changes" | grep "\* feat[:(]")
+  echo "$_list_of_changes" | grep "\* perf[:(]" >> CHANGES.md	  _refactor=$(echo "$_list_of_changes" | grep "\* refactor[:(]")
+  echo "## Bug Fixes" >> CHANGES.md	  _perf=$(echo "$_list_of_changes" | grep "\* perf[:(]")
+  echo "$_list_of_changes" | grep "\* fix[:(]" >> CHANGES.md	  _fix=$(echo "$_list_of_changes" | grep "\* fix[:(]")
+  echo "## Documentation Updates" >> CHANGES.md	  _doc=$(echo "$_list_of_changes" | grep "\* doc[:(]")
+  echo "$_list_of_changes" | grep "\* doc[:(]" >> CHANGES.md	  _docs=$(echo "$_list_of_changes" | grep "\* docs[:(]")
+  echo "$_list_of_changes" | grep "\* docs[:(]" >> CHANGES.md	  _style=$(echo "$_list_of_changes" | grep "\* style[:(]")
+  echo "## Other Changes" >> CHANGES.md	  _chore=$(echo "$_list_of_changes" | grep "\* chore[:(]")
+  echo "$_list_of_changes" | grep "\* style[:(]" >> CHANGES.md	  _build=$(echo "$_list_of_changes" | grep "\* build[:(]")
+  echo "$_list_of_changes" | grep "\* chore[:(]" >> CHANGES.md	  _ci=$(echo "$_list_of_changes" | grep "\* ci[:(]")
+  echo "$_list_of_changes" | grep "\* build[:(]" >> CHANGES.md	  _test=$(echo "$_list_of_changes" | grep "\* test[:(]")
+  echo "$_list_of_changes" | grep "\* ci[:(]" >> CHANGES.md	
+  echo "$_list_of_changes" | grep "\* test[:(]" >> CHANGES.md	  if [ "$_feat" != "" ]; then
+    echo "## Features" >> CHANGES.md
+    echo "$_feat" >> CHANGES.md
+  fi
+
+  if [ "$_refactor" != "" ]; then
+    echo "## Refactor" >> CHANGES.md
+    echo "$_refactor" >> CHANGES.md
+  fi
+
+  if [ "$_perf" != "" ]; then
+    echo "## Performance Improvements" >> CHANGES.md
+    echo "$_perf" >> CHANGES.md
+  fi
+
+  if [ "$_fix" != "" ]; then
+    echo "## Bug Fixes" >> CHANGES.md
+    echo "$_fix" >> CHANGES.md
+  fi
+
+  if [ "${_docs}${_doc}" != "" ]; then
+    echo "## Documentation Updates" >> CHANGES.md
+    if [ "$_doc" != "" ]; then echo "$_doc" >> CHANGES.md; fi
+    if [ "$_docs" != "" ]; then echo "$_docs" >> CHANGES.md; fi
+  fi
+
+  if [ "${_style}${_chore}${_build}${_ci}${_test}" != "" ]; then
+    echo "## Other Changes" >> CHANGES.md
+    if [ "$_style" != "" ]; then echo "$_style" >> CHANGES.md; fi
+    if [ "$_chore" != "" ]; then echo "$_chore" >> CHANGES.md; fi
+    if [ "$_build" != "" ]; then echo "$_build" >> CHANGES.md; fi
+    if [ "$_ci" != "" ]; then echo "$_ci" >> CHANGES.md; fi
+    if [ "$_test" != "" ]; then echo "$_test" >> CHANGES.md; fi
+  fi
 }
 
 generate_release_notes() {
