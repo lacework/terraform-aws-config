@@ -9,9 +9,9 @@ set -eou pipefail
 readonly project_name=terraform-aws-config
 
 TEST_CASES=(
-  examples/custom-config
-  examples/default-config
-  examples/existing-iam-role-config
+  examples/custom
+  examples/default
+  examples/existing-iam-role
 )
 
 log() {
