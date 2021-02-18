@@ -22,6 +22,7 @@ provider "aws" {}
 
 module "aws_config" {
   source                    = "lacework/config/aws"
+  version                   = "~> 0.1.3"
   iam_role_name             = "lw-custom-role"
   lacework_integration_name = "account-abc"
   external_id_length        = 1000
