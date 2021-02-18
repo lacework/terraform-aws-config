@@ -3,7 +3,7 @@ provider "lacework" {}
 provider "aws" {}
 
 module "aws_config" {
-  source                    = "lacework/config/aws"
+  source                    = "../../"
   use_existing_iam_role     = true
   iam_role_arn              = "arn:aws:iam::123456789012:role/lw-existing-role"
   iam_role_name             = "lw-existing-role"

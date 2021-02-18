@@ -8,6 +8,14 @@ This scenario integrates an AWS account with Lacework for cloud resource configu
 | `external_id_length` | The length of the external ID to generate. Max length is 1224. Ignored when use_existing_iam_role is set to `true` | `number` |
 
 ```hcl
+terraform {
+  required_providers {
+    lacework = {
+      source = "lacework/lacework"
+    }
+  }
+}
+
 provider "lacework" {}
 
 provider "aws" {}

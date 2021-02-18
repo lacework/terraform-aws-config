@@ -2,6 +2,14 @@
 This scenario integrates an AWS account with Lacework for cloud resource configuration assessment.
 
 ```hcl
+terraform {
+  required_providers {
+    lacework = {
+      source = "lacework/lacework"
+    }
+  }
+}
+
 provider "lacework" {}
 
 provider "aws" {}
