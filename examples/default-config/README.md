@@ -16,7 +16,7 @@ provider "aws" {}
 
 module "aws_config" {
   source  = "lacework/config/aws"
-  version = "0.1.3"
+  version = "~> 0.1.3"
 }
 ```
 
