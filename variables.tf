@@ -18,7 +18,7 @@ variable "iam_role_external_id" {
 
 variable "iam_role_name" {
   type        = string
-  default     = "lacework_iam_role"
+  default     = ""
   description = "The IAM role name. Required to match with iam_role_arn if use_existing_iam_role is set to true"
 }
 
