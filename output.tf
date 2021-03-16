@@ -4,7 +4,7 @@ output "external_id" {
 }
 
 output "iam_role_name" {
-  value       = var.iam_role_name
+  value       = local.iam_role_name
   description = "The IAM Role name"
 }
 

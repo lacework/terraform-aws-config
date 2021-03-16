@@ -1,11 +1,12 @@
 locals {
   iam_role_arn         = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.arn : var.iam_role_arn
+  iam_role_name        = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.name : var.iam_role_name
   iam_role_external_id = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.external_id : var.iam_role_external_id
 }
 
 module "lacework_cfg_iam_role" {
   source                  = "lacework/iam-role/aws"
-  version                 = "~> 0.1.0"
+  version                 = "~> 0.2"
   create                  = var.use_existing_iam_role ? false : true
   iam_role_name           = var.iam_role_name
   lacework_aws_account_id = var.lacework_aws_account_id
@@ -14,7 +15,7 @@ module "lacework_cfg_iam_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
-  role       = var.iam_role_name
+  role       = local.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/SecurityAudit"
   depends_on = [module.lacework_cfg_iam_role]
 }
