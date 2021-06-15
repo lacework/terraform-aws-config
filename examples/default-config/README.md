@@ -1,5 +1,8 @@
 # Default AWS Configuration Assessment with Lacework
+
 This scenario integrates an AWS account with Lacework for cloud resource configuration assessment.
+
+## Sample Code
 
 ```hcl
 terraform {
@@ -16,7 +19,7 @@ provider "aws" {}
 
 module "aws_config" {
   source  = "lacework/config/aws"
-  version = "~> 0.1.3"
+  version = "~> 0.1"
 }
 ```
 
