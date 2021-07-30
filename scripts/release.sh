@@ -14,7 +14,7 @@ source scripts/release_helpers.sh
 readonly org_name=lacework
 readonly project_name=terraform-aws-config
 readonly git_user="Lacework Inc."
-readonly git_email="ops+releng@lacework.net"
+readonly git_email="tech-ally@lacework.net"
 readonly required_files_for_release=(
   RELEASE_NOTES.md
   CHANGELOG.md
