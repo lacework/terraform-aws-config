@@ -7,6 +7,10 @@ locals {
   )
 }
 
+resource "random_id" "uniq" {
+  byte_length = 4
+}
+
 module "lacework_cfg_iam_role" {
   source                  = "lacework/iam-role/aws"
   version                 = "~> 0.2"
