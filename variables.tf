@@ -44,7 +44,7 @@ variable "lacework_integration_name" {
 variable "lacework_audit_policy_name" {
   type    = string
   default = ""
-  description = "The name of the custom audit policy (which extends SecurityAudit) to allow Lacework to read configs.  Defaults to lwaudit-policy-${random_id.uniq.hex} when empty"
+  description = "The name of the custom audit policy (which extends SecurityAudit) to allow Lacework to read configs.  Defaults to lwaudit-policy-$${random_id.uniq.hex} when empty"
 }
 
 variable "wait_time" {
