@@ -3,7 +3,7 @@ locals {
   iam_role_name              = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.name : var.iam_role_name
   iam_role_external_id       = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.external_id : var.iam_role_external_id
   lacework_audit_policy_name = (
-    length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "${var.prefix}-lwaudit-policy-${random_id.uniq.hex}"
+    length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
 }
 

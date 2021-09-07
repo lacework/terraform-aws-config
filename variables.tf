@@ -1,3 +1,4 @@
+
 variable "use_existing_iam_role" {
   type        = bool
   default     = false
@@ -38,6 +39,12 @@ variable "lacework_integration_name" {
   type        = string
   default     = "TF config"
   description = "The name of the integration in Lacework"
+}
+
+variable "lacework_audit_policy_name" {
+  type    = string
+  # defaults to "lwaudit-policy-${random_id.uniq.hex}" when this variable is empty
+  default = ""
 }
 
 variable "wait_time" {
