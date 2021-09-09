@@ -9,17 +9,18 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 
 ## Inputs
 
-| Name                      | Description                                                                                                        | Type          | Default          | Required |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------- | ---------------- | :------: |
-| external_id_length        | The length of the external ID to generate. Max length is 1224. Ignored when use_existing_iam_role is set to `true` | `number`      | `16`             |    no    |
-| iam_role_arn              | The IAM role ARN is required when setting use_existing_iam_role to `true`                                          | `string`      | `""`             |    no    |
-| iam_role_external_id      | The external ID configured inside the IAM role is required when setting use_existing_iam_role to `true`            | `string`      | `""`             |    no    |
-| iam_role_name             | The IAM role name. Required to match with iam_role_arn if use_existing_iam_role is set to `true`                   | `string`      | `""`             |    no    |
-| lacework_aws_account_id   | The Lacework AWS account that the IAM role will grant access                                                       | `string`      | `"434813966438"` |    no    |
-| lacework_integration_name | The name of the integration in Lacework                                                                            | `string`      | `"TF config"`    |    no    |
-| tags                      | A map/dictionary of Tags to be assigned to created resources                                                       | `map(string)` | `{}`             |    no    |
-| use_existing_iam_role     | Set this to true to use an existing IAM role                                                                       | `bool`        | `false`          |    no    |
-| wait_time                 | Amount of time to wait before the next resource is provisioned                                                     | `string`      | `"10s"`          |    no    |
+| Name                       | Description                                                                                                                                                         | Type          | Default          | Required |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------------- | :------: |
+| external_id_length         | The length of the external ID to generate. Max length is 1224. Ignored when use_existing_iam_role is set to `true`                                                  | `number`      | `16`             |    no    |
+| iam_role_arn               | The IAM role ARN is required when setting use_existing_iam_role to `true`                                                                                           | `string`      | `""`             |    no    |
+| iam_role_external_id       | The external ID configured inside the IAM role is required when setting use_existing_iam_role to `true`                                                             | `string`      | `""`             |    no    |
+| iam_role_name              | The IAM role name. Required to match with iam_role_arn if use_existing_iam_role is set to `true`                                                                    | `string`      | `""`             |    no    |
+| lacework_aws_account_id    | The Lacework AWS account that the IAM role will grant access                                                                                                        | `string`      | `"434813966438"` |    no    |
+| lacework_integration_name  | The name of the integration in Lacework                                                                                                                             | `string`      | `"TF config"`    |    no    |
+| lacework_audit_policy_name | The name of the custom audit policy (which extends SecurityAudit) to allow Lacework to read configs.  Defaults to `lwaudit-policy-${random_id.uniq.hex}` when empty | `string`      | `""`             |    no    |
+| tags                       | A map/dictionary of Tags to be assigned to created resources                                                                                                        | `map(string)` | `{}`             |    no    |
+| use_existing_iam_role      | Set this to true to use an existing IAM role                                                                                                                        | `bool`        | `false`          |    no    |
+| wait_time                  | Amount of time to wait before the next resource is provisioned                                                                                                      | `string`      | `"10s"`          |    no    |
 
 ## Outputs
 
@@ -28,3 +29,11 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | external_id   | The External ID configured into the IAM role |
 | iam_role_arn  | The IAM Role ARN                             |
 | iam_role_name | The IAM Role name                            |
+
+## Lacework Audit Policy
+The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
+The audit policy is comprised of the following permissions:
+
+| sid                     | actions                       | resources |
+| ----------------------- | ----------------------------- | --------- |
+GetEbsEncryptionByDefault | ec2:GetEbsEncryptionByDefault | *         |
