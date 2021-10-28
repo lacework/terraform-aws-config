@@ -1,3 +1,8 @@
+variable "create_policies" {
+  type        = bool
+  default     = true
+  description = "Set this to false when using a role who's policy is managed outside this module"
+}
 
 variable "use_existing_iam_role" {
   type        = bool
