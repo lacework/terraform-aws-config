@@ -52,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   count = var.create_policies ? 1 : 0
 
   role       = local.iam_role_name
-  policy_arn = aws_iam_policy.lacework_audit_policy.arn
+  policy_arn = aws_iam_policy.lacework_audit_policy[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
