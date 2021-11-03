@@ -42,6 +42,7 @@ resource "aws_iam_policy" "lacework_audit_policy" {
   name        = local.lacework_audit_policy_name
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit)"
   policy      = data.aws_iam_policy_document.lacework_audit_policy.json
+  tags        = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
