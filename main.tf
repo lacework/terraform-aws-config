@@ -36,6 +36,12 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     actions   = ["ec2:GetEbsEncryptionByDefault"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "GetPublicAccessBlock"
+    actions   = ["s3:GetBucketPublicAccessBlock"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
