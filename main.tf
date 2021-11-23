@@ -42,6 +42,21 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     actions   = ["s3:GetBucketPublicAccessBlock"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "AllowReadAccessToKMS"
+    actions   = [
+      "kms:Describe*",
+      "kms:List*",
+      "kms:Get*"
+    ]
+    resources = ["*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = [local.iam_role_arn]
+    }
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
