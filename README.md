@@ -34,7 +34,8 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
 The audit policy is comprised of the following permissions:
 
-| sid                        | actions                       | resources |
-| -------------------------- | ----------------------------- | --------- |
-| GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault | *         |
-| GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock | *         |
+| sid                        | actions                                    | resources |
+| -------------------------- | ------------------------------------------ | --------- |
+| GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault              | *         |
+| GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock              | *         |
+| AllowReadAccessToKMS       | kms:Describe*<br />kms:List*<br />kms:Get* | *         |
