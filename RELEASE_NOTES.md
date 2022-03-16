@@ -1,7 +1,8 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.4.1`.
+Another day, another release. These are the release notes for the version `v0.5.0`.
 
-## Bug Fixes
-* fix: bump aws provider min version to 3.35 (#35) (Salim Afiune)([c120838](https://github.com/lacework/terraform-aws-config/commit/c120838e88ff09d70ee437c4055d68c0116ec100))
+## Features
+* feat: support aws provider 4.x (#39) (naseemkullah)([2131806](https://github.com/lacework/terraform-aws-config/commit/2131806416f0417a45b43fe106b2e474c9bce6df))
 ## Other Changes
-* ci: version bump to v0.4.1-dev (Lacework)([e3fea29](https://github.com/lacework/terraform-aws-config/commit/e3fea297aaa0dfd2dd8cb1d0e4a922f9d56f9876))
+* chore: update PR template (#37) (Darren)([909e23a](https://github.com/lacework/terraform-aws-config/commit/909e23acf23a2c483b2254ec709d80e32cf490c1))
+* ci: version bump to v0.4.2-dev (Lacework)([9fa033c](https://github.com/lacework/terraform-aws-config/commit/9fa033c349a646273f7c5713e4fefe8d9631468c))
