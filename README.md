@@ -7,6 +7,25 @@
 
 Terraform module for configuring an integration with Lacework and AWS for cloud resource configuration assessment.
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.35.0, < 5.0.0 |
+| <a name="requirement_lacework"></a> [lacework](#requirement\_lacework) | ~> 0.2 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.1 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.6 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.35.0, < 5.0.0 |
+| <a name="provider_lacework"></a> [lacework](#provider\_lacework) | ~> 0.2 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 2.1 |
+| <a name="provider_time"></a> [time](#provider\_time) | ~> 0.6 |
+
 ## Inputs
 
 | Name                       | Description                                                                                                                                                         | Type          | Default          | Required |
@@ -31,6 +50,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | iam_role_name | The IAM Role name                            |
 
 ## Lacework Audit Policy
+
 The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
 The audit policy is comprised of the following permissions:
 
