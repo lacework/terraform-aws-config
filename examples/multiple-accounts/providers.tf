@@ -25,11 +25,11 @@ provider "aws" {
 # Provider that access AWS account "1234567890102"
 provider "aws" {
   profile = "1234567890102"
-  alias   = "account-1"
+  alias   = "account-2"
 }
 
 # Provider that access AWS account "1234567890103"
 provider "aws" {
   profile = "1234567890103"
-  alias   = "account-1"
+  alias   = "account-3"
 }
