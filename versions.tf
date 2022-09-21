@@ -7,7 +7,7 @@ terraform {
     time   = "~> 0.6"
     lacework = {
       source  = "lacework/lacework"
-      version = "~> 0.2"
+      version = "~> 0.25"
     }
   }
 }
