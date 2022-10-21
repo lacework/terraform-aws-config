@@ -22,6 +22,7 @@ module "lacework_cfg_iam_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/SecurityAudit"
   depends_on = [module.lacework_cfg_iam_role]
@@ -29,6 +30,7 @@ resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
 
 # Lacework custom configuration policy
 data "aws_iam_policy_document" "lacework_audit_policy" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
   version = "2012-10-17"
 
   statement {
@@ -45,15 +47,17 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
   name        = local.lacework_audit_policy_name
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit)"
-  policy      = data.aws_iam_policy_document.lacework_audit_policy.json
+  policy      = data.aws_iam_policy_document.lacework_audit_policy[0].json
   tags        = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
-  policy_arn = aws_iam_policy.lacework_audit_policy.arn
+  policy_arn = aws_iam_policy.lacework_audit_policy[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 

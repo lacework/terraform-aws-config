@@ -5,6 +5,12 @@ variable "use_existing_iam_role" {
   description = "Set this to true to use an existing IAM role"
 }
 
+variable "use_existing_iam_role_policy" {
+  type        = bool
+  default     = false
+  description = "Set this to `true` to use an existing policy on the IAM role, rather than attaching a new one"
+}
+
 variable "iam_role_arn" {
   type        = string
   default     = ""
