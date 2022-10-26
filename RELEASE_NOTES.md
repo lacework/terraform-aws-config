@@ -1,9 +1,9 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.6.0`.
+Another day, another release. These are the release notes for the version `v0.7.0`.
 
 ## Features
-* feat: deprecate support for Terraform 0.12 and 0.13 (#43) (Darren)([f3280c5](https://github.com/lacework/terraform-aws-config/commit/f3280c5387c4fbd7f23b9d36fbcc3e67c8b095bd))
-## Documentation Updates
-* docs: add example to configure multiple accounts (#44) (Salim Afiune)([762970f](https://github.com/lacework/terraform-aws-config/commit/762970f6b473eb22fa6fb1e20d75d1e27fc794f8))
+* feat: parameterize IAM policy attachment (#47) (Steve)([23fb300](https://github.com/lacework/terraform-aws-config/commit/23fb3001f931472c61f83e056b4cb08b77a95795))
+## Bug Fixes
+* fix: set lacework provider to minimum version for api v2 migration (#46) (Darren)([da744e3](https://github.com/lacework/terraform-aws-config/commit/da744e3e3181be69f60f53d695aed98b8b0dfaa6))
 ## Other Changes
-* ci: version bump to v0.5.1-dev (Lacework)([e928828](https://github.com/lacework/terraform-aws-config/commit/e9288281780a333ee138c5c081187f00fb30068b))
+* ci: version bump to v0.6.1-dev (Lacework)([9c4eb44](https://github.com/lacework/terraform-aws-config/commit/9c4eb4469bb1c25a3ebd400d37bcc4a5e23ae6c3))
