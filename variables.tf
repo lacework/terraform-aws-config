@@ -29,6 +29,12 @@ variable "iam_role_name" {
   description = "The IAM role name. Required to match with iam_role_arn if use_existing_iam_role is set to `true`"
 }
 
+variable "permission_boundary_arn" {
+  type        = string
+  default     = null
+  description = "Optional - ARN of the policy that is used to set the permissions boundary for the role."
+}
+
 variable "external_id_length" {
   type        = number
   default     = 16
