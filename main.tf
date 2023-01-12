@@ -45,6 +45,17 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     actions   = ["s3:GetBucketPublicAccessBlock"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "EFS"
+    actions   = ["elasticfilesystem:DescribeFileSystemPolicy",
+                 "elasticfilesystem:DescribeLifecycleConfiguration",
+                 "elasticfilesystem:DescribeAccessPoints",
+                 "elasticfilesystem:DescribeAccountPreferences",
+                 "elasticfilesystem:DescribeBackupPolicy",
+                 "elasticfilesystem:DescribeReplicationConfigurations"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
