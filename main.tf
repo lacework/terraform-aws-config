@@ -56,6 +56,14 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
                  "elasticfilesystem:DescribeReplicationConfigurations"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "EMR"
+    actions   = ["elasticmapreduce:ListBootstrapActions",
+               "elasticmapreduce:ListInstanceFleets",
+               "elasticmapreduce:ListInstanceGroups"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {

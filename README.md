@@ -65,3 +65,6 @@ The audit policy is comprised of the following permissions:
 |                            | elasticfilesystem:DescribeAccountPreferences        |           |
 |                            | elasticfilesystem:DescribeBackupPolicy              |           |
 |                            | elasticfilesystem:DescribeReplicationConfigurations |           |
+| EMR                        | elasticmapreduce:ListBootstrapActions               | *         |
+|                            | elasticmapreduce:ListInstanceFleets                 |           |
+|                            | elasticmapreduce:ListInstanceGroups                 |           |
