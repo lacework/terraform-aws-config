@@ -58,8 +58,8 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   }
 
   statement {
-    sid = "EMR"
-    actions = ["elasticmapreduce:ListBootstrapActions",
+    sid       = "EMR"
+    actions   = ["elasticmapreduce:ListBootstrapActions",
                "elasticmapreduce:ListInstanceFleets",
                "elasticmapreduce:ListInstanceGroups"]
     resources = ["*"]
