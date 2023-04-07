@@ -64,6 +64,13 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
                "elasticmapreduce:ListInstanceGroups"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "SAGEMAKER"
+    actions   = ["sagemaker:GetModelPackageGroupPolicy",
+                 "sagemaker:GetLineageGroupPolicy"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {

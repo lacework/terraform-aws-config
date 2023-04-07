@@ -56,7 +56,7 @@ The Lacework audit policy extends the SecurityAudit policy to facilitate the rea
 The audit policy is comprised of the following permissions:
 
 | sid                        | actions                                             | resources |
-| -------------------------- | --------------------------------------------------- | --------- |
+|----------------------------|-----------------------------------------------------| --------- |
 | GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                       | *         |
 | GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                       | *         |
 | EFS                        | elasticfilesystem:DescribeFileSystemPolicy          | *         |
@@ -68,3 +68,5 @@ The audit policy is comprised of the following permissions:
 | EMR                        | elasticmapreduce:ListBootstrapActions               | *         |
 |                            | elasticmapreduce:ListInstanceFleets                 |           |
 |                            | elasticmapreduce:ListInstanceGroups                 |           |
+| SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                | *         |
+|                            | sagemaker:GetLineageGroupPolicy                     |           |
