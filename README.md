@@ -68,3 +68,5 @@ The audit policy is comprised of the following permissions:
 | EMR                        | elasticmapreduce:ListBootstrapActions               | *         |
 |                            | elasticmapreduce:ListInstanceFleets                 |           |
 |                            | elasticmapreduce:ListInstanceGroups                 |           |
+| SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                | *         |
+|                            | sagemaker:GetLineageGroupPolicy                     |           |
