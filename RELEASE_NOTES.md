@@ -1,8 +1,9 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.9.0`.
+Another day, another release. These are the release notes for the version `v0.10.0`.
 
 ## Features
-* feat: audit policy readme (jon-stewart)([29f16d3](https://github.com/lacework/terraform-aws-config/commit/29f16d360f98b8a9c656df0e6eb3c96606faeec7))
-* feat: EFS audit policy permissions (jon-stewart)([ab2e598](https://github.com/lacework/terraform-aws-config/commit/ab2e5988e1f2d0dba99928f6e0291f279f487f3e))
+* feat: Add Sagemaker related permissions (#60) (ramgudivada-lacework)([3f7e1c9](https://github.com/lacework/terraform-aws-config/commit/3f7e1c917cd5058654f9570a37218074fcabf0b9))
+* feat: EMR permissions (#59) (Darren)([32762e0](https://github.com/lacework/terraform-aws-config/commit/32762e0f79c8834b8f39a74ec6a086d8c153c8e7))
 ## Other Changes
-* ci: version bump to v0.8.1-dev (Lacework)([dc0a216](https://github.com/lacework/terraform-aws-config/commit/dc0a2161ac7f1e53a23d30f844b3e4145fcbcbab))
+* ci: tfsec (jon-stewart)([7b8deca](https://github.com/lacework/terraform-aws-config/commit/7b8deca542c1b9975c063399a8e241c747ac9fcb))
+* ci: version bump to v0.9.1-dev (Lacework)([45fc0bb](https://github.com/lacework/terraform-aws-config/commit/45fc0bb93201b93346c92d25bb87238d732437b8))
