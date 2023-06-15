@@ -70,3 +70,10 @@ The audit policy is comprised of the following permissions:
 |                            | elasticmapreduce:ListInstanceGroups                 |           |
 | SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                | *         |
 |                            | sagemaker:GetLineageGroupPolicy                     |           |
+| IDENTITYSTORE              | identitystore:DescribeGroup                         | *         |
+|                            | identitystore:DescribeGroupMembership               |           |
+|                            | identitystore:DescribeUser                          |           |
+|                            | identitystore:ListGroupMemberships                  |           |
+|                            | identitystore:ListGroupMembershipsForMember         |           |
+|                            | identitystore:ListGroups                            |           |
+|                            | identitystore:ListUsers                             |           |
