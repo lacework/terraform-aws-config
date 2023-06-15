@@ -71,6 +71,18 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
                  "sagemaker:GetLineageGroupPolicy"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "IDENTITYSTORE"
+    actions   = ["identitystore:DescribeGroup",
+                 "identitystore:DescribeGroupMembership",
+                 "identitystore:DescribeUser",
+                 "identitystore:ListGroupMemberships",
+                 "identitystore:ListGroupMembershipsForMember",
+                 "identitystore:ListGroups",
+                 "identitystore:ListUsers"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
