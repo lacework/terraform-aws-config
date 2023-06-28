@@ -55,25 +55,28 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
 The audit policy is comprised of the following permissions:
 
-| sid                        | actions                                             | resources |
-| -------------------------- | --------------------------------------------------- | --------- |
-| GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                       | *         |
-| GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                       | *         |
-| EFS                        | elasticfilesystem:DescribeFileSystemPolicy          | *         |
-|                            | elasticfilesystem:DescribeLifecycleConfiguration    |           |
-|                            | elasticfilesystem:DescribeAccessPoints              |           |
-|                            | elasticfilesystem:DescribeAccountPreferences        |           |
-|                            | elasticfilesystem:DescribeBackupPolicy              |           |
-|                            | elasticfilesystem:DescribeReplicationConfigurations |           |
-| EMR                        | elasticmapreduce:ListBootstrapActions               | *         |
-|                            | elasticmapreduce:ListInstanceFleets                 |           |
-|                            | elasticmapreduce:ListInstanceGroups                 |           |
-| SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                | *         |
-|                            | sagemaker:GetLineageGroupPolicy                     |           |
-| IDENTITYSTORE              | identitystore:DescribeGroup                         | *         |
-|                            | identitystore:DescribeGroupMembership               |           |
-|                            | identitystore:DescribeUser                          |           |
-|                            | identitystore:ListGroupMemberships                  |           |
-|                            | identitystore:ListGroupMembershipsForMember         |           |
-|                            | identitystore:ListGroups                            |           |
-|                            | identitystore:ListUsers                             |           |
+| sid                        | actions                                                 | resources |
+| -------------------------- | ------------------------------------------------------- | --------- |
+| GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                           | *         |
+| GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                           | *         |
+| EFS                        | elasticfilesystem:DescribeFileSystemPolicy              | *         |
+|                            | elasticfilesystem:DescribeLifecycleConfiguration        |           |
+|                            | elasticfilesystem:DescribeAccessPoints                  |           |
+|                            | elasticfilesystem:DescribeAccountPreferences            |           |
+|                            | elasticfilesystem:DescribeBackupPolicy                  |           |
+|                            | elasticfilesystem:DescribeReplicationConfigurations     |           |
+| EMR                        | elasticmapreduce:ListBootstrapActions                   | *         |
+|                            | elasticmapreduce:ListInstanceFleets                     |           |
+|                            | elasticmapreduce:ListInstanceGroups                     |           |
+| SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                    | *         |
+|                            | sagemaker:GetLineageGroupPolicy                         |           |
+| IDENTITYSTORE              | identitystore:DescribeGroup                             | *         |
+|                            | identitystore:DescribeGroupMembership                   |           |
+|                            | identitystore:DescribeUser                              |           |
+|                            | identitystore:ListGroupMemberships                      |           |
+|                            | identitystore:ListGroupMembershipsForMember             |           |
+|                            | identitystore:ListGroups                                |           |
+|                            | identitystore:ListUsers                                 |           |
+| SSO                        | sso:DescribeAccountAssignmentDeletionStatus             | *         |
+|                            | sso:DescribeInstanceAccessControlAttributeConfiguration |           |
+|                            | sso:GetInlinePolicyForPermissionSet                     |           |
