@@ -83,6 +83,14 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
                  "identitystore:ListUsers"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "SSO"
+    actions   = ["sso:DescribeAccountAssignmentDeletionStatus",
+                 "sso:DescribeInstanceAccessControlAttributeConfiguration",
+                 "sso:GetInlinePolicyForPermissionSet"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
