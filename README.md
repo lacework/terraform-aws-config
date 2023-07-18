@@ -56,7 +56,7 @@ The Lacework audit policy extends the SecurityAudit policy to facilitate the rea
 The audit policy is comprised of the following permissions:
 
 | sid                        | actions                                                 | resources |
-| -------------------------- | ------------------------------------------------------- | --------- |
+|----------------------------|---------------------------------------------------------|-----------|
 | GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                           | *         |
 | GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                           | *         |
 | EFS                        | elasticfilesystem:DescribeFileSystemPolicy              | *         |
@@ -80,3 +80,25 @@ The audit policy is comprised of the following permissions:
 | SSO                        | sso:DescribeAccountAssignmentDeletionStatus             | *         |
 |                            | sso:DescribeInstanceAccessControlAttributeConfiguration |           |
 |                            | sso:GetInlinePolicyForPermissionSet                     |           |
+| APIGATEWAY                 | apigateway:GetApiKeys                                   | *         |
+|                            | apigateway:GetAuthorizers                               |           |
+|                            | apigateway:GetBasePathMappings                          |           |
+|                            | apigateway:GetClientCertificates                        |           |
+|                            | apigateway:GetDeployments                               |           |
+|                            | apigateway:GetDocumentationParts                        |           |
+|                            | apigateway:GetDocumentationVersions                     |           |
+|                            | apigateway:GetDomainNames                               |           |
+|                            | apigateway:GetGatewayResponses                          |           |
+|                            | apigateway:GetModels                                    |           |
+|                            | apigateway:GetModelTemplate                             |           |
+|                            | apigateway:GetRequestValidators                         |           |
+|                            | apigateway:GetResources                                 |           |
+|                            | apigateway:GetRestApis                                  |           |
+|                            | apigateway:GetSdk                                       |           |
+|                            | apigateway:GetSdkTypes                                  |           |
+|                            | apigateway:GetStages                                    |           |
+|                            | apigateway:GetTags                                      |           |
+|                            | apigateway:GetUsagePlanKeys                             |           |
+|                            | apigateway:GetUsagePlans                                |           |
+|                            | apigateway:GetVpcLinks                                  |           |
+
