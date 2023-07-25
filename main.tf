@@ -91,6 +91,32 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
                  "sso:GetInlinePolicyForPermissionSet"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "APIGATEWAY"
+    actions   = ["apigateway:GetApiKeys",
+      "apigateway:GetAuthorizers",
+      "apigateway:GetBasePathMappings",
+      "apigateway:GetClientCertificates",
+      "apigateway:GetDeployments",
+      "apigateway:GetDocumentationParts",
+      "apigateway:GetDocumentationVersions",
+      "apigateway:GetDomainNames",
+      "apigateway:GetGatewayResponses",
+      "apigateway:GetModels",
+      "apigateway:GetModelTemplate",
+      "apigateway:GetRequestValidators",
+      "apigateway:GetResources",
+      "apigateway:GetRestApis",
+      "apigateway:GetSdk",
+      "apigateway:GetSdkTypes",
+      "apigateway:GetStages",
+      "apigateway:GetTags",
+      "apigateway:GetUsagePlanKeys",
+      "apigateway:GetUsagePlans",
+      "apigateway:GetVpcLinks"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
