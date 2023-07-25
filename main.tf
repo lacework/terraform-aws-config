@@ -117,6 +117,24 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "apigateway:GetVpcLinks"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "APIGATEWAYV2"
+    actions   = ["apigatewayv2:GetApis",
+      "apigatewayv2:GetApiMappings",
+      "apigatewayv2:GetAuthorizers",
+      "apigatewayv2:GetDeployments",
+      "apigatewayv2:GetDomainNames",
+      "apigatewayv2:GetIntegrations",
+      "apigatewayv2:GetIntegrationResponses",
+      "apigatewayv2:GetModelTemplate",
+      "apigatewayv2:GetModels",
+      "apigatewayv2:GetRoute",
+      "apigatewayv2:GetRouteResponses",
+      "apigatewayv2:GetStages",
+      "apigatewayv2:GetVpcLinks"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
