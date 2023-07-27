@@ -101,4 +101,16 @@ The audit policy is comprised of the following permissions:
 |                            | apigateway:GetUsagePlanKeys                             |           |
 |                            | apigateway:GetUsagePlans                                |           |
 |                            | apigateway:GetVpcLinks                                  |           |
-
+| APIGATEWAYV2               | apigatewayv2:GetApis                                    | *         |
+|                            | apigatewayv2:GetApiMappings                             |           |
+|                            | apigatewayv2:GetAuthorizers                             |           |
+|                            | apigatewayv2:GetDeployments                             |           |
+|                            | apigatewayv2:GetDomainNames                             |           |
+|                            | apigatewayv2:GetIntegrations                            |           |
+|                            | apigatewayv2:GetIntegrationResponses                    |           |
+|                            | apigatewayv2:GetModelTemplate                           |           |
+|                            | apigatewayv2:GetModels                                  |           |
+|                            | apigatewayv2:GetRoute                                   |           |
+|                            | apigatewayv2:GetRouteResponses                          |           |
+|                            | apigatewayv2:GetStages                                  |           |
+|                            | apigatewayv2:GetVpcLinks                                |           |
