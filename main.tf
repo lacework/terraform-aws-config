@@ -178,6 +178,39 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "docdb:ListTagsForResource",]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "NEPTUNE"
+    actions   = [
+      "neptune:DescribeDbClusterEndpoints",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:DescribeDbClusterParameterGroups",
+      "neptune:DescribeDbClusterParameters",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:DescribeDbClusterSnapshots",
+      "neptune:DescribeDbClusterSnapshotAttributes",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:DescribeDbClusters",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:DescribeDbEngineVersions",
+      "neptune:DescribeOrderableDbInstanceOptions",
+      "neptune:DescribeDbInstances",
+      "neptune:DescribeValidDbInstanceModifications",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:DescribeDbParameterGroups",
+      "neptune:DescribeDbParameters",
+      "neptune:DescribeEngineDefaultClusterParameters",
+      "neptune:DescribeEngineDefaultParameters",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:DescribeDbSubnetGroups",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:DescribeEventCategories",
+      "neptune:DescribeEventSubscriptions",
+      "neptune:DescribeGlobalClusters",
+      "neptune:DescribePendingMaintenanceActions",
+      "neptune:ListTagsForResource",]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
