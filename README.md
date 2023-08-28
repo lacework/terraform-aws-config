@@ -128,3 +128,20 @@ The audit policy is comprised of the following permissions:
 |                            | stepfunctions:DescribeStateMachine                      |           |
 |                            | stepfunctions:DescribeStateMachineForExecution          |           |
 |                            | stepfunctions:DescribeStateMachineAlias                 |           |
+| DOCDB                      | docdb:DescribeCertificates                              |           |
+|                            | docdb:DescribeDbClusterParameterGroups                  |           |
+|                            | docdb:DescribeDbClusterParameters                       |           |
+|                            | docdb:DescribeDbClusterSnapshotAttributes               |           |
+|                            | docdb:DescribeDbClusterSnapshots                        |           |
+|                            | docdb:DescribeDbClusters                                |           |
+|                            | docdb:DescribeDbEngineVersions                          |           |
+|                            | docdb:DescribeDbInstances                               |           |
+|                            | docdb:DescribeDbSubnetGroups                            |           |
+|                            | docdb:DescribeEngineDefaultClusterParameters            |           |
+|                            | docdb:DescribeEventCategories                           |           |
+|                            | docdb:DescribeEventSubscriptions                        |           |
+|                            | docdb:DescribeEvents                                    |           |
+|                            | docdb:DescribeGlobalClusters                            |           |
+|                            | docdb:DescribeOrderableDbInstanceOptions                |           |
+|                            | docdb:DescribePendingMaintenanceActions                 |           |
+|                            | docdb:ListTagsForResource                               |           |            

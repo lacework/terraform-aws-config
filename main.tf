@@ -155,6 +155,29 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "stepfunctions:DescribeStateMachineAlias",]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "DOCDB"
+    actions   = [
+      "docdb:DescribeCertificates",
+      "docdb:DescribeDbClusterParameterGroups",
+      "docdb:DescribeDbClusterParameters",
+      "docdb:DescribeDbClusterSnapshotAttributes",
+      "docdb:DescribeDbClusterSnapshots",
+      "docdb:DescribeDbClusters",
+      "docdb:DescribeDbEngineVersions",
+      "docdb:DescribeDbInstances",
+      "docdb:DescribeDbSubnetGroups",
+      "docdb:DescribeEngineDefaultClusterParameters",
+      "docdb:DescribeEventCategories",
+      "docdb:DescribeEventSubscriptions",
+      "docdb:DescribeEvents",
+      "docdb:DescribeGlobalClusters",
+      "docdb:DescribeOrderableDbInstanceOptions",
+      "docdb:DescribePendingMaintenanceActions",
+      "docdb:ListTagsForResource",]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
