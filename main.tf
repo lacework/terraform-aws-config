@@ -135,6 +135,26 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "apigatewayv2:GetVpcLinks"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "STEPFUNCTIONS"
+    actions   = ["stepfunctions:ListActivities",
+      "stepfunctions:ListExecutions",
+      "stepfunctions:ListMapRuns",
+      "stepfunctions:ListStateMachines",
+      "stepfunctions:ListStateMachineVersions",
+      "stepfunctions:ListStateMachineAliases",
+      "stepfunctions:ListTagsForResource",
+      "stepfunctions:GetActivityTask",
+      "stepfunctions:GetExecutionHistory",
+      "stepfunctions:DescribeActivity",
+      "stepfunctions:DescribeExecution",
+      "stepfunctions:DescribeMapRun",
+      "stepfunctions:DescribeStateMachine",
+      "stepfunctions:DescribeStateMachineForExecution",
+      "stepfunctions:DescribeStateMachineAlias",]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {

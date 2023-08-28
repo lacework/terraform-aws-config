@@ -114,3 +114,17 @@ The audit policy is comprised of the following permissions:
 |                            | apigatewayv2:GetRouteResponses                          |           |
 |                            | apigatewayv2:GetStages                                  |           |
 |                            | apigatewayv2:GetVpcLinks                                |           |
+| STEPFUNCTIONS              | stepfunctions:ListActivities                            | *         |
+|                            | stepfunctions:ListExecutions                            |           |
+|                            | stepfunctions:ListStateMachines                         |           |
+|                            | stepfunctions:ListStateMachineVersions                  |           |
+|                            | stepfunctions:ListStateMachineAliases                   |           |
+|                            | stepfunctions:ListTagsForResource                       |           |
+|                            | stepfunctions:GetActivityTask                           |           |
+|                            | stepfunctions:GetExecutionHistory                       |           |
+|                            | stepfunctions:DescribeActivity                          |           |
+|                            | stepfunctions:DescribeExecution                         |           |
+|                            | stepfunctions:DescribeMapRun                            |           |
+|                            | stepfunctions:DescribeStateMachine                      |           |
+|                            | stepfunctions:DescribeStateMachineForExecution          |           |
+|                            | stepfunctions:DescribeStateMachineAlias                 |           |
