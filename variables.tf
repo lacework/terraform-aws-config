@@ -35,6 +35,12 @@ variable "permission_boundary_arn" {
   description = "Optional - ARN of the policy that is used to set the permissions boundary for the role."
 }
 
+variable "external_id_length" {
+  type        = number
+  default     = 16
+  description = "The length of the external ID to generate. Max length is 1224. Ignored when use_existing_iam_role is set to `true`"
+}
+
 variable "lacework_aws_account_id" {
   type        = string
   default     = "434813966438"
