@@ -13,7 +13,7 @@ resource "random_id" "uniq" {
 
 module "lacework_cfg_iam_role" {
   source                  = "lacework/iam-role/aws"
-  version                 = "~> 0.3"
+  version                 = "~> 0.4"
   create                  = var.use_existing_iam_role ? false : true
   iam_role_name           = var.iam_role_name
   permission_boundary_arn = var.permission_boundary_arn

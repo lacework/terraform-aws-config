@@ -30,7 +30,6 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 
 | Name                         | Description                                                                                                                                                         | Type          | Default          | Required |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------------- | :------: |
-| external_id_length           | The length of the external ID to generate. Max length is 1224. Ignored when use_existing_iam_role is set to `true`                                                  | `number`      | `16`             |    no    |
 | iam_role_arn                 | The IAM role ARN is required when setting use_existing_iam_role to `true`                                                                                           | `string`      | `""`             |    no    |
 | iam_role_external_id         | The external ID configured inside the IAM role is required when setting use_existing_iam_role to `true`                                                             | `string`      | `""`             |    no    |
 | iam_role_name                | The IAM role name. Required to match with iam_role_arn if use_existing_iam_role is set to `true`                                                                    | `string`      | `""`             |    no    |

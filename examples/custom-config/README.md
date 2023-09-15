@@ -10,7 +10,6 @@ display name in Lacework, the Lacework audit policy name, and the external_id le
 | `iam_role_name`              | The IAM role name. Required to match with iam_role_arn if use_existing_iam_role is set to `true`                                                                    | `string` |
 | `lacework_integration_name`  | Specifies the name of the integration in Lacework                                                                                                                   | `string` |
 | `lacework_audit_policy_name` | The name of the custom audit policy (which extends SecurityAudit) to allow Lacework to read configs.  Defaults to `lwaudit-policy-${random_id.uniq.hex}` when empty | `string` |
-| `external_id_length`         | The length of the external ID to generate. Max length is 1224. Ignored when use_existing_iam_role is set to `true`                                                  | `number` |
 
 ## Sample Code
 
@@ -34,7 +33,6 @@ module "aws_config" {
   iam_role_name              = "lw-custom-role"
   lacework_integration_name  = "account-abc"
   lacework_audit_policy_name = "policy-abc"
-  external_id_length         = 1000
 }
 ```
 
