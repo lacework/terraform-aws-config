@@ -13,7 +13,7 @@ resource "random_id" "uniq" {
 
 module "lacework_cfg_iam_role" {
   source                  = "lacework/iam-role/aws"
-  version                 = "~> 0.3"
+  version                 = "~> 0.3.0"
   create                  = var.use_existing_iam_role ? false : true
   iam_role_name           = var.iam_role_name
   permission_boundary_arn = var.permission_boundary_arn
@@ -47,54 +47,54 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   }
 
   statement {
-    sid       = "EFS"
-    actions   = ["elasticfilesystem:DescribeFileSystemPolicy",
-                 "elasticfilesystem:DescribeLifecycleConfiguration",
-                 "elasticfilesystem:DescribeAccessPoints",
-                 "elasticfilesystem:DescribeAccountPreferences",
-                 "elasticfilesystem:DescribeBackupPolicy",
-                 "elasticfilesystem:DescribeReplicationConfigurations"]
+    sid = "EFS"
+    actions = ["elasticfilesystem:DescribeFileSystemPolicy",
+      "elasticfilesystem:DescribeLifecycleConfiguration",
+      "elasticfilesystem:DescribeAccessPoints",
+      "elasticfilesystem:DescribeAccountPreferences",
+      "elasticfilesystem:DescribeBackupPolicy",
+    "elasticfilesystem:DescribeReplicationConfigurations"]
     resources = ["*"]
   }
 
   statement {
-    sid       = "EMR"
-    actions   = ["elasticmapreduce:ListBootstrapActions",
-               "elasticmapreduce:ListInstanceFleets",
-               "elasticmapreduce:ListInstanceGroups"]
+    sid = "EMR"
+    actions = ["elasticmapreduce:ListBootstrapActions",
+      "elasticmapreduce:ListInstanceFleets",
+    "elasticmapreduce:ListInstanceGroups"]
     resources = ["*"]
   }
 
   statement {
-    sid       = "SAGEMAKER"
-    actions   = ["sagemaker:GetModelPackageGroupPolicy",
-                 "sagemaker:GetLineageGroupPolicy"]
+    sid = "SAGEMAKER"
+    actions = ["sagemaker:GetModelPackageGroupPolicy",
+    "sagemaker:GetLineageGroupPolicy"]
     resources = ["*"]
   }
 
   statement {
-    sid       = "IDENTITYSTORE"
-    actions   = ["identitystore:DescribeGroup",
-                 "identitystore:DescribeGroupMembership",
-                 "identitystore:DescribeUser",
-                 "identitystore:ListGroupMemberships",
-                 "identitystore:ListGroupMembershipsForMember",
-                 "identitystore:ListGroups",
-                 "identitystore:ListUsers"]
+    sid = "IDENTITYSTORE"
+    actions = ["identitystore:DescribeGroup",
+      "identitystore:DescribeGroupMembership",
+      "identitystore:DescribeUser",
+      "identitystore:ListGroupMemberships",
+      "identitystore:ListGroupMembershipsForMember",
+      "identitystore:ListGroups",
+    "identitystore:ListUsers"]
     resources = ["*"]
   }
 
   statement {
-    sid       = "SSO"
-    actions   = ["sso:DescribeAccountAssignmentDeletionStatus",
-                 "sso:DescribeInstanceAccessControlAttributeConfiguration",
-                 "sso:GetInlinePolicyForPermissionSet"]
+    sid = "SSO"
+    actions = ["sso:DescribeAccountAssignmentDeletionStatus",
+      "sso:DescribeInstanceAccessControlAttributeConfiguration",
+    "sso:GetInlinePolicyForPermissionSet"]
     resources = ["*"]
   }
 
   statement {
-    sid       = "APIGATEWAY"
-    actions   = ["apigateway:GetApiKeys",
+    sid = "APIGATEWAY"
+    actions = ["apigateway:GetApiKeys",
       "apigateway:GetAuthorizers",
       "apigateway:GetBasePathMappings",
       "apigateway:GetClientCertificates",
@@ -114,13 +114,13 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "apigateway:GetTags",
       "apigateway:GetUsagePlanKeys",
       "apigateway:GetUsagePlans",
-      "apigateway:GetVpcLinks"]
+    "apigateway:GetVpcLinks"]
     resources = ["*"]
   }
 
   statement {
-    sid       = "APIGATEWAYV2"
-    actions   = ["apigatewayv2:GetApis",
+    sid = "APIGATEWAYV2"
+    actions = ["apigatewayv2:GetApis",
       "apigatewayv2:GetApiMappings",
       "apigatewayv2:GetAuthorizers",
       "apigatewayv2:GetDeployments",
@@ -132,7 +132,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "apigatewayv2:GetRoute",
       "apigatewayv2:GetRouteResponses",
       "apigatewayv2:GetStages",
-      "apigatewayv2:GetVpcLinks"]
+    "apigatewayv2:GetVpcLinks"]
     resources = ["*"]
   }
 }
