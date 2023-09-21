@@ -1,3 +1,8 @@
+# v0.5.1
+
+## Bug Fixes
+* fix(pin): module iam-role/aws version ~> 0.2.0
+---
 # v0.5.0
 
 ## Features
