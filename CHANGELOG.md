@@ -1,3 +1,78 @@
+# v0.13.0
+
+## Features
+* feat: enforce External ID v2 format via iam-role module (#76) (djmctavish)([ce9b91e](https://github.com/lacework/terraform-aws-config/commit/ce9b91e08699d6ea7b8d605230cdd2dbbc8e043c))
+## Other Changes
+* ci: version bump to v0.12.1-dev (Lacework)([de3fd4d](https://github.com/lacework/terraform-aws-config/commit/de3fd4dc2e80ac8a7166030f584466ff6b54fd85))
+---
+# v0.12.0
+
+## Features
+* feat: Add Apigatewayv2 related permissions (#71) (ramgudivada-lacework)([a615061](https://github.com/lacework/terraform-aws-config/commit/a61506128d66c0724547f4f3edf1a83ca2502c5e))
+* feat: Add Apigateway related permissions (#70) (ramgudivada-lacework)([4306ac8](https://github.com/lacework/terraform-aws-config/commit/4306ac80436f03a3799f48641e14eed2b96e02db))
+* feat: Add ReadOnly access to SSO APIs (#69) (Teddy Reed)([fc891e2](https://github.com/lacework/terraform-aws-config/commit/fc891e25d43ca741f9acd02b697ef24e595bb95e))
+* feat: Add ReadOnly access to IdentityStore APIs (#68) (Teddy Reed)([ae70a06](https://github.com/lacework/terraform-aws-config/commit/ae70a06e76a9c1c9adf47fcea90a010ede2b1ea1))
+## Other Changes
+* ci: version bump to v0.11.1-dev (Lacework)([df9969c](https://github.com/lacework/terraform-aws-config/commit/df9969c8144d981d2a71381b1b08123e4b329edd))
+---
+# v0.11.0
+
+## Features
+* feat: Add support for AWS provider 5.0 (#65) (Maksym Vlasov)([64966a2](https://github.com/lacework/terraform-aws-config/commit/64966a28081cd3007eaf95ca859e87b4e511e1cf))
+* feat: Add support for AWS provider 5.0 (#65) (Maksym Vlasov)([dd48f47](https://github.com/lacework/terraform-aws-config/commit/dd48f473c245b0337e6a4f80ce1fe7585fe3028c))
+## Other Changes
+* ci: version bump to v0.10.1-dev (Lacework)([db0e84c](https://github.com/lacework/terraform-aws-config/commit/db0e84c7d855646ef3fae216efae8f4030561625))
+---
+# v0.10.0
+
+## Features
+* feat: Add Sagemaker related permissions (#60) (ramgudivada-lacework)([3f7e1c9](https://github.com/lacework/terraform-aws-config/commit/3f7e1c917cd5058654f9570a37218074fcabf0b9))
+* feat: EMR permissions (#59) (Darren)([32762e0](https://github.com/lacework/terraform-aws-config/commit/32762e0f79c8834b8f39a74ec6a086d8c153c8e7))
+## Other Changes
+* ci: tfsec (jon-stewart)([7b8deca](https://github.com/lacework/terraform-aws-config/commit/7b8deca542c1b9975c063399a8e241c747ac9fcb))
+* ci: version bump to v0.9.1-dev (Lacework)([45fc0bb](https://github.com/lacework/terraform-aws-config/commit/45fc0bb93201b93346c92d25bb87238d732437b8))
+---
+# v0.9.0
+
+## Features
+* feat: audit policy readme (jon-stewart)([29f16d3](https://github.com/lacework/terraform-aws-config/commit/29f16d360f98b8a9c656df0e6eb3c96606faeec7))
+* feat: EFS audit policy permissions (jon-stewart)([ab2e598](https://github.com/lacework/terraform-aws-config/commit/ab2e5988e1f2d0dba99928f6e0291f279f487f3e))
+## Other Changes
+* ci: version bump to v0.8.1-dev (Lacework)([dc0a216](https://github.com/lacework/terraform-aws-config/commit/dc0a2161ac7f1e53a23d30f844b3e4145fcbcbab))
+---
+# v0.8.0
+
+## Features
+* feat: add permissions_boundary variable (#52) (Victor Knell)([8a3d8d3](https://github.com/lacework/terraform-aws-config/commit/8a3d8d322fe1bfe42402a658e5aa0070f07819fb))
+## Other Changes
+* ci: version bump to v0.7.2-dev (Lacework)([6530ede](https://github.com/lacework/terraform-aws-config/commit/6530edecf5188f1cd38796845d5e48769d421b5a))
+---
+# v0.7.1
+
+## Documentation Updates
+* docs: update Lacework provider version in readme (#50) (Darren)([28e80ce](https://github.com/lacework/terraform-aws-config/commit/28e80ce0db2f0f8cb96b7c6b18cdb6623783592d))
+## Other Changes
+* chore: update Lacework provider version to v1 (#49) (Darren)([7558cc8](https://github.com/lacework/terraform-aws-config/commit/7558cc8cb391826dde45eaff1f3545f9dfdadddc))
+* ci: version bump to v0.7.1-dev (Lacework)([ddd99e4](https://github.com/lacework/terraform-aws-config/commit/ddd99e4cf9ccd522c62bd1d3041f32801e38f279))
+---
+# v0.7.0
+
+## Features
+* feat: parameterize IAM policy attachment (#47) (Steve)([23fb300](https://github.com/lacework/terraform-aws-config/commit/23fb3001f931472c61f83e056b4cb08b77a95795))
+## Bug Fixes
+* fix: set lacework provider to minimum version for api v2 migration (#46) (Darren)([da744e3](https://github.com/lacework/terraform-aws-config/commit/da744e3e3181be69f60f53d695aed98b8b0dfaa6))
+## Other Changes
+* ci: version bump to v0.6.1-dev (Lacework)([9c4eb44](https://github.com/lacework/terraform-aws-config/commit/9c4eb4469bb1c25a3ebd400d37bcc4a5e23ae6c3))
+---
+# v0.6.0
+
+## Features
+* feat: deprecate support for Terraform 0.12 and 0.13 (#43) (Darren)([f3280c5](https://github.com/lacework/terraform-aws-config/commit/f3280c5387c4fbd7f23b9d36fbcc3e67c8b095bd))
+## Documentation Updates
+* docs: add example to configure multiple accounts (#44) (Salim Afiune)([762970f](https://github.com/lacework/terraform-aws-config/commit/762970f6b473eb22fa6fb1e20d75d1e27fc794f8))
+## Other Changes
+* ci: version bump to v0.5.1-dev (Lacework)([e928828](https://github.com/lacework/terraform-aws-config/commit/e9288281780a333ee138c5c081187f00fb30068b))
+---
 # v0.5.1
 
 ## Bug Fixes

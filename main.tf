@@ -13,15 +13,16 @@ resource "random_id" "uniq" {
 
 module "lacework_cfg_iam_role" {
   source                  = "lacework/iam-role/aws"
-  version                 = "~> 0.2.0"
+  version                 = "~> 0.4"
   create                  = var.use_existing_iam_role ? false : true
   iam_role_name           = var.iam_role_name
+  permission_boundary_arn = var.permission_boundary_arn
   lacework_aws_account_id = var.lacework_aws_account_id
-  external_id_length      = var.external_id_length
   tags                    = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/SecurityAudit"
   depends_on = [module.lacework_cfg_iam_role]
@@ -29,6 +30,7 @@ resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
 
 # Lacework custom configuration policy
 data "aws_iam_policy_document" "lacework_audit_policy" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
   version = "2012-10-17"
 
   statement {
@@ -42,18 +44,110 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     actions   = ["s3:GetBucketPublicAccessBlock"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "EFS"
+    actions   = ["elasticfilesystem:DescribeFileSystemPolicy",
+                 "elasticfilesystem:DescribeLifecycleConfiguration",
+                 "elasticfilesystem:DescribeAccessPoints",
+                 "elasticfilesystem:DescribeAccountPreferences",
+                 "elasticfilesystem:DescribeBackupPolicy",
+                 "elasticfilesystem:DescribeReplicationConfigurations"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "EMR"
+    actions   = ["elasticmapreduce:ListBootstrapActions",
+               "elasticmapreduce:ListInstanceFleets",
+               "elasticmapreduce:ListInstanceGroups"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "SAGEMAKER"
+    actions   = ["sagemaker:GetModelPackageGroupPolicy",
+                 "sagemaker:GetLineageGroupPolicy"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "IDENTITYSTORE"
+    actions   = ["identitystore:DescribeGroup",
+                 "identitystore:DescribeGroupMembership",
+                 "identitystore:DescribeUser",
+                 "identitystore:ListGroupMemberships",
+                 "identitystore:ListGroupMembershipsForMember",
+                 "identitystore:ListGroups",
+                 "identitystore:ListUsers"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "SSO"
+    actions   = ["sso:DescribeAccountAssignmentDeletionStatus",
+                 "sso:DescribeInstanceAccessControlAttributeConfiguration",
+                 "sso:GetInlinePolicyForPermissionSet"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "APIGATEWAY"
+    actions   = ["apigateway:GetApiKeys",
+      "apigateway:GetAuthorizers",
+      "apigateway:GetBasePathMappings",
+      "apigateway:GetClientCertificates",
+      "apigateway:GetDeployments",
+      "apigateway:GetDocumentationParts",
+      "apigateway:GetDocumentationVersions",
+      "apigateway:GetDomainNames",
+      "apigateway:GetGatewayResponses",
+      "apigateway:GetModels",
+      "apigateway:GetModelTemplate",
+      "apigateway:GetRequestValidators",
+      "apigateway:GetResources",
+      "apigateway:GetRestApis",
+      "apigateway:GetSdk",
+      "apigateway:GetSdkTypes",
+      "apigateway:GetStages",
+      "apigateway:GetTags",
+      "apigateway:GetUsagePlanKeys",
+      "apigateway:GetUsagePlans",
+      "apigateway:GetVpcLinks"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "APIGATEWAYV2"
+    actions   = ["apigatewayv2:GetApis",
+      "apigatewayv2:GetApiMappings",
+      "apigatewayv2:GetAuthorizers",
+      "apigatewayv2:GetDeployments",
+      "apigatewayv2:GetDomainNames",
+      "apigatewayv2:GetIntegrations",
+      "apigatewayv2:GetIntegrationResponses",
+      "apigatewayv2:GetModelTemplate",
+      "apigatewayv2:GetModels",
+      "apigatewayv2:GetRoute",
+      "apigatewayv2:GetRouteResponses",
+      "apigatewayv2:GetStages",
+      "apigatewayv2:GetVpcLinks"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
   name        = local.lacework_audit_policy_name
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit)"
-  policy      = data.aws_iam_policy_document.lacework_audit_policy.json
+  policy      = data.aws_iam_policy_document.lacework_audit_policy[0].json
   tags        = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
-  policy_arn = aws_iam_policy.lacework_audit_policy.arn
+  policy_arn = aws_iam_policy.lacework_audit_policy[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 

@@ -5,6 +5,12 @@ variable "use_existing_iam_role" {
   description = "Set this to true to use an existing IAM role"
 }
 
+variable "use_existing_iam_role_policy" {
+  type        = bool
+  default     = false
+  description = "Set this to `true` to use an existing policy on the IAM role, rather than attaching a new one"
+}
+
 variable "iam_role_arn" {
   type        = string
   default     = ""
@@ -23,10 +29,16 @@ variable "iam_role_name" {
   description = "The IAM role name. Required to match with iam_role_arn if use_existing_iam_role is set to `true`"
 }
 
+variable "permission_boundary_arn" {
+  type        = string
+  default     = null
+  description = "Optional - ARN of the policy that is used to set the permissions boundary for the role."
+}
+
 variable "external_id_length" {
   type        = number
   default     = 16
-  description = "The length of the external ID to generate. Max length is 1224. Ignored when use_existing_iam_role is set to `true`"
+  description = "**Deprecated** - Will be removed on our next major release v1.0.0"
 }
 
 variable "lacework_aws_account_id" {
