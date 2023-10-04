@@ -47,6 +47,13 @@
 ## Other Changes
 * ci: version bump to v0.7.2-dev (Lacework)([6530ede](https://github.com/lacework/terraform-aws-config/commit/6530edecf5188f1cd38796845d5e48769d421b5a))
 ---
+# v0.7.2
+
+## Bug Fixes
+* fix(pin): module iam-role/aws version ~> 0.3.0
+* fix(revert): "docs: update Lacework provider version in readme (#50)"
+* fix(revert): "chore: update Lacework provider version to v1 (#49)"
+---
 # v0.7.1
 
 ## Documentation Updates
@@ -72,6 +79,12 @@
 * docs: add example to configure multiple accounts (#44) (Salim Afiune)([762970f](https://github.com/lacework/terraform-aws-config/commit/762970f6b473eb22fa6fb1e20d75d1e27fc794f8))
 ## Other Changes
 * ci: version bump to v0.5.1-dev (Lacework)([e928828](https://github.com/lacework/terraform-aws-config/commit/e9288281780a333ee138c5c081187f00fb30068b))
+---
+# v0.5.1
+
+## Bug Fixes
+
+* fix(pin): module iam-role/aws version ~> 0.2.0
 ---
 # v0.5.0
 
