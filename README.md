@@ -16,7 +16,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.35.0 |
 | <a name="requirement_lacework"></a> [lacework](#requirement\_lacework) | ~> 1.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.1 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.6 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.7 |
 
 ## Providers
 
@@ -25,7 +25,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.35.0 |
 | <a name="provider_lacework"></a> [lacework](#provider\_lacework) | ~> 1.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.1 |
-| <a name="provider_time"></a> [time](#provider\_time) | ~> 0.6 |
+| <a name="provider_time"></a> [time](#provider\_time) | ~> 0.7 |
 
 ## Modules
 
