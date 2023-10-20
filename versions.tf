@@ -12,7 +12,7 @@ terraform {
     }
     time = {
       source  = "hashicorp/time"
-      version = "~> 0.6"
+      version = "~> 0.7"
     }
     lacework = {
       source  = "lacework/lacework"
