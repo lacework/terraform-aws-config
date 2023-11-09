@@ -140,8 +140,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "waf-regional:GetRule",
       "waf-regional:ListRuleGroups",
       "waf-regional:GetRuleGroup",
-      "waf-regional:ListActivatedRulesInRuleGroup"
-    ]
+    "waf-regional:ListActivatedRulesInRuleGroup"]
     resources = ["*"]
   }
 }
