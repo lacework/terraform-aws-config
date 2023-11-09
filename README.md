@@ -139,4 +139,4 @@ The audit policy is comprised of the following permissions:
 |                            | waf-regional:GetRule                                    |           |
 |                            | waf-regional:ListRuleGroups                             |           |
 |                            | waf-regional:GetRuleGroup                               |           |
-|                            | waf-regional:ListActivatedRuleInRuleGroup               |           |
+|                            | waf-regional:ListActivatedRulesInRuleGroup              |           |
