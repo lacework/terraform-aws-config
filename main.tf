@@ -134,6 +134,16 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     "apigatewayv2:GetVpcLinks"]
     resources = ["*"]
   }
+  statement {
+    sid = "WAF-REGIONAL"
+    actions = ["waf-regional:ListRules",
+      "waf-regional:GetRule",
+      "waf-regional:ListRuleGroups",
+      "waf-regional:GetRuleGroup",
+      "waf-regional:ListActivatedRuleInRuleGroup"
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
