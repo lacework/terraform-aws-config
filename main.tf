@@ -135,7 +135,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     resources = ["*"]
   }
   statement {
-    sid = "WAF-REGIONAL"
+    sid = "WAFREGIONAL"
     actions = ["waf-regional:ListRules",
       "waf-regional:GetRule",
       "waf-regional:ListRuleGroups",
