@@ -135,7 +135,7 @@ The audit policy is comprised of the following permissions:
 |                            | apigatewayv2:GetRouteResponses                          |           |
 |                            | apigatewayv2:GetStages                                  |           |
 |                            | apigatewayv2:GetVpcLinks                                |           |
-| WAF-REGIONAL               | waf-regional:ListRules                                  | *         |
+| WAFREGIONAL                | waf-regional:ListRules                                  | *         |
 |                            | waf-regional:GetRule                                    |           |
 |                            | waf-regional:ListRuleGroups                             |           |
 |                            | waf-regional:GetRuleGroup                               |           |
