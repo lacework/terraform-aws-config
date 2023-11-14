@@ -134,6 +134,12 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     "apigatewayv2:GetVpcLinks"]
     resources = ["*"]
   }
+
+  statement {
+    sid = "GLACIER"
+    actions = ["glacier:ListTagsForVault"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
