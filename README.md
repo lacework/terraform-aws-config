@@ -135,6 +135,11 @@ The audit policy is comprised of the following permissions:
 |                            | apigatewayv2:GetRouteResponses                          |           |
 |                            | apigatewayv2:GetStages                                  |           |
 |                            | apigatewayv2:GetVpcLinks                                |           |
+| WAFREGIONAL                | waf-regional:ListRules                                  | *         |
+|                            | waf-regional:GetRule                                    |           |
+|                            | waf-regional:ListRuleGroups                             |           |
+|                            | waf-regional:GetRuleGroup                               |           |
+|                            | waf-regional:ListActivatedRulesInRuleGroup              |           |
 | GLUE                       | glue:ListWorkflows                                      | *         |
 |                            | glue:BatchGetWorkflows                                  |           |
 |                            | glue:GetTags                                            |           |
