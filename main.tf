@@ -134,6 +134,14 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     "apigatewayv2:GetVpcLinks"]
     resources = ["*"]
   }
+
+  statement {
+    sid = "CODEBUILD"
+    actions = ["codebuild:ListBuilds",
+      "codebuild:BatchGetBuilds",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
