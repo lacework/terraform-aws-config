@@ -134,6 +134,13 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     "apigatewayv2:GetVpcLinks"]
     resources = ["*"]
   }
+  statement {
+    sid = "GLUE"
+    actions = ["glue:ListWorkflows",
+      "glue:BatchGetWorkflows",
+      "glue:GetTags"]
+    resources = ["*"]
+  }
 
   statement {
     sid = "CODEBUILD"

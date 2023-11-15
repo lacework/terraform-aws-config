@@ -135,5 +135,8 @@ The audit policy is comprised of the following permissions:
 |                            | apigatewayv2:GetRouteResponses                          |           |
 |                            | apigatewayv2:GetStages                                  |           |
 |                            | apigatewayv2:GetVpcLinks                                |           |
+| GLUE                       | glue:ListWorkflows                                      | *         |
+|                            | glue:BatchGetWorkflows                                  |           |
+|                            | glue:GetTags                                            |           |
 | CODEBUILD                  | codebuild:ListBuilds                                    | *         |
 |                            | codebuild:BatchGetBuilds                                |           |
