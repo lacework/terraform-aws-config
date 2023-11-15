@@ -140,3 +140,8 @@ The audit policy is comprised of the following permissions:
 |                            | waf-regional:ListRuleGroups                             |           |
 |                            | waf-regional:GetRuleGroup                               |           |
 |                            | waf-regional:ListActivatedRulesInRuleGroup              |           |
+| GLUE                       | glue:ListWorkflows                                      | *         |
+|                            | glue:BatchGetWorkflows                                  |           |
+|                            | glue:GetTags                                            |           |
+| CODEBUILD                  | codebuild:ListBuilds                                    | *         |
+|                            | codebuild:BatchGetBuilds                                |           |
