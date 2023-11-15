@@ -138,11 +138,17 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "GLUE"
     actions = ["glue:ListWorkflows",
       "glue:BatchGetWorkflows",
-      "glue:GetTags"
+      "glue:GetTags"]
+  }
+
+  statement {
+    sid = "CODEBUILD"
+    actions = ["codebuild:ListBuilds",
+      "codebuild:BatchGetBuilds",
     ]
     resources = ["*"]
   }
-}
+
 
 resource "aws_iam_policy" "lacework_audit_policy" {
   count       = var.use_existing_iam_role_policy ? 0 : 1

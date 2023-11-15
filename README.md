@@ -138,3 +138,5 @@ The audit policy is comprised of the following permissions:
 | GLUE                       | glue:ListWorkflows                                      | *         |
 |                            | glue:BatchGetWorkflows                                  |           |
 |                            | glue:GetTags                                            |           |
+| CODEBUILD                  | codebuild:ListBuilds                                    | *         |
+|                            | codebuild:BatchGetBuilds                                |           |
