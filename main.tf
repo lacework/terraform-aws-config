@@ -134,10 +134,33 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     "apigatewayv2:GetVpcLinks"]
     resources = ["*"]
   }
-
   statement {
     sid = "GLACIER"
     actions = ["glacier:ListTagsForVault"]
+    resources = ["*"]
+  }
+  statement {
+    sid = "WAFREGIONAL"
+    actions = ["waf-regional:ListRules",
+      "waf-regional:GetRule",
+      "waf-regional:ListRuleGroups",
+      "waf-regional:GetRuleGroup",
+      "waf-regional:ListActivatedRulesInRuleGroup"]
+     resources = ["*"]
+  }
+  statement {
+    sid = "GLUE"
+    actions = ["glue:ListWorkflows",
+      "glue:BatchGetWorkflows",
+      "glue:GetTags"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "CODEBUILD"
+    actions = ["codebuild:ListBuilds",
+      "codebuild:BatchGetBuilds",
+    ]
     resources = ["*"]
   }
 }
