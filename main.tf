@@ -94,7 +94,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "APIGATEWAY"
     actions = ["apigateway:GET"]
-    resources = ["arn:aws:apigateway:*::/apikeys/*"]
+    resources = ["*"]
   }
 
   statement {
@@ -102,7 +102,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     actions = ["glacier:ListTagsForVault"]
     resources = ["*"]
   }
-  
+
   statement {
     sid = "WAFREGIONAL"
     actions = ["waf-regional:ListRules",
