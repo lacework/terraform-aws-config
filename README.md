@@ -101,6 +101,7 @@ The audit policy is comprised of the following permissions:
 | SSO                        | sso:DescribeAccountAssignmentDeletionStatus             | *         |
 |                            | sso:DescribeInstanceAccessControlAttributeConfiguration |           |
 |                            | sso:GetInlinePolicyForPermissionSet                     |           |
+| GLACIER                    | glacier:ListTagsForVault                                | *         |
 | APIGATEWAY                 | apigateway:GET                                          | arn:aws:apigateway:*::/apikeys/*         |      |
 | WAFREGIONAL                | waf-regional:ListRules                                  | *         |
 |                            | waf-regional:GetRule                                    |           |
