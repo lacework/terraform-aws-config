@@ -93,52 +93,10 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid = "APIGATEWAY"
-    actions = ["apigateway:GetApiKeys",
-      "apigateway:GetAuthorizers",
-      "apigateway:GetBasePathMappings",
-      "apigateway:GetClientCertificates",
-      "apigateway:GetDeployments",
-      "apigateway:GetDocumentationParts",
-      "apigateway:GetDocumentationVersions",
-      "apigateway:GetDomainNames",
-      "apigateway:GetGatewayResponses",
-      "apigateway:GetModels",
-      "apigateway:GetModelTemplate",
-      "apigateway:GetRequestValidators",
-      "apigateway:GetResources",
-      "apigateway:GetRestApis",
-      "apigateway:GetSdk",
-      "apigateway:GetSdkTypes",
-      "apigateway:GetStages",
-      "apigateway:GetTags",
-      "apigateway:GetUsagePlanKeys",
-      "apigateway:GetUsagePlans",
-    "apigateway:GetVpcLinks"]
-    resources = ["*"]
+    actions = ["apigateway:GET"]
+    resources = ["arn:aws:apigateway:*::/apikeys/*"]
   }
 
-  statement {
-    sid = "APIGATEWAYV2"
-    actions = ["apigatewayv2:GetApis",
-      "apigatewayv2:GetApiMappings",
-      "apigatewayv2:GetAuthorizers",
-      "apigatewayv2:GetDeployments",
-      "apigatewayv2:GetDomainNames",
-      "apigatewayv2:GetIntegrations",
-      "apigatewayv2:GetIntegrationResponses",
-      "apigatewayv2:GetModelTemplate",
-      "apigatewayv2:GetModels",
-      "apigatewayv2:GetRoute",
-      "apigatewayv2:GetRouteResponses",
-      "apigatewayv2:GetStages",
-    "apigatewayv2:GetVpcLinks"]
-    resources = ["*"]
-  }
-  statement {
-    sid = "GLACIER"
-    actions = ["glacier:ListTagsForVault"]
-    resources = ["*"]
-  }
   statement {
     sid = "WAFREGIONAL"
     actions = ["waf-regional:ListRules",
