@@ -135,6 +135,11 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     resources = ["*"]
   }
   statement {
+    sid = "GLACIER"
+    actions = ["glacier:ListTagsForVault"]
+    resources = ["*"]
+  }
+  statement {
     sid = "WAFREGIONAL"
     actions = ["waf-regional:ListRules",
       "waf-regional:GetRule",
