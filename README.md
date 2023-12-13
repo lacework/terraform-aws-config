@@ -145,3 +145,6 @@ The audit policy is comprised of the following permissions:
 |                            | glue:GetTags                                            |           |
 | CODEBUILD                  | codebuild:ListBuilds                                    | *         |
 |                            | codebuild:BatchGetBuilds                                |           |
+| SNS                        | sns:GetDataProtectionPolicy                             | *         |
+|                            | sns:ListPlatformApplications                            |           |
+|                            | sns:GetSubscriptionAttributes                           |           |

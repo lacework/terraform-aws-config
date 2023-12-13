@@ -158,6 +158,15 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "SNS"
+    actions = ["sns:GetDataProtectionPolicy",
+      "sns:ListPlatformApplications",
+      "sns:GetSubscriptionAttributes",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
