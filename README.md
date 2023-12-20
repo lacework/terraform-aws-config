@@ -101,41 +101,8 @@ The audit policy is comprised of the following permissions:
 | SSO                        | sso:DescribeAccountAssignmentDeletionStatus             | *         |
 |                            | sso:DescribeInstanceAccessControlAttributeConfiguration |           |
 |                            | sso:GetInlinePolicyForPermissionSet                     |           |
-| APIGATEWAY                 | apigateway:GetApiKeys                                   | *         |
-|                            | apigateway:GetAuthorizers                               |           |
-|                            | apigateway:GetBasePathMappings                          |           |
-|                            | apigateway:GetClientCertificates                        |           |
-|                            | apigateway:GetDeployments                               |           |
-|                            | apigateway:GetDocumentationParts                        |           |
-|                            | apigateway:GetDocumentationVersions                     |           |
-|                            | apigateway:GetDomainNames                               |           |
-|                            | apigateway:GetGatewayResponses                          |           |
-|                            | apigateway:GetModels                                    |           |
-|                            | apigateway:GetModelTemplate                             |           |
-|                            | apigateway:GetRequestValidators                         |           |
-|                            | apigateway:GetResources                                 |           |
-|                            | apigateway:GetRestApis                                  |           |
-|                            | apigateway:GetSdk                                       |           |
-|                            | apigateway:GetSdkTypes                                  |           |
-|                            | apigateway:GetStages                                    |           |
-|                            | apigateway:GetTags                                      |           |
-|                            | apigateway:GetUsagePlanKeys                             |           |
-|                            | apigateway:GetUsagePlans                                |           |
-|                            | apigateway:GetVpcLinks                                  |           |
-| APIGATEWAYV2               | apigatewayv2:GetApis                                    | *         |
-|                            | apigatewayv2:GetApiMappings                             |           |
-|                            | apigatewayv2:GetAuthorizers                             |           |
-|                            | apigatewayv2:GetDeployments                             |           |
-|                            | apigatewayv2:GetDomainNames                             |           |
-|                            | apigatewayv2:GetIntegrations                            |           |
-|                            | apigatewayv2:GetIntegrationResponses                    |           |
-|                            | apigatewayv2:GetModelTemplate                           |           |
-|                            | apigatewayv2:GetModels                                  |           |
-|                            | apigatewayv2:GetRoute                                   |           |
-|                            | apigatewayv2:GetRouteResponses                          |           |
-|                            | apigatewayv2:GetStages                                  |           |
-|                            | apigatewayv2:GetVpcLinks                                |           |
 | GLACIER                    | glacier:ListTagsForVault                                | *         |
+| APIGATEWAY                 | apigateway:GET                                          | arn:aws:apigateway:*::/apikeys, arn:aws:apigateway:*::/apikeys/*         |
 | WAFREGIONAL                | waf-regional:ListRules                                  | *         |
 |                            | waf-regional:GetRule                                    |           |
 |                            | waf-regional:ListRuleGroups                             |           |
