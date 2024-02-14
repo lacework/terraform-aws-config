@@ -55,6 +55,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "elasticfilesystem:DescribeAccessPoints",
       "elasticfilesystem:DescribeAccountPreferences",
       "elasticfilesystem:DescribeBackupPolicy",
+      "elasticfilesystem:ListTagsForResource",
     "elasticfilesystem:DescribeReplicationConfigurations"]
     resources = ["*"]
   }
