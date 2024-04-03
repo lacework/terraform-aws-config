@@ -1,0 +1,12 @@
+name: Release
+
+on: 
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+      
+jobs:
+  call-nightly-workflow:
+    uses: lacework/oss-actions/.github/workflows/tf-release.yml@main
+    secrets: inherit
