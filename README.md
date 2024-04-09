@@ -70,6 +70,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | <a name="output_external_id"></a> [external\_id](#output\_external\_id) | The External ID configured into the IAM role |
 | <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | The IAM Role ARN |
 | <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | The IAM Role name |
+| <a name="output_lacework_integration_guid"></a> [lacework\_integration\_guid](#output\_lacework\_integration\_guid) | The GUID for the created Lacework integration |
 <!-- END_TF_DOCS -->
 
 ## Lacework Audit Policy
