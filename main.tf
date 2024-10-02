@@ -98,7 +98,14 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "APIGATEWAY"
     actions = ["apigateway:GET"]
-    resources = ["arn:aws:apigateway:*::/apikeys", "arn:aws:apigateway:*::/apikeys/*"]
+    resources = ["arn:aws:apigateway:*::/apikeys",
+    "arn:aws:apigateway:*::/apikeys/*",
+    "arn:aws:apigateway:*::/domainnames/*/basepathmappings",
+    "arn:aws:apigateway:*::/domainnames/*/basepathmappings/*",
+    "arn:aws:apigateway:*::/usageplans",
+    "arn:aws:apigateway:*::/usageplans/*",
+    "arn:aws:apigateway:*::/restapis/*/stages/*/sdks",
+    "arn:aws:apigateway:*::/restapis/*/stages/*/sdks/*"]
   }
 
   statement {
