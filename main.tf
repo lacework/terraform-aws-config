@@ -104,8 +104,9 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     "arn:aws:apigateway:*::/domainnames/*/basepathmappings/*",
     "arn:aws:apigateway:*::/usageplans",
     "arn:aws:apigateway:*::/usageplans/*",
-    "arn:aws:apigateway:*::/restapis/*/stages/*/sdks",
-    "arn:aws:apigateway:*::/restapis/*/stages/*/sdks/*"]
+    "arn:aws:apigateway:*::/sdktypes",
+    "arn:aws:apigateway:*::/sdktypes/*"
+    ]
   }
 
   statement {
