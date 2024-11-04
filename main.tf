@@ -152,8 +152,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid = "STATES"
-    actions = ["states:ListTagsForResource",
-    ]
+    actions = ["states:ListTagsForResource"]
     resources = ["*"]
   }
 }
