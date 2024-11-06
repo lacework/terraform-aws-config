@@ -2,10 +2,10 @@
 
 # terraform-aws-config
 
-[![GitHub release](https://img.shields.io/github/release/lacework/terraform-aws-config.svg)](https://github.com/lacework/terraform-aws-config/releases/)
+[![GitHub release](https://img.shields.io/github/release/lacework/terraform-aws-config.svg)](https://github.com/lacework/terraform-aws-config/relea ses/)
 [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/lacework/terraform-modules%2Ftest-compatibility?type=cf-1&key=eyJhbGciOiJIUzI1NiJ9.NWVmNTAxOGU4Y2FjOGQzYTkxYjg3ZDEx.RJ3DEzWmBXrJX7m38iExJ_ntGv4_Ip8VTa-an8gBwBo)]( https://g.codefresh.io/pipelines/edit/new/builds?id=607e25e6728f5a6fba30431b&pipeline=test-compatibility&projects=terraform-modules&projectId=607db54b728f5a5f8930405d)
 
-Terraform module for configuring an integration with Lacework and AWS for cloud resource configuration assessment.
+Terraform module for configuring an integration with Lacework and AWS for cloud resource configuration as sessment.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -119,3 +119,24 @@ The audit policy is comprised of the following permissions:
 | SNS                        | sns:GetDataProtectionPolicy                             | *         |
 |                            | sns:ListPlatformApplications                            |           |
 |                            | sns:GetSubscriptionAttributes                           |           |
+| SES                        | ses:ListContactLists                                    | *         |
+|                            | ses:GetContactList                                      |           |
+|                            | ses:ListContacts                                        |           |
+|                            | ses:GetContact                                          |           |
+|                            | ses:ListCustomVerificationEmailTemplates                |           |
+|                            | ses:GetCustomVerificationEmailTemplate                  |           |
+|                            | ses:GetDedicatedIpPool                                  |           |
+|                            | ses:GetBlacklistReports                                 |           |
+|                            | ses:GetDedicatedIp                                      |           |
+|                            | ses:ListDeliverabilityTestReports                       |           |
+|                            | ses:GetDeliverabilityTestReport                         |           |
+|                            | ses:ListEmailIdentities                                 |           |
+|                            | ses:GetEmailIdentity                                    |           |
+|                            | ses:GetEmailIdentityPolicies                            |           |
+|                            | ses:ListEmailTemplates                                  |           |
+|                            | ses:GetEmailTemplate                                    |           |
+|                            | ses:ListImportJobs                                      |           |
+|                            | ses:GetImportJob                                        |           |
+|                            | ses:ListRecommendations                                 |           |
+|                            | ses:ListSuppressedDestinations                          |           |
+|                            | ses:GetSuppressedDestination                            |           |
