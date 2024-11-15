@@ -165,8 +165,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "ses:ListCustomVerificationEmailTemplates",
       "ses:GetCustomVerificationEmailTemplate",
       "ses:GetDedicatedIpPool",
-      "ses:GetBlacklistReports",
-      "ses:GetDedicatedIp",
       "ses:ListDeliverabilityTestReports",
       "ses:GetDeliverabilityTestReport",
       "ses:ListEmailIdentities",
