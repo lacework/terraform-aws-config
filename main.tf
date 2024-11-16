@@ -155,6 +155,33 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     actions = ["states:ListTagsForResource"]
     resources = ["*"]
   }
+
+  statement {
+    sid = "SES"
+    actions = ["ses:ListContactLists",
+      "ses:GetContactList",
+      "ses:ListContacts",
+      "ses:GetContact",
+      "ses:ListCustomVerificationEmailTemplates",
+      "ses:GetCustomVerificationEmailTemplate",
+      "ses:GetDedicatedIpPool",
+      "ses:GetBlacklistReports",
+      "ses:GetDedicatedIp",
+      "ses:ListDeliverabilityTestReports",
+      "ses:GetDeliverabilityTestReport",
+      "ses:ListEmailIdentities",
+      "ses:GetEmailIdentity",
+      "ses:GetEmailIdentityPolicies",
+      "ses:ListEmailTemplates",
+      "ses:GetEmailTemplate",
+      "ses:ListImportJobs",
+      "ses:GetImportJob",
+      "ses:ListRecommendations",
+      "ses:ListSuppressedDestinations",
+      "ses:GetSuppressedDestination",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
