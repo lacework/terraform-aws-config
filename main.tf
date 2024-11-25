@@ -128,6 +128,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "GLUE"
     actions = ["glue:ListWorkflows",
+      "glue:GetWorkflows",
       "glue:BatchGetWorkflows",
       "glue:GetTags"]
     resources = ["*"]
