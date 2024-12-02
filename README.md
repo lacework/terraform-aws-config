@@ -140,3 +140,13 @@ The audit policy is comprised of the following permissions:
 |                            | ses:ListRecommendations                                 |           |
 |                            | ses:ListSuppressedDestinations                          |           |
 |                            | ses:GetSuppressedDestination                            |           |
+| COMPUTE-OPTIMIZER          | compute-optimizer:DescribeRecommendationExportJobs      | *         |
+|                            | compute-optimizer:GetAutoScalingGroupRecommendations    |           |
+|                            | compute-optimizer:GetEffectiveRecommendationPreferences |           |
+|                            | compute-optimizer:GetEBSVolumeRecommendations           |           |
+|                            | compute-optimizer:GetEC2InstanceRecommendations         |           |
+|                            | compute-optimizer:GetEnrollmentStatus                   |           |
+|                            | compute-optimizer:GetEnrollmentStatusesForOrganization  |           |
+|                            | compute-optimizer:GetLambdaFunctionRecommendations      |           |
+|                            | compute-optimizer:GetRecommendationPreferences          |           |
+|                            | compute-optimizer:GetRecommendationSummaries            |           |

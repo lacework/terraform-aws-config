@@ -180,6 +180,23 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "COMPUTE-OPTIMIZER"
+    actions   = [
+      "compute-optimizer:DescribeRecommendationExportJobs",
+      "compute-optimizer:GetAutoScalingGroupRecommendations",
+      "compute-optimizer:GetEffectiveRecommendationPreferences",
+      "compute-optimizer:GetEBSVolumeRecommendations",
+      "compute-optimizer:GetEC2InstanceRecommendations",
+      "compute-optimizer:GetEnrollmentStatus",
+      "compute-optimizer:GetEnrollmentStatusesForOrganization",
+      "compute-optimizer:GetLambdaFunctionRecommendations",
+      "compute-optimizer:GetRecommendationPreferences",
+      "compute-optimizer:GetRecommendationSummaries"
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
