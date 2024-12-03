@@ -182,7 +182,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   }
 
   statement {
-    sid       = "COMPUTE-OPTIMIZER"
+    sid       = "COMPUTEOPTIMIZER"
     actions   = [
       "compute-optimizer:DescribeRecommendationExportJobs",
       "compute-optimizer:GetAutoScalingGroupRecommendations",
