@@ -140,3 +140,27 @@ The audit policy is comprised of the following permissions:
 |                            | ses:ListRecommendations                                 |           |
 |                            | ses:ListSuppressedDestinations                          |           |
 |                            | ses:GetSuppressedDestination                            |           |
+| BACKUP                     | backup:ListBackupJobs                                   | *         |
+|                            | backup:DescribeBackupJob                                |           |
+|                            | backup:ListBackupPlanTemplates                          |           |
+|                            | backup:GetBackupPlanFromTemplate                        |           |
+|                            | backup:ListBackupPlans                                  |           |
+|                            | backup:GetBackupPlan                                    |           |
+|                            | backup:ListBackupPlanVersions                           |           |
+|                            | backup:ListBackupSelections                             |           |
+|                            | backup:GetBackupSelection                               |           |
+|                            | backup:DescribeBackupVault                              |           |
+|                            | backup:ListRecoveryPointsByBackupVault                  |           |
+|                            | backup:DescribeRecoveryPoint                            |           |
+|                            | backup:GetRecoveryPointRestoreMetadata                  |           |
+|                            | backup:ListCopyJobs                                     |           |
+|                            | backup:ListFrameworks                                   |           |
+|                            | backup:DescribeFramework                                |           |
+|                            | backup:ListLegalHolds                                   |           |
+|                            | backup:GetLegalHold                                     |           |
+|                            | backup:ListRecoveryPointsByLegalHold                    |           |
+|                            | backup:ListProtectedResources                           |           |
+|                            | backup:DescribeProtectedResource                        |           |
+|                            | backup:ListRecoveryPointsByResource                     |           |
+|                            | backup:ListReportPlans                                  |           |
+|                            | backup:ListRestoreJobs                                  |           |
