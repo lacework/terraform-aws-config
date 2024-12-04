@@ -211,6 +211,16 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "COGNITOIDP"
+    actions = ["cognito-idp:GetSigningCertificate",
+      "cognito-idp:GetCSVHeader",
+      "cognito-idp:GetUserPoolMfaConfig",
+      "cognito-idp:GetUICustomization",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
