@@ -164,6 +164,11 @@ The audit policy is comprised of the following permissions:
 |                            | backup:ListRecoveryPointsByResource                     |           |
 |                            | backup:ListReportPlans                                  |           |
 |                            | backup:ListRestoreJobs                                  |           |
+| COGNITO-IDP                | cognito-idp:GetSigningCertificate                       |           |
+|                            | cognito-idp:GetCSVHeader                                |           |
+|                            | cognito-idp:GetUserPoolMfaConfig                        |           |
+|                            | cognito-idp:GetUICustomization                          |           |
+
 | COMPUTEOPTIMIZER           | compute-optimizer:DescribeRecommendationExportJobs      | *         |
 |                            | compute-optimizer:GetAutoScalingGroupRecommendations    |           |
 |                            | compute-optimizer:GetEffectiveRecommendationPreferences |           |

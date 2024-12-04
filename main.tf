@@ -129,6 +129,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "GLUE"
     actions = ["glue:ListWorkflows",
       "glue:BatchGetWorkflows",
+      "glue:GetWorkflows",
       "glue:GetTags"]
     resources = ["*"]
   }
@@ -210,7 +211,17 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
-  
+
+  statement {
+    sid = "COGNITOIDP"
+    actions = ["cognito-idp:GetSigningCertificate",
+      "cognito-idp:GetCSVHeader",
+      "cognito-idp:GetUserPoolMfaConfig",
+      "cognito-idp:GetUICustomization",
+    ]
+    resources = ["*"]
+  }
+
   statement {
     sid       = "COMPUTEOPTIMIZER"
     actions   = [
