@@ -168,3 +168,13 @@ The audit policy is comprised of the following permissions:
 |                            | cognito-idp:GetCSVHeader                                |           |
 |                            | cognito-idp:GetUserPoolMfaConfig                        |           |
 |                            | cognito-idp:GetUICustomization                          |           |
+| COMPUTEOPTIMIZER           | compute-optimizer:DescribeRecommendationExportJobs      | *         |
+|                            | compute-optimizer:GetAutoScalingGroupRecommendations    |           |
+|                            | compute-optimizer:GetEffectiveRecommendationPreferences |           |
+|                            | compute-optimizer:GetEBSVolumeRecommendations           |           |
+|                            | compute-optimizer:GetEC2InstanceRecommendations         |           |
+|                            | compute-optimizer:GetEnrollmentStatus                   |           |
+|                            | compute-optimizer:GetEnrollmentStatusesForOrganization  |           |
+|                            | compute-optimizer:GetLambdaFunctionRecommendations      |           |
+|                            | compute-optimizer:GetRecommendationPreferences          |           |
+|                            | compute-optimizer:GetRecommendationSummaries            |           |
