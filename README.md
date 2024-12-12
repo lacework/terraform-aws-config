@@ -178,3 +178,7 @@ The audit policy is comprised of the following permissions:
 |                            | compute-optimizer:GetLambdaFunctionRecommendations      |           |
 |                            | compute-optimizer:GetRecommendationPreferences          |           |
 |                            | compute-optimizer:GetRecommendationSummaries            |           |
+| KINESISANALYTICS           | kinesisanalytics:ListApplicationSnapshots               |           |
+|                            | kinesisanalytics:ListApplicationVersions                |           |
+|                            | kinesisanalytics:DescribeApplicationVersion             |           |
+|                            | kinesisanalytics:DescribeApplication                    |           |

@@ -238,6 +238,16 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "KINESISANALYTICS"
+    actions = ["kinesisanalytics:ListApplicationSnapshots",
+      "kinesisanalytics:ListApplicationVersions",
+      "kinesisanalytics:DescribeApplicationVersion",
+      "kinesisanalytics:DescribeApplication",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
