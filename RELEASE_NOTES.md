@@ -1,7 +1,7 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.17.0`.
+Another day, another release. These are the release notes for the version `v0.17.1`.
 
-## Features
-* feat: add permission for cognito-idp service (#114) (ljohnny-git)([fb67991](https://github.com/lacework/terraform-aws-config/commit/fb67991f6a20644bbde618e75347d4cfb3d4558b))
+## Bug Fixes
+* fix: Fix the GetWorkflow type (#118) (Lei Jin)([2c47b66](https://github.com/lacework/terraform-aws-config/commit/2c47b66f099c4d1d4b0096d10a5ce0b397147b47))
 ## Other Changes
-* ci: version bump to v0.16.1-dev (Lacework)([4b4d052](https://github.com/lacework/terraform-aws-config/commit/4b4d052128e6782362fba639de3b65eb14fb00b4))
+* ci: version bump to v0.17.1-dev (Lacework)([0408bda](https://github.com/lacework/terraform-aws-config/commit/0408bda9b8c99c4773143a6cb2ed7a3862aeba37))
