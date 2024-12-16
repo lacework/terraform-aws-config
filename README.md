@@ -182,3 +182,11 @@ The audit policy is comprised of the following permissions:
 |                            | kinesisanalytics:ListApplicationVersions                |           |
 |                            | kinesisanalytics:DescribeApplicationVersion             |           |
 |                            | kinesisanalytics:DescribeApplication                    |           |
+| AMP                        | aps:ListScrapers                                        | *         |
+|                            | aps:DescribeScraper                                     |           |
+|                            | aps:ListWorkspaces                                      |           |
+|                            | aps:DescribeAlertManagerDefinition                      |           |
+|                            | aps:DescribeLoggingConfiguration                        |           |
+|                            | aps:DescribeWorkspace                                   |           |
+|                            | aps:ListRuleGroupsNamespaces                            |           |
+|                            | aps:DescribeRuleGroupsNamespace                         |           |
