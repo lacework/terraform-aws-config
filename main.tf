@@ -248,6 +248,20 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "AMP"
+    actions = ["aps:ListScrapers",
+      "aps:DescribeScraper",
+      "aps:ListWorkspaces",
+      "aps:DescribeAlertManagerDefinition",
+      "aps:DescribeLoggingConfiguration",
+      "aps:DescribeWorkspace",
+      "aps:ListRuleGroupsNamespaces",
+      "aps:DescribeRuleGroupsNamespace",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
