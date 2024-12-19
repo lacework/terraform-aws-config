@@ -178,6 +178,8 @@ The audit policy is comprised of the following permissions:
 |                            | compute-optimizer:GetLambdaFunctionRecommendations      |           |
 |                            | compute-optimizer:GetRecommendationPreferences          |           |
 |                            | compute-optimizer:GetRecommendationSummaries            |           |
+|                            | compute-optimizer:GetECSServiceRecommendations          |           |
+|                            | compute-optimizer:GetLicenseRecommendations             |           |
 | KINESISANALYTICS           | kinesisanalytics:ListApplicationSnapshots               |           |
 |                            | kinesisanalytics:ListApplicationVersions                |           |
 |                            | kinesisanalytics:DescribeApplicationVersion             |           |
@@ -190,3 +192,8 @@ The audit policy is comprised of the following permissions:
 |                            | aps:DescribeWorkspace                                   |           |
 |                            | aps:ListRuleGroupsNamespaces                            |           |
 |                            | aps:DescribeRuleGroupsNamespace                         |           |
+| KINESISVIDEO               | kinesisvideo:DescribeImageGenerationConfiguration       | *         |
+|                            | kinesisvideo:GetDataEndpoint                            |           |
+|                            | kinesisvideo:GetSignalingChannelEndpoint                |           |
+|                            | kinesisvideo:ListEdgeAgentConfigurations                |           |
+| APPRUNNER                  | apprunner:ListServicesForAutoScalingConfiguration       | *         |
