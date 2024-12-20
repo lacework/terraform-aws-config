@@ -190,3 +190,5 @@ The audit policy is comprised of the following permissions:
 |                            | aps:DescribeWorkspace                                   |           |
 |                            | aps:ListRuleGroupsNamespaces                            |           |
 |                            | aps:DescribeRuleGroupsNamespace                         |           |
+| APPSTREAM                  | appstream:Describe*                                     |           |
+|                            | appstream:List*                                         |           |
