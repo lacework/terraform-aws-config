@@ -270,6 +270,38 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "CODEARTIFACT"
+    actions = ["codeartifact:ListDomains",
+      "codeartifact:DescribeDomain",
+      "codeartifact:DescribeRepository",
+      "codeartifact:ListPackages",
+      "codeartifact:GetRepositoryEndpoint",
+      "codeartifact:DescribePackage",
+      "codeartifact:ListPackageVersions",
+      "codeartifact:DescribePackageVersion",
+      "codeartifact:GetPackageVersionReadme",
+      "codeartifact:ListPackageVersionDependencies",
+      "codeartifact:ListPackageVersionAssets",
+      "codeartifact:GetPackageVersionAsset",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "FIS"
+    actions = ["fis:ListActions",
+        "fis:GetAction",
+        "fis:ListExperimentTemplates",
+        "fis:GetExperimentTemplate",
+        "fis:ListTargetAccountConfigurations",
+        "fis:ListExperiments",
+        "fis:GetExperiment",
+        "fis:ListExperimentResolvedTargets",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
