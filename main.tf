@@ -262,6 +262,14 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "APPSTREAM"
+    actions = ["appstream:Describe*",
+      "appstream:List*",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
