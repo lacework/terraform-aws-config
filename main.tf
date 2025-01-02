@@ -270,6 +270,15 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "PERSONALIZE"
+    actions = ["personalize:Describe*",
+      "personalize:List*",
+      "personalize:GetSolutionMetrics",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {

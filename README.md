@@ -192,3 +192,6 @@ The audit policy is comprised of the following permissions:
 |                            | aps:DescribeRuleGroupsNamespace                         |           |
 | APPSTREAM                  | appstream:Describe*                                     |           |
 |                            | appstream:List*                                         |           |
+| PERSONALIZE                | personalize:Describe*                                   |           |
+|                            | personalize:List*                                       |           |
+|                            | personalize:GetSolutionMetrics                          |           |
