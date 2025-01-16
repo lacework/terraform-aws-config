@@ -50,13 +50,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid = "EFS"
-    actions = ["elasticfilesystem:DescribeFileSystemPolicy",
-      "elasticfilesystem:DescribeLifecycleConfiguration",
-      "elasticfilesystem:DescribeAccessPoints",
-      "elasticfilesystem:DescribeAccountPreferences",
-      "elasticfilesystem:DescribeBackupPolicy",
-      "elasticfilesystem:ListTagsForResource",
-    "elasticfilesystem:DescribeReplicationConfigurations"]
+    actions = ["elasticfilesystem:ListTagsForResource"]
     resources = ["*"]
   }
 
@@ -78,12 +72,8 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "IDENTITYSTORE"
     actions = ["identitystore:DescribeGroup",
-      "identitystore:DescribeGroupMembership",
-      "identitystore:DescribeUser",
-      "identitystore:ListGroupMemberships",
-      "identitystore:ListGroupMembershipsForMember",
-      "identitystore:ListGroups",
-    "identitystore:ListUsers"]
+    "identitystore:DescribeGroupMembership",
+    "identitystore:DescribeUser"]
     resources = ["*"]
   }
 
@@ -129,8 +119,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "GLUE"
     actions = ["glue:ListWorkflows",
       "glue:BatchGetWorkflows",
-      "glue:GetWorkflow",
-      "glue:GetTags"]
+      "glue:GetWorkflow"]
     resources = ["*"]
   }
 
