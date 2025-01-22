@@ -76,6 +76,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 ## Lacework Audit Policy
 
 The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
+As of 1/22/2025, we have exceeded the limit of 6144 characters for a single policy, thus every service starting with codeartifact are in a new policy.
 The audit policy is comprised of the following permissions:
 
 | sid                        | actions                                                 | resources |
