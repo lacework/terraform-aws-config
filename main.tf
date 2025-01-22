@@ -5,7 +5,7 @@ locals {
   lacework_audit_policy_name = (
     length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
-  lacework_audit_policy_name_b = "${lacework_audit_policy_name}-b"
+  lacework_audit_policy_name_b = "${local.lacework_audit_policy_name}-b"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
