@@ -322,7 +322,6 @@ resource "aws_iam_policy" "lacework_audit_policy" {
   tags        = var.tags
 }
 
-
 resource "aws_iam_policy" "lacework_audit_policy_b" {
   count       = var.use_existing_iam_role_policy ? 0 : 1
   name        = local.lacework_audit_policy_name_b
