@@ -195,3 +195,23 @@ The audit policy is comprised of the following permissions:
 | PERSONALIZE                | personalize:Describe*                                   |           |
 |                            | personalize:List*                                       |           |
 |                            | personalize:GetSolutionMetrics                          |           |
+| CODEARTIFACT               | codeartifact:ListDomains                                | *         |
+|                            | codeartifact:DescribeDomain                             |           |
+|                            | codeartifact:DescribeRepository                         |           |
+|                            | codeartifact:ListPackages                               |           |
+|                            | codeartifact:GetRepositoryEndpoint                      |           |
+|                            | codeartifact:DescribePackage                            |           |
+|                            | codeartifact:ListPackageVersions                        |           |
+|                            | codeartifact:DescribePackageVersion                     |           |
+|                            | codeartifact:GetPackageVersionReadme                    |           |
+|                            | codeartifact:ListPackageVersionDependencies             |           |
+|                            | codeartifact:ListPackageVersionAssets                   |           |
+|                            | codeartifact:GetPackageVersionAsset                     |           |
+| FIS                        | fis:ListActions                                         | *         |
+|                            | fis:GetAction                                           |           |
+|                            | fis:ListExperimentTemplates                             |           |
+|                            | fis:GetExperimentTemplate                               |           |
+|                            | fis:ListTargetAccountConfigurations                     |           |
+|                            | fis:ListExperiments                                     |           |
+|                            | fis:GetExperiment                                       |           |
+|                            | fis:ListExperimentResolvedTargets                       |           |

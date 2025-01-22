@@ -5,6 +5,7 @@ locals {
   lacework_audit_policy_name = (
     length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
+  lacework_audit_policy_name_b = "${lacework_audit_policy_name}-b"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -167,6 +168,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "ses:ListRecommendations",
       "ses:ListSuppressedDestinations",
       "ses:GetSuppressedDestination",
+      "ses:ListTagsForResource",
     ]
     resources = ["*"]
   }
@@ -197,6 +199,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "backup:ListRecoveryPointsByResource",
       "backup:ListReportPlans",
       "backup:ListRestoreJobs",
+      "backup:ListTags",
     ]
     resources = ["*"]
   }
@@ -248,6 +251,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "aps:DescribeWorkspace",
       "aps:ListRuleGroupsNamespaces",
       "aps:DescribeRuleGroupsNamespace",
+      "aps:ListTagsForResource",
     ]
     resources = ["*"]
   }
@@ -270,11 +274,60 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   }
 }
 
+
+data "aws_iam_policy_document" "lacework_audit_policy_b" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
+
+  statement {
+    sid = "CODEARTIFACT"
+    actions = ["codeartifact:ListDomains",
+      "codeartifact:DescribeDomain",
+      "codeartifact:DescribeRepository",
+      "codeartifact:ListPackages",
+      "codeartifact:GetRepositoryEndpoint",
+      "codeartifact:DescribePackage",
+      "codeartifact:ListPackageVersions",
+      "codeartifact:DescribePackageVersion",
+      "codeartifact:GetPackageVersionReadme",
+      "codeartifact:ListPackageVersionDependencies",
+      "codeartifact:ListPackageVersionAssets",
+      "codeartifact:GetPackageVersionAsset",
+      "codeartifact:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "FIS"
+    actions = ["fis:ListActions",
+        "fis:GetAction",
+        "fis:ListExperimentTemplates",
+        "fis:GetExperimentTemplate",
+        "fis:ListTargetAccountConfigurations",
+        "fis:ListExperiments",
+        "fis:GetExperiment",
+        "fis:ListExperimentResolvedTargets",
+        "fis:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+}
+
 resource "aws_iam_policy" "lacework_audit_policy" {
   count       = var.use_existing_iam_role_policy ? 0 : 1
   name        = local.lacework_audit_policy_name
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit)"
   policy      = data.aws_iam_policy_document.lacework_audit_policy[0].json
+  tags        = var.tags
+}
+
+
+resource "aws_iam_policy" "lacework_audit_policy_b" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
+  name        = local.lacework_audit_policy_name_b
+  description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the second policy"
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_b[0].json
   tags        = var.tags
 }
 
@@ -285,6 +338,13 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   depends_on = [module.lacework_cfg_iam_role]
 }
 
+resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_b" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
+  role       = local.iam_role_name
+  policy_arn = aws_iam_policy.lacework_audit_policy_b[0].arn
+  depends_on = [module.lacework_cfg_iam_role]
+}
+
 # wait for X seconds for things to settle down in the AWS side
 # before trying to create the Lacework external integration
 resource "time_sleep" "wait_time" {
@@ -292,6 +352,7 @@ resource "time_sleep" "wait_time" {
   depends_on = [
     aws_iam_role_policy_attachment.security_audit_policy_attachment,
     aws_iam_role_policy_attachment.lacework_audit_policy_attachment,
+    aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b,
   ]
 }
 
