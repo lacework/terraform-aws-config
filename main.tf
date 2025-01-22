@@ -223,10 +223,11 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "compute-optimizer:GetEBSVolumeRecommendations",
       "compute-optimizer:GetEC2InstanceRecommendations",
       "compute-optimizer:GetEnrollmentStatus",
-      "compute-optimizer:GetEnrollmentStatusesForOrganization",
       "compute-optimizer:GetLambdaFunctionRecommendations",
       "compute-optimizer:GetRecommendationPreferences",
-      "compute-optimizer:GetRecommendationSummaries"
+      "compute-optimizer:GetRecommendationSummaries",
+      "compute-optimizer:GetEcsServiceRecommendations",
+      "compute-optimizer:GetLicenseRecommendations",
     ]
     resources = ["*"]
   }
@@ -237,6 +238,15 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "kinesisanalytics:ListApplicationVersions",
       "kinesisanalytics:DescribeApplicationVersion",
       "kinesisanalytics:DescribeApplication",
+    ]
+    resources = ["*"]
+  }
+
+    statement {
+    sid = "KINESISVIDEO"
+    actions = ["kinesisvideo:GetSignalingChannelEndpoint",
+      "kinesisvideo:GetDataEndpoint",
+      "kinesisvideo:DescribeImageGenerationConfiguration",
     ]
     resources = ["*"]
   }

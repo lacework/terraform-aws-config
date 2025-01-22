@@ -178,14 +178,18 @@ The audit policy is comprised of the following permissions:
 |                            | compute-optimizer:GetEBSVolumeRecommendations           |           |
 |                            | compute-optimizer:GetEC2InstanceRecommendations         |           |
 |                            | compute-optimizer:GetEnrollmentStatus                   |           |
-|                            | compute-optimizer:GetEnrollmentStatusesForOrganization  |           |
 |                            | compute-optimizer:GetLambdaFunctionRecommendations      |           |
 |                            | compute-optimizer:GetRecommendationPreferences          |           |
 |                            | compute-optimizer:GetRecommendationSummaries            |           |
+|                            | compute-optimizer:GetEcsServiceRecommendations          |           |
+|                            | compute-optimizer:GetLicenseRecommendations             |           |
 | KINESISANALYTICS           | kinesisanalytics:ListApplicationSnapshots               |           |
 |                            | kinesisanalytics:ListApplicationVersions                |           |
 |                            | kinesisanalytics:DescribeApplicationVersion             |           |
 |                            | kinesisanalytics:DescribeApplication                    |           |
+| KINESISVIDEO               | kinesisvideo:GetSignalingChannelEndpoint                | *         |
+|                            | kinesisvideo:GetDataEndpoint                            |           |
+|                            | kinesisvideo:DescribeImageGenerationConfiguration       |           |
 | AMP                        | aps:ListScrapers                                        | *         |
 |                            | aps:DescribeScraper                                     |           |
 |                            | aps:ListWorkspaces                                      |           |
