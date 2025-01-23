@@ -241,47 +241,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
-
-  statement {
-    sid = "KINESISVIDEO"
-    actions = ["kinesisvideo:GetSignalingChannelEndpoint",
-      "kinesisvideo:GetDataEndpoint",
-      "kinesisvideo:DescribeImageGenerationConfiguration",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "AMP"
-    actions = ["aps:ListScrapers",
-      "aps:DescribeScraper",
-      "aps:ListWorkspaces",
-      "aps:DescribeAlertManagerDefinition",
-      "aps:DescribeLoggingConfiguration",
-      "aps:DescribeWorkspace",
-      "aps:ListRuleGroupsNamespaces",
-      "aps:DescribeRuleGroupsNamespace",
-      "aps:ListTagsForResource",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "APPSTREAM"
-    actions = ["appstream:Describe*",
-      "appstream:List*",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "PERSONALIZE"
-    actions = ["personalize:Describe*",
-      "personalize:List*",
-      "personalize:GetSolutionMetrics",
-    ]
-    resources = ["*"]
-  }
 }
 
 # AWS iam allows only 6144 characters in a single policy
@@ -322,6 +281,47 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
         "fis:GetExperiment",
         "fis:ListExperimentResolvedTargets",
         "fis:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "KINESISVIDEO"
+    actions = ["kinesisvideo:GetSignalingChannelEndpoint",
+      "kinesisvideo:GetDataEndpoint",
+      "kinesisvideo:DescribeImageGenerationConfiguration",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "AMP"
+    actions = ["aps:ListScrapers",
+      "aps:DescribeScraper",
+      "aps:ListWorkspaces",
+      "aps:DescribeAlertManagerDefinition",
+      "aps:DescribeLoggingConfiguration",
+      "aps:DescribeWorkspace",
+      "aps:ListRuleGroupsNamespaces",
+      "aps:DescribeRuleGroupsNamespace",
+      "aps:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "APPSTREAM"
+    actions = ["appstream:Describe*",
+      "appstream:List*",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "PERSONALIZE"
+    actions = ["personalize:Describe*",
+      "personalize:List*",
+      "personalize:GetSolutionMetrics",
     ]
     resources = ["*"]
   }
