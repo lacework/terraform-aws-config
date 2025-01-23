@@ -5,7 +5,7 @@ locals {
   lacework_audit_policy_name = (
     length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
-  lacework_audit_policy_name_b = "${local.lacework_audit_policy_name}-b"
+  lacework_audit_policy_name_2025_1 = "${local.lacework_audit_policy_name}-2025-1"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -140,8 +140,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
-
-  statement {
+`  statement {
     sid = "STATES"
     actions = ["states:ListTagsForResource"]
     resources = ["*"]
@@ -286,8 +285,9 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
 # AWS iam allows only 6144 characters in a single policy
 # We've come to a point where there are too many actions in a single policy which is causing the policy to exceed the limit
-# So we needed a new policy to accommodate the overflow of actions, thus we added this new policy "lacework_audit_policy_b"
-data "aws_iam_policy_document" "lacework_audit_policy_b" {
+# So we needed a new policy to accommodate the overflow of actions, thus we added this new policy "lacework_audit_policy_2025_1"
+# Which representing the first new policy in 2025
+data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   count   = var.use_existing_iam_role_policy ? 0 : 1
   version = "2012-10-17"
 
@@ -334,11 +334,11 @@ resource "aws_iam_policy" "lacework_audit_policy" {
   tags        = var.tags
 }
 
-resource "aws_iam_policy" "lacework_audit_policy_b" {
+resource "aws_iam_policy" "lacework_audit_policy_2025_1" {
   count       = var.use_existing_iam_role_policy ? 0 : 1
-  name        = local.lacework_audit_policy_name_b
+  name        = local.lacework_audit_policy_name_2025_1
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the second policy"
-  policy      = data.aws_iam_policy_document.lacework_audit_policy_b[0].json
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_1[0].json
   tags        = var.tags
 }
 
@@ -352,7 +352,7 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_b" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
-  policy_arn = aws_iam_policy.lacework_audit_policy_b[0].arn
+  policy_arn = aws_iam_policy.lacework_audit_policy_2025_1[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
