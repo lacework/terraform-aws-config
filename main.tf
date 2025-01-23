@@ -140,7 +140,8 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
-`  statement {
+
+  statement {
     sid = "STATES"
     actions = ["states:ListTagsForResource"]
     resources = ["*"]
@@ -241,7 +242,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     resources = ["*"]
   }
 
-    statement {
+  statement {
     sid = "KINESISVIDEO"
     actions = ["kinesisvideo:GetSignalingChannelEndpoint",
       "kinesisvideo:GetDataEndpoint",
