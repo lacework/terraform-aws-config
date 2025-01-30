@@ -5,6 +5,7 @@ locals {
   lacework_audit_policy_name = (
     length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
+  lacework_audit_policy_name_2025_1 = "${local.lacework_audit_policy_name}-2025-1"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -167,6 +168,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "ses:ListRecommendations",
       "ses:ListSuppressedDestinations",
       "ses:GetSuppressedDestination",
+      "ses:ListTagsForResource",
     ]
     resources = ["*"]
   }
@@ -197,6 +199,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "backup:ListRecoveryPointsByResource",
       "backup:ListReportPlans",
       "backup:ListRestoreJobs",
+      "backup:ListTags",
     ]
     resources = ["*"]
   }
@@ -220,10 +223,11 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "compute-optimizer:GetEBSVolumeRecommendations",
       "compute-optimizer:GetEC2InstanceRecommendations",
       "compute-optimizer:GetEnrollmentStatus",
-      "compute-optimizer:GetEnrollmentStatusesForOrganization",
       "compute-optimizer:GetLambdaFunctionRecommendations",
       "compute-optimizer:GetRecommendationPreferences",
-      "compute-optimizer:GetRecommendationSummaries"
+      "compute-optimizer:GetRecommendationSummaries",
+      "compute-optimizer:GetEcsServiceRecommendations",
+      "compute-optimizer:GetLicenseRecommendations",
     ]
     resources = ["*"]
   }
@@ -234,6 +238,58 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "kinesisanalytics:ListApplicationVersions",
       "kinesisanalytics:DescribeApplicationVersion",
       "kinesisanalytics:DescribeApplication",
+    ]
+    resources = ["*"]
+  }
+}
+
+# AWS iam allows only 6144 characters in a single policy
+# We've come to a point where there are too many actions in a single policy which is causing the policy to exceed the limit
+# So we needed a new policy to accommodate the overflow of actions, thus we added this new policy "lacework_audit_policy_2025_1"
+# Which representing the first new policy in 2025
+data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
+
+  statement {
+    sid = "CODEARTIFACT"
+    actions = ["codeartifact:ListDomains",
+      "codeartifact:DescribeDomain",
+      "codeartifact:DescribeRepository",
+      "codeartifact:ListPackages",
+      "codeartifact:GetRepositoryEndpoint",
+      "codeartifact:DescribePackage",
+      "codeartifact:ListPackageVersions",
+      "codeartifact:DescribePackageVersion",
+      "codeartifact:GetPackageVersionReadme",
+      "codeartifact:ListPackageVersionDependencies",
+      "codeartifact:ListPackageVersionAssets",
+      "codeartifact:GetPackageVersionAsset",
+      "codeartifact:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "FIS"
+    actions = ["fis:ListActions",
+        "fis:GetAction",
+        "fis:ListExperimentTemplates",
+        "fis:GetExperimentTemplate",
+        "fis:ListTargetAccountConfigurations",
+        "fis:ListExperiments",
+        "fis:GetExperiment",
+        "fis:ListExperimentResolvedTargets",
+        "fis:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "KINESISVIDEO"
+    actions = ["kinesisvideo:GetSignalingChannelEndpoint",
+      "kinesisvideo:GetDataEndpoint",
+      "kinesisvideo:DescribeImageGenerationConfiguration",
     ]
     resources = ["*"]
   }
@@ -248,6 +304,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "aps:DescribeWorkspace",
       "aps:ListRuleGroupsNamespaces",
       "aps:DescribeRuleGroupsNamespace",
+      "aps:ListTagsForResource",
     ]
     resources = ["*"]
   }
@@ -278,10 +335,25 @@ resource "aws_iam_policy" "lacework_audit_policy" {
   tags        = var.tags
 }
 
+resource "aws_iam_policy" "lacework_audit_policy_2025_1" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
+  name        = local.lacework_audit_policy_name_2025_1
+  description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the second policy"
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_1[0].json
+  tags        = var.tags
+}
+
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy[0].arn
+  depends_on = [module.lacework_cfg_iam_role]
+}
+
+resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_b" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
+  role       = local.iam_role_name
+  policy_arn = aws_iam_policy.lacework_audit_policy_2025_1[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
@@ -292,6 +364,7 @@ resource "time_sleep" "wait_time" {
   depends_on = [
     aws_iam_role_policy_attachment.security_audit_policy_attachment,
     aws_iam_role_policy_attachment.lacework_audit_policy_attachment,
+    aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b,
   ]
 }
 

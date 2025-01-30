@@ -38,12 +38,15 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | Name | Type |
 |------|------|
 | [aws_iam_policy.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.security_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [lacework_integration_aws_cfg.default](https://registry.terraform.io/providers/lacework/lacework/latest/docs/resources/integration_aws_cfg) | resource |
 | [random_id.uniq](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [time_sleep.wait_time](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [aws_iam_policy_document.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [lacework_metric_module.lwmetrics](https://registry.terraform.io/providers/lacework/lacework/latest/docs/data-sources/metric_module) | data source |
 
 ## Inputs
@@ -76,6 +79,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 ## Lacework Audit Policy
 
 The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
+As of 1/22/2025, we have exceeded the limit of 6144 characters for a single policy, thus every service starting with KINESISVIDEO are in a new policy: lwaudit-policy-${random_id.uniq.hex}-2025-1
 The audit policy is comprised of the following permissions:
 
 | sid                        | actions                                                 | resources |
@@ -174,14 +178,18 @@ The audit policy is comprised of the following permissions:
 |                            | compute-optimizer:GetEBSVolumeRecommendations           |           |
 |                            | compute-optimizer:GetEC2InstanceRecommendations         |           |
 |                            | compute-optimizer:GetEnrollmentStatus                   |           |
-|                            | compute-optimizer:GetEnrollmentStatusesForOrganization  |           |
 |                            | compute-optimizer:GetLambdaFunctionRecommendations      |           |
 |                            | compute-optimizer:GetRecommendationPreferences          |           |
 |                            | compute-optimizer:GetRecommendationSummaries            |           |
+|                            | compute-optimizer:GetEcsServiceRecommendations          |           |
+|                            | compute-optimizer:GetLicenseRecommendations             |           |
 | KINESISANALYTICS           | kinesisanalytics:ListApplicationSnapshots               |           |
 |                            | kinesisanalytics:ListApplicationVersions                |           |
 |                            | kinesisanalytics:DescribeApplicationVersion             |           |
 |                            | kinesisanalytics:DescribeApplication                    |           |
+| KINESISVIDEO               | kinesisvideo:GetSignalingChannelEndpoint                | *         |
+|                            | kinesisvideo:GetDataEndpoint                            |           |
+|                            | kinesisvideo:DescribeImageGenerationConfiguration       |           |
 | AMP                        | aps:ListScrapers                                        | *         |
 |                            | aps:DescribeScraper                                     |           |
 |                            | aps:ListWorkspaces                                      |           |
@@ -195,3 +203,23 @@ The audit policy is comprised of the following permissions:
 | PERSONALIZE                | personalize:Describe*                                   |           |
 |                            | personalize:List*                                       |           |
 |                            | personalize:GetSolutionMetrics                          |           |
+| CODEARTIFACT               | codeartifact:ListDomains                                | *         |
+|                            | codeartifact:DescribeDomain                             |           |
+|                            | codeartifact:DescribeRepository                         |           |
+|                            | codeartifact:ListPackages                               |           |
+|                            | codeartifact:GetRepositoryEndpoint                      |           |
+|                            | codeartifact:DescribePackage                            |           |
+|                            | codeartifact:ListPackageVersions                        |           |
+|                            | codeartifact:DescribePackageVersion                     |           |
+|                            | codeartifact:GetPackageVersionReadme                    |           |
+|                            | codeartifact:ListPackageVersionDependencies             |           |
+|                            | codeartifact:ListPackageVersionAssets                   |           |
+|                            | codeartifact:GetPackageVersionAsset                     |           |
+| FIS                        | fis:ListActions                                         | *         |
+|                            | fis:GetAction                                           |           |
+|                            | fis:ListExperimentTemplates                             |           |
+|                            | fis:GetExperimentTemplate                               |           |
+|                            | fis:ListTargetAccountConfigurations                     |           |
+|                            | fis:ListExperiments                                     |           |
+|                            | fis:GetExperiment                                       |           |
+|                            | fis:ListExperimentResolvedTargets                       |           |
