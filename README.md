@@ -79,8 +79,8 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 ## Lacework Audit Policy
 Release for 0.19.0(Feb 2025):
 Terraform changes to add a second policy and its attachment under the same role.(This changes is to bypass the 6144 chars limit for one policy)
-Add permissions for kinesisvideo, amp, appstream, personalize, codeartifact, fis; Add missing permission for services ses, backup,
-Add permissions for future services to come: memoryDB, resource groups, qbusiness, servicecatalogappregistry, oam, clouddirectory, optimizationhub, budgets,billingconsole
+Add permissions for kinesisvideo, amp, appstream, personalize, codeartifact, fis; Add missing permission for services ses, backup
+Add permissions for future services to come: memoryDB, resource groups, qbusiness, qapps, qconnect, servicecatalogappregistry, oam, clouddirectory, optimizationhub, budgets,billingconsole
 
 The audit policy is comprised of the following permissions:
 
@@ -259,6 +259,40 @@ The audit policy is comprised of the following permissions:
 |                            | qbusiness:GetWebExperience                              |           |
 |                            | qbusiness:ListPluginTypeMetadata                        |           |
 |                            | qbusiness:ListPluginTypeActions                         |           |
+| QAPPS                      | qapps:DescribeQAppPermissions                           | *         |
+|                            | qapps:GetLibraryItem                                    |           |
+|                            | qapps:GetQApp                                           |           |
+|                            | qapps:GetQAppSession                                    |           |
+|                            | qapps:GetQAppSessionMetadata                            |           |
+|                            | qapps:ListCategories                                    |           |
+|                            | qapps:ListLibraryItems                                  |           |
+|                            | qapps:ListQAppSessionData                               |           |
+|                            | qapps:ListQApps                                         |           |
+|                            | qapps:ListTagsForResource                               |           |
+| QCONNECT                   | wisdom:GetAIAgent                                       | *         |
+|                            | wisdom:GetAIGuardrail                                   |           |
+|                            | wisdom:GetAIPrompt                                      |           |
+|                            | wisdom:GetContent                                       |           |
+|                            | wisdom:GetImportJob                                     |           |
+|                            | wisdom:GetKnowledgeBase                                 |           |
+|                            | wisdom:GetMessageTemplate                               |           |
+|                            | wisdom:GetQuickResponse                                 |           |
+|                            | wisdom:ListAIAgentVersions                              |           |
+|                            | wisdom:ListAIAgents                                     |           |
+|                            | wisdom:ListAIGuardrailVersions                          |           |
+|                            | wisdom:ListAIGuardrails                                 |           |
+|                            | wisdom:ListAIPromptVersions                             |           |
+|                            | wisdom:ListAIPrompts                                    |           |
+|                            | wisdom:ListAssistantAssociations                        |           |
+|                            | wisdom:ListAssistants                                   |           |
+|                            | wisdom:ListContentAssociations                          |           |
+|                            | wisdom:ListContents                                     |           |
+|                            | wisdom:ListImportJobs                                   |           |
+|                            | wisdom:ListKnowledgeBases                               |           |
+|                            | wisdom:ListMessageTemplateVersions                      |           |
+|                            | wisdom:ListMessageTemplates                             |           |
+|                            | wisdom:ListQuickResponses                               |           |
+|                            | wisdom:ListTagsForResource                              |           |
 | RESOURCEGROUPS             | resource-groups:ListGroups                              | *         |
 |                            | resource-groups:GetGroupQuery                           |           |
 |                            | resource-groups:GetGroupConfiguration                   |           |

@@ -369,6 +369,52 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   }
 
   statement {
+    sid = "QAPPS"
+    actions = ["qapps:DescribeQAppPermissions",
+      "qapps:GetLibraryItem",
+      "qapps:GetQApp",
+      "qapps:GetQAppSession",
+      "qapps:GetQAppSessionMetadata",
+      "qapps:ListCategories",
+      "qapps:ListLibraryItems",
+      "qapps:ListQAppSessionData",
+      "qapps:ListQApps",
+      "qapps:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "QCONNECT"
+    actions = ["wisdom:GetAIAgent",
+      "wisdom:GetAIGuardrail",
+      "wisdom:GetAIPrompt",
+      "wisdom:GetContent",
+      "wisdom:GetImportJob",
+      "wisdom:GetKnowledgeBase",
+      "wisdom:GetMessageTemplate",
+      "wisdom:GetQuickResponse",
+      "wisdom:ListAIAgentVersions",
+      "wisdom:ListAIAgents",
+      "wisdom:ListAIGuardrailVersions",
+      "wisdom:ListAIGuardrails",
+      "wisdom:ListAIPromptVersions",
+      "wisdom:ListAIPrompts",
+      "wisdom:ListAssistantAssociations",
+      "wisdom:ListAssistants",
+      "wisdom:ListContentAssociations",
+      "wisdom:ListContents",
+      "wisdom:ListImportJobs",
+      "wisdom:ListKnowledgeBases",
+      "wisdom:ListMessageTemplateVersions",
+      "wisdom:ListMessageTemplates",
+      "wisdom:ListQuickResponses",
+      "wisdom:ListTagsForResource"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
     sid = "RESOURCEGROUPS"
     actions = ["resource-groups:ListGroups",
       "resource-groups:GetGroupQuery",
