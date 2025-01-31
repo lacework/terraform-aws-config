@@ -144,6 +144,7 @@ The audit policy is comprised of the following permissions:
 |                            | ses:ListRecommendations                                 |           |
 |                            | ses:ListSuppressedDestinations                          |           |
 |                            | ses:GetSuppressedDestination                            |           |
+|                            | ses:ListTagsForResource                                 |           |
 | BACKUP                     | backup:ListBackupJobs                                   | *         |
 |                            | backup:DescribeBackupJob                                |           |
 |                            | backup:ListBackupPlanTemplates                          |           |
@@ -168,6 +169,7 @@ The audit policy is comprised of the following permissions:
 |                            | backup:ListRecoveryPointsByResource                     |           |
 |                            | backup:ListReportPlans                                  |           |
 |                            | backup:ListRestoreJobs                                  |           |
+|                            | backup:ListTags                                         |           |
 | COGNITO-IDP                | cognito-idp:GetSigningCertificate                       |           |
 |                            | cognito-idp:GetCSVHeader                                |           |
 |                            | cognito-idp:GetUserPoolMfaConfig                        |           |
@@ -198,6 +200,7 @@ The audit policy is comprised of the following permissions:
 |                            | aps:DescribeWorkspace                                   |           |
 |                            | aps:ListRuleGroupsNamespaces                            |           |
 |                            | aps:DescribeRuleGroupsNamespace                         |           |
+|                            | aps:ListTagsForResource                                 |           |
 | APPSTREAM                  | appstream:Describe*                                     |           |
 |                            | appstream:List*                                         |           |
 | PERSONALIZE                | personalize:Describe*                                   |           |
@@ -215,6 +218,7 @@ The audit policy is comprised of the following permissions:
 |                            | codeartifact:ListPackageVersionDependencies             |           |
 |                            | codeartifact:ListPackageVersionAssets                   |           |
 |                            | codeartifact:GetPackageVersionAsset                     |           |
+|                            | codeartifact:ListTagsForResource                        |           |
 | FIS                        | fis:ListActions                                         | *         |
 |                            | fis:GetAction                                           |           |
 |                            | fis:ListExperimentTemplates                             |           |
@@ -223,3 +227,95 @@ The audit policy is comprised of the following permissions:
 |                            | fis:ListExperiments                                     |           |
 |                            | fis:GetExperiment                                       |           |
 |                            | fis:ListExperimentResolvedTargets                       |           |
+| MEMORYDB                   | memorydb:DescribeMultiRegionClusters                    | *         |
+|                            | memorydb:DescribeSnapshots                              |           |
+|                            | memorydb:DescribeSubnetGroups                           |           |
+|                            | memorydb:DescribeParameterGroups                        |           |
+|                            | memorydb:DescribeParameters                             |           |
+|                            | memorydb:DescribeUsers                                  |           |
+|                            | memorydb:DescribeACLs                                   |           |
+|                            | memorydb:DescribeServiceUpdates                         |           |
+|                            | memorydb:DescribeEngineVersions                         |           |
+|                            | memorydb:DescribeReservedNodes                          |           |
+|                            | memorydb:DescribeReservedNodesOfferings                 |           |
+|                            | memorydb:ListTags                                       |           |
+|                            | memorydb:ListAllowedNodeTypeUpdates                     |           |
+|                            | memorydb:ListAllowedMultiRegionClusterUpdates           |           |
+| QBUSINESS                  | qbusiness:GetApplication                                | *         |
+|                            | qbusiness:GetChatControlsConfiguration                  |           |
+|                            | qbusiness:GetPolicy                                     |           |
+|                            | qbusiness:ListAttachments                               |           |
+|                            | qbusiness:ListConversations                             |           |
+|                            | qbusiness:ListMessages                                  |           |
+|                            | qbusiness:ListDataAccessors                             |           |
+|                            | qbusiness:GetDataAccessor                               |           |
+|                            | qbusiness:GetIndex                                      |           |
+|                            | qbusiness:GetDataSource                                 |           |
+|                            | qbusiness:GetPlugin                                     |           |
+|                            | qbusiness:ListPluginActions                             |           |
+|                            | qbusiness:GetRetriever                                  |           |
+|                            | qbusiness:GetWebExperience                              |           |
+|                            | qbusiness:ListPluginTypeMetadata                        |           |
+|                            | qbusiness:ListPluginTypeActions                         |           |
+| RESOURCEGROUPS             | resource-groups:ListGroups                              | *         |
+|                            | resource-groups:GetGroupQuery                           |           |
+|                            | resource-groups:GetGroupConfiguration                   |           |
+| SERVICECATALOGAPPREGISTRY  | servicecatalog:GetApplication                           | *         |
+|                            | servicecatalog:ListApplications                         |           |
+|                            | servicecatalog:GetAssociatedResource                    |           |
+|                            | servicecatalog:ListAssociatedResources                  |           |
+|                            | servicecatalog:ListAssociatedAttributeGroups            |           |
+|                            | servicecatalog:GetAttributeGroup                        |           |
+|                            | servicecatalog:ListAttributeGroups                      |           |
+|                            | servicecatalog:ListTagsForResource                      |           |
+|                            | servicecatalog:ListAttributeGroupsForApplication        |           |
+|                            | servicecatalog:GetConfiguration                         |           |
+| OAM                        | oam:GetLink                                             | *         |
+|                            | oam:GetSink                                             |           |
+|                            | oam:GetSinkPolicy                                       |           |
+|                            | oam:ListAttachedLinks                                   |           |
+|                            | oam:ListLinks                                           |           |
+|                            | oam:ListSinks                                           |           |
+| CLOUDDIRECTORY             | clouddirectory:GetAppliedSchemaVersion                  | *         |
+|                            | clouddirectory:GetDirectory                             |           |
+|                            | clouddirectory:GetFacet                                 |           |
+|                            | clouddirectory:GetLinkAttributes                        |           |
+|                            | clouddirectory:GetObjectAttributes                      |           |
+|                            | clouddirectory:GetObjectInformation                     |           |
+|                            | clouddirectory:GetSchemaAsJson                          |           |
+|                            | clouddirectory:GetTypedLinkFacetInformation             |           |
+|                            | clouddirectory:ListAppliedSchemaArns                    |           |
+|                            | clouddirectory:ListAttachedIndices                      |           |
+|                            | clouddirectory:ListDevelopmentSchemaArns                |           |
+|                            | clouddirectory:ListFacetAttributes                      |           |
+|                            | clouddirectory:ListFacetNames                           |           |
+|                            | clouddirectory:ListIncomingTypedLinks                   |           |
+|                            | clouddirectory:ListIndex                                |           |
+|                            | clouddirectory:ListManagedSchemaArns                    |           |
+|                            | clouddirectory:ListObjectAttributes                     |           |
+|                            | clouddirectory:ListObjectChildren                       |           |
+|                            | clouddirectory:ListObjectParentPaths                    |           |
+|                            | clouddirectory:ListObjectParents                        |           |
+|                            | clouddirectory:ListObjectPolicies                       |           |
+|                            | clouddirectory:ListOutgoingTypedLinks                   |           |
+|                            | clouddirectory:ListPolicyAttachments                    |           |
+|                            | clouddirectory:ListPublishedSchemaArns                  |           |
+|                            | clouddirectory:ListTagsForResource                      |           |
+|                            | clouddirectory:ListTypedLinkFacetAttributes             |           |
+|                            | clouddirectory:ListTypedLinkFacetNames                  |           |
+| COSTOPTIMIZATIONHUB        | cost-optimization-hub:GetPreferences                    | *         |
+|                            | cost-optimization-hub:GetRecommendation                 |           |
+|                            | cost-optimization-hub:ListEnrollmentStatuses            |           |
+|                            | cost-optimization-hub:ListRecommendationSummaries       |           |
+|                            | cost-optimization-hub:ListRecommendations               |           |
+| BUDGETS                    | budgets:DescribeBudgetAction                            | *         |
+|                            | budgets:DescribeBudgetActionHistories                   |           |
+|                            | budgets:DescribeBudgetActionsForAccount                 |           |
+|                            | budgets:DescribeBudgetActionsForBudget                  |           |
+|                            | budgets:ListTagsForResource                             |           |
+|                            | budgets:ViewBudget                                      |           |
+| BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                  | *         |
+|                            | aws-portal :ViewAccount                                 |           |
+|                            | aws-portal :ViewBilling                                 |           |
+|                            | aws-portal :ViewPaymentMethods                          |           |
+|                            | aws-portal :ViewUsage                                   |           |

@@ -252,40 +252,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   version = "2012-10-17"
 
   statement {
-    sid = "CODEARTIFACT"
-    actions = ["codeartifact:ListDomains",
-      "codeartifact:DescribeDomain",
-      "codeartifact:DescribeRepository",
-      "codeartifact:ListPackages",
-      "codeartifact:GetRepositoryEndpoint",
-      "codeartifact:DescribePackage",
-      "codeartifact:ListPackageVersions",
-      "codeartifact:DescribePackageVersion",
-      "codeartifact:GetPackageVersionReadme",
-      "codeartifact:ListPackageVersionDependencies",
-      "codeartifact:ListPackageVersionAssets",
-      "codeartifact:GetPackageVersionAsset",
-      "codeartifact:ListTagsForResource",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "FIS"
-    actions = ["fis:ListActions",
-        "fis:GetAction",
-        "fis:ListExperimentTemplates",
-        "fis:GetExperimentTemplate",
-        "fis:ListTargetAccountConfigurations",
-        "fis:ListExperiments",
-        "fis:GetExperiment",
-        "fis:ListExperimentResolvedTargets",
-        "fis:ListTagsForResource",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
     sid = "KINESISVIDEO"
     actions = ["kinesisvideo:GetSignalingChannelEndpoint",
       "kinesisvideo:GetDataEndpoint",
@@ -322,6 +288,186 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
     actions = ["personalize:Describe*",
       "personalize:List*",
       "personalize:GetSolutionMetrics",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "CODEARTIFACT"
+    actions = ["codeartifact:ListDomains",
+      "codeartifact:DescribeDomain",
+      "codeartifact:DescribeRepository",
+      "codeartifact:ListPackages",
+      "codeartifact:GetRepositoryEndpoint",
+      "codeartifact:DescribePackage",
+      "codeartifact:ListPackageVersions",
+      "codeartifact:DescribePackageVersion",
+      "codeartifact:GetPackageVersionReadme",
+      "codeartifact:ListPackageVersionDependencies",
+      "codeartifact:ListPackageVersionAssets",
+      "codeartifact:GetPackageVersionAsset",
+      "codeartifact:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "FIS"
+    actions = ["fis:ListActions",
+        "fis:GetAction",
+        "fis:ListExperimentTemplates",
+        "fis:GetExperimentTemplate",
+        "fis:ListTargetAccountConfigurations",
+        "fis:ListExperiments",
+        "fis:GetExperiment",
+        "fis:ListExperimentResolvedTargets",
+        "fis:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "MEMORYDB"
+    actions = ["memorydb:DescribeMultiRegionClusters",
+      "memorydb:DescribeSnapshots",
+      "memorydb:DescribeSubnetGroups",
+      "memorydb:DescribeParameterGroups",
+      "memorydb:DescribeParameters",
+      "memorydb:DescribeUsers",
+      "memorydb:DescribeACLs",
+      "memorydb:DescribeServiceUpdates",
+      "memorydb:DescribeEngineVersions",
+      "memorydb:DescribeReservedNodes",
+      "memorydb:DescribeReservedNodesOfferings",
+      "memorydb:ListTags",
+      "memorydb:ListAllowedNodeTypeUpdates",
+      "memorydb:ListAllowedMultiRegionClusterUpdates",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "QBUSINESS"
+    actions = ["qbusiness:GetApplication",
+      "qbusiness:GetChatControlsConfiguration",
+      "qbusiness:GetPolicy",
+      "qbusiness:ListAttachments",
+      "qbusiness:ListConversations",
+      "qbusiness:ListMessages",
+      "qbusiness:ListDataAccessors",
+      "qbusiness:GetDataAccessor",
+      "qbusiness:GetIndex",
+      "qbusiness:GetDataSource",
+      "qbusiness:GetPlugin",
+      "qbusiness:ListPluginActions",
+      "qbusiness:GetRetriever",
+      "qbusiness:GetWebExperience",
+      "qbusiness:ListPluginTypeMetadata",
+      "qbusiness:ListPluginTypeActions",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "RESOURCEGROUPS"
+    actions = ["resource-groups:ListGroups",
+      "resource-groups:GetGroupQuery",
+      "resource-groups:GetGroupConfiguration",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "SERVICECATALOGAPPREGISTRY"
+    actions = ["servicecatalog:GetApplication",
+      "servicecatalog:ListApplications",
+      "servicecatalog:GetAssociatedResource",
+      "servicecatalog:ListAssociatedResources",
+      "servicecatalog:ListAssociatedAttributeGroups",
+      "servicecatalog:GetAttributeGroup",
+      "servicecatalog:ListAttributeGroups",
+      "servicecatalog:ListTagsForResource",
+      "servicecatalog:ListAttributeGroupsForApplication",
+      "servicecatalog:GetConfiguration"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "OAM"
+    actions = ["oam:GetLink",
+      "oam:GetSink",
+      "oam:GetSinkPolicy",
+      "oam:ListAttachedLinks",
+      "oam:ListLinks",
+      "oam:ListSinks",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "CLOUDDIRECTORY"
+    actions = ["clouddirectory:GetAppliedSchemaVersion",
+      "clouddirectory:GetDirectory",
+      "clouddirectory:GetFacet",
+      "clouddirectory:GetLinkAttributes",
+      "clouddirectory:GetObjectAttributes",
+      "clouddirectory:GetObjectInformation",
+      "clouddirectory:GetSchemaAsJson",
+      "clouddirectory:GetTypedLinkFacetInformation",
+      "clouddirectory:ListAppliedSchemaArns",
+      "clouddirectory:ListAttachedIndices",
+      "clouddirectory:ListDevelopmentSchemaArns",
+      "clouddirectory:ListFacetAttributes",
+      "clouddirectory:ListFacetNames",
+      "clouddirectory:ListIncomingTypedLinks",
+      "clouddirectory:ListIndex",
+      "clouddirectory:ListManagedSchemaArns",
+      "clouddirectory:ListObjectAttributes",
+      "clouddirectory:ListObjectChildren",
+      "clouddirectory:ListObjectParentPaths",
+      "clouddirectory:ListObjectParents",
+      "clouddirectory:ListObjectPolicies",
+      "clouddirectory:ListOutgoingTypedLinks",
+      "clouddirectory:ListPolicyAttachments",
+      "clouddirectory:ListPublishedSchemaArns",
+      "clouddirectory:ListTagsForResource",
+      "clouddirectory:ListTypedLinkFacetAttributes",
+      "clouddirectory:ListTypedLinkFacetNames",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "COSTOPTIMIZATIONHUB"
+    actions = ["cost-optimization-hub:GetPreferences",
+      "cost-optimization-hub:GetRecommendation",
+      "cost-optimization-hub:ListEnrollmentStatuses",
+      "cost-optimization-hub:ListRecommendationSummaries",
+      "cost-optimization-hub:ListRecommendations",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "BUDGETS"
+    actions = ["budgets:DescribeBudgetAction",
+      "budgets:DescribeBudgetActionHistories",
+      "budgets:DescribeBudgetActionsForAccount",
+      "budgets:DescribeBudgetActionsForBudget",
+      "budgets:ListTagsForResource",
+      "budgets:ViewBudget",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "BILLINGCONSOLE"
+    actions = ["aws-portal:GetConsoleActionSetEnforced",
+      "aws-portal:ViewAccount",
+      "aws-portal:ViewBilling",
+      "aws-portal:ViewPaymentMethods",
+      "aws-portal:ViewUsage",
     ]
     resources = ["*"]
   }
