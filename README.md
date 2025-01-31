@@ -77,9 +77,11 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 <!-- END_TF_DOCS -->
 
 ## Lacework Audit Policy
+Release for 0.19.0(Feb 2025):
+Terraform changes to add a second policy and its attachment under the same role.(This changes is to bypass the 6144 chars limit for one policy)
+Add permissions for kinesisvideo, amp, appstream, personalize, codeartifact, fis; Add missing permission for services ses, backup,
+Add permissions for future services to come: memoryDB, resource groups, qbusiness, servicecatalogappregistry, oam, clouddirectory, optimizationhub, budgets,billingconsole
 
-The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
-As of 1/22/2025, we have exceeded the limit of 6144 characters for a single policy, thus every service starting with KINESISVIDEO are in a new policy: lwaudit-policy-${random_id.uniq.hex}-2025-1
 The audit policy is comprised of the following permissions:
 
 | sid                        | actions                                                 | resources |
