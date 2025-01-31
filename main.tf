@@ -241,15 +241,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
-}
-
-# AWS iam allows only 6144 characters in a single policy
-# We've come to a point where there are too many actions in a single policy which is causing the policy to exceed the limit
-# So we needed a new policy to accommodate the overflow of actions, thus we added this new policy "lacework_audit_policy_2025_1"
-# Which representing the first new policy in 2025
-data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
-  count   = var.use_existing_iam_role_policy ? 0 : 1
-  version = "2012-10-17"
 
   statement {
     sid = "KINESISVIDEO"
@@ -274,6 +265,15 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
     ]
     resources = ["*"]
   }
+}
+
+# AWS iam allows only 6144 characters in a single policy
+# We've come to a point where there are too many actions in a single policy which is causing the policy to exceed the limit
+# So we needed a new policy to accommodate the overflow of actions, thus we added this new policy "lacework_audit_policy_2025_1"
+# Which representing the first new policy in 2025
+data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
 
   statement {
     sid = "APPSTREAM"
