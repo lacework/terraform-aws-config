@@ -77,9 +77,11 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 <!-- END_TF_DOCS -->
 
 ## Lacework Audit Policy
+Release for 0.19.0(Feb 2025):
+Terraform changes to add a second policy and its attachment under the same role.(This changes is to bypass the 6144 chars limit for one policy)
+Add permissions for kinesisvideo, amp, appstream, personalize, codeartifact, fis; Add missing permission for services ses, backup
+Add permissions for future services to come: memoryDB, resource groups, qbusiness, qapps, qconnect, servicecatalogappregistry, oam, clouddirectory, optimizationhub, budgets,billingconsole
 
-The Lacework audit policy extends the SecurityAudit policy to facilitate the reading of additional configuration resources.
-As of 1/22/2025, we have exceeded the limit of 6144 characters for a single policy, thus every service starting with KINESISVIDEO are in a new policy: lwaudit-policy-${random_id.uniq.hex}-2025-1
 The audit policy is comprised of the following permissions:
 
 | sid                        | actions                                                 | resources |
@@ -144,6 +146,7 @@ The audit policy is comprised of the following permissions:
 |                            | ses:ListRecommendations                                 |           |
 |                            | ses:ListSuppressedDestinations                          |           |
 |                            | ses:GetSuppressedDestination                            |           |
+|                            | ses:ListTagsForResource                                 |           |
 | BACKUP                     | backup:ListBackupJobs                                   | *         |
 |                            | backup:DescribeBackupJob                                |           |
 |                            | backup:ListBackupPlanTemplates                          |           |
@@ -168,6 +171,7 @@ The audit policy is comprised of the following permissions:
 |                            | backup:ListRecoveryPointsByResource                     |           |
 |                            | backup:ListReportPlans                                  |           |
 |                            | backup:ListRestoreJobs                                  |           |
+|                            | backup:ListTags                                         |           |
 | COGNITO-IDP                | cognito-idp:GetSigningCertificate                       |           |
 |                            | cognito-idp:GetCSVHeader                                |           |
 |                            | cognito-idp:GetUserPoolMfaConfig                        |           |
@@ -198,6 +202,7 @@ The audit policy is comprised of the following permissions:
 |                            | aps:DescribeWorkspace                                   |           |
 |                            | aps:ListRuleGroupsNamespaces                            |           |
 |                            | aps:DescribeRuleGroupsNamespace                         |           |
+|                            | aps:ListTagsForResource                                 |           |
 | APPSTREAM                  | appstream:Describe*                                     |           |
 |                            | appstream:List*                                         |           |
 | PERSONALIZE                | personalize:Describe*                                   |           |
@@ -215,6 +220,7 @@ The audit policy is comprised of the following permissions:
 |                            | codeartifact:ListPackageVersionDependencies             |           |
 |                            | codeartifact:ListPackageVersionAssets                   |           |
 |                            | codeartifact:GetPackageVersionAsset                     |           |
+|                            | codeartifact:ListTagsForResource                        |           |
 | FIS                        | fis:ListActions                                         | *         |
 |                            | fis:GetAction                                           |           |
 |                            | fis:ListExperimentTemplates                             |           |
@@ -223,3 +229,129 @@ The audit policy is comprised of the following permissions:
 |                            | fis:ListExperiments                                     |           |
 |                            | fis:GetExperiment                                       |           |
 |                            | fis:ListExperimentResolvedTargets                       |           |
+| MEMORYDB                   | memorydb:DescribeMultiRegionClusters                    | *         |
+|                            | memorydb:DescribeSnapshots                              |           |
+|                            | memorydb:DescribeSubnetGroups                           |           |
+|                            | memorydb:DescribeParameterGroups                        |           |
+|                            | memorydb:DescribeParameters                             |           |
+|                            | memorydb:DescribeUsers                                  |           |
+|                            | memorydb:DescribeACLs                                   |           |
+|                            | memorydb:DescribeServiceUpdates                         |           |
+|                            | memorydb:DescribeEngineVersions                         |           |
+|                            | memorydb:DescribeReservedNodes                          |           |
+|                            | memorydb:DescribeReservedNodesOfferings                 |           |
+|                            | memorydb:ListTags                                       |           |
+|                            | memorydb:ListAllowedNodeTypeUpdates                     |           |
+|                            | memorydb:ListAllowedMultiRegionClusterUpdates           |           |
+| QBUSINESS                  | qbusiness:GetApplication                                | *         |
+|                            | qbusiness:GetChatControlsConfiguration                  |           |
+|                            | qbusiness:GetPolicy                                     |           |
+|                            | qbusiness:ListAttachments                               |           |
+|                            | qbusiness:ListConversations                             |           |
+|                            | qbusiness:ListMessages                                  |           |
+|                            | qbusiness:ListDataAccessors                             |           |
+|                            | qbusiness:GetDataAccessor                               |           |
+|                            | qbusiness:GetIndex                                      |           |
+|                            | qbusiness:GetDataSource                                 |           |
+|                            | qbusiness:GetPlugin                                     |           |
+|                            | qbusiness:ListPluginActions                             |           |
+|                            | qbusiness:GetRetriever                                  |           |
+|                            | qbusiness:GetWebExperience                              |           |
+|                            | qbusiness:ListPluginTypeMetadata                        |           |
+|                            | qbusiness:ListPluginTypeActions                         |           |
+| QAPPS                      | qapps:DescribeQAppPermissions                           | *         |
+|                            | qapps:GetLibraryItem                                    |           |
+|                            | qapps:GetQApp                                           |           |
+|                            | qapps:GetQAppSession                                    |           |
+|                            | qapps:GetQAppSessionMetadata                            |           |
+|                            | qapps:ListCategories                                    |           |
+|                            | qapps:ListLibraryItems                                  |           |
+|                            | qapps:ListQAppSessionData                               |           |
+|                            | qapps:ListQApps                                         |           |
+|                            | qapps:ListTagsForResource                               |           |
+| QCONNECT                   | wisdom:GetAIAgent                                       | *         |
+|                            | wisdom:GetAIGuardrail                                   |           |
+|                            | wisdom:GetAIPrompt                                      |           |
+|                            | wisdom:GetContent                                       |           |
+|                            | wisdom:GetImportJob                                     |           |
+|                            | wisdom:GetKnowledgeBase                                 |           |
+|                            | wisdom:GetMessageTemplate                               |           |
+|                            | wisdom:GetQuickResponse                                 |           |
+|                            | wisdom:ListAIAgentVersions                              |           |
+|                            | wisdom:ListAIAgents                                     |           |
+|                            | wisdom:ListAIGuardrailVersions                          |           |
+|                            | wisdom:ListAIGuardrails                                 |           |
+|                            | wisdom:ListAIPromptVersions                             |           |
+|                            | wisdom:ListAIPrompts                                    |           |
+|                            | wisdom:ListAssistantAssociations                        |           |
+|                            | wisdom:ListAssistants                                   |           |
+|                            | wisdom:ListContentAssociations                          |           |
+|                            | wisdom:ListContents                                     |           |
+|                            | wisdom:ListImportJobs                                   |           |
+|                            | wisdom:ListKnowledgeBases                               |           |
+|                            | wisdom:ListMessageTemplateVersions                      |           |
+|                            | wisdom:ListMessageTemplates                             |           |
+|                            | wisdom:ListQuickResponses                               |           |
+|                            | wisdom:ListTagsForResource                              |           |
+| RESOURCEGROUPS             | resource-groups:ListGroups                              | *         |
+|                            | resource-groups:GetGroupQuery                           |           |
+|                            | resource-groups:GetGroupConfiguration                   |           |
+| SERVICECATALOGAPPREGISTRY  | servicecatalog:GetApplication                           | *         |
+|                            | servicecatalog:ListApplications                         |           |
+|                            | servicecatalog:GetAssociatedResource                    |           |
+|                            | servicecatalog:ListAssociatedResources                  |           |
+|                            | servicecatalog:ListAssociatedAttributeGroups            |           |
+|                            | servicecatalog:GetAttributeGroup                        |           |
+|                            | servicecatalog:ListAttributeGroups                      |           |
+|                            | servicecatalog:ListTagsForResource                      |           |
+|                            | servicecatalog:ListAttributeGroupsForApplication        |           |
+|                            | servicecatalog:GetConfiguration                         |           |
+| OAM                        | oam:GetLink                                             | *         |
+|                            | oam:GetSink                                             |           |
+|                            | oam:GetSinkPolicy                                       |           |
+|                            | oam:ListAttachedLinks                                   |           |
+|                            | oam:ListLinks                                           |           |
+|                            | oam:ListSinks                                           |           |
+| CLOUDDIRECTORY             | clouddirectory:GetAppliedSchemaVersion                  | *         |
+|                            | clouddirectory:GetDirectory                             |           |
+|                            | clouddirectory:GetFacet                                 |           |
+|                            | clouddirectory:GetLinkAttributes                        |           |
+|                            | clouddirectory:GetObjectAttributes                      |           |
+|                            | clouddirectory:GetObjectInformation                     |           |
+|                            | clouddirectory:GetSchemaAsJson                          |           |
+|                            | clouddirectory:GetTypedLinkFacetInformation             |           |
+|                            | clouddirectory:ListAppliedSchemaArns                    |           |
+|                            | clouddirectory:ListAttachedIndices                      |           |
+|                            | clouddirectory:ListDevelopmentSchemaArns                |           |
+|                            | clouddirectory:ListFacetAttributes                      |           |
+|                            | clouddirectory:ListFacetNames                           |           |
+|                            | clouddirectory:ListIncomingTypedLinks                   |           |
+|                            | clouddirectory:ListIndex                                |           |
+|                            | clouddirectory:ListManagedSchemaArns                    |           |
+|                            | clouddirectory:ListObjectAttributes                     |           |
+|                            | clouddirectory:ListObjectChildren                       |           |
+|                            | clouddirectory:ListObjectParentPaths                    |           |
+|                            | clouddirectory:ListObjectParents                        |           |
+|                            | clouddirectory:ListObjectPolicies                       |           |
+|                            | clouddirectory:ListOutgoingTypedLinks                   |           |
+|                            | clouddirectory:ListPolicyAttachments                    |           |
+|                            | clouddirectory:ListPublishedSchemaArns                  |           |
+|                            | clouddirectory:ListTagsForResource                      |           |
+|                            | clouddirectory:ListTypedLinkFacetAttributes             |           |
+|                            | clouddirectory:ListTypedLinkFacetNames                  |           |
+| COSTOPTIMIZATIONHUB        | cost-optimization-hub:GetPreferences                    | *         |
+|                            | cost-optimization-hub:GetRecommendation                 |           |
+|                            | cost-optimization-hub:ListEnrollmentStatuses            |           |
+|                            | cost-optimization-hub:ListRecommendationSummaries       |           |
+|                            | cost-optimization-hub:ListRecommendations               |           |
+| BUDGETS                    | budgets:DescribeBudgetAction                            | *         |
+|                            | budgets:DescribeBudgetActionHistories                   |           |
+|                            | budgets:DescribeBudgetActionsForAccount                 |           |
+|                            | budgets:DescribeBudgetActionsForBudget                  |           |
+|                            | budgets:ListTagsForResource                             |           |
+|                            | budgets:ViewBudget                                      |           |
+| BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                  | *         |
+|                            | aws-portal :ViewAccount                                 |           |
+|                            | aws-portal :ViewBilling                                 |           |
+|                            | aws-portal :ViewPaymentMethods                          |           |
+|                            | aws-portal :ViewUsage                                   |           |

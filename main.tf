@@ -241,6 +241,30 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "KINESISVIDEO"
+    actions = ["kinesisvideo:GetSignalingChannelEndpoint",
+      "kinesisvideo:GetDataEndpoint",
+      "kinesisvideo:DescribeImageGenerationConfiguration",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "AMP"
+    actions = ["aps:ListScrapers",
+      "aps:DescribeScraper",
+      "aps:ListWorkspaces",
+      "aps:DescribeAlertManagerDefinition",
+      "aps:DescribeLoggingConfiguration",
+      "aps:DescribeWorkspace",
+      "aps:ListRuleGroupsNamespaces",
+      "aps:DescribeRuleGroupsNamespace",
+      "aps:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
 }
 
 # AWS iam allows only 6144 characters in a single policy
@@ -250,6 +274,23 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   count   = var.use_existing_iam_role_policy ? 0 : 1
   version = "2012-10-17"
+
+  statement {
+    sid = "APPSTREAM"
+    actions = ["appstream:Describe*",
+      "appstream:List*",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "PERSONALIZE"
+    actions = ["personalize:Describe*",
+      "personalize:List*",
+      "personalize:GetSolutionMetrics",
+    ]
+    resources = ["*"]
+  }
 
   statement {
     sid = "CODEARTIFACT"
@@ -286,42 +327,193 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   }
 
   statement {
-    sid = "KINESISVIDEO"
-    actions = ["kinesisvideo:GetSignalingChannelEndpoint",
-      "kinesisvideo:GetDataEndpoint",
-      "kinesisvideo:DescribeImageGenerationConfiguration",
+    sid = "MEMORYDB"
+    actions = ["memorydb:DescribeMultiRegionClusters",
+      "memorydb:DescribeSnapshots",
+      "memorydb:DescribeSubnetGroups",
+      "memorydb:DescribeParameterGroups",
+      "memorydb:DescribeParameters",
+      "memorydb:DescribeUsers",
+      "memorydb:DescribeACLs",
+      "memorydb:DescribeServiceUpdates",
+      "memorydb:DescribeEngineVersions",
+      "memorydb:DescribeReservedNodes",
+      "memorydb:DescribeReservedNodesOfferings",
+      "memorydb:ListTags",
+      "memorydb:ListAllowedNodeTypeUpdates",
+      "memorydb:ListAllowedMultiRegionClusterUpdates",
     ]
     resources = ["*"]
   }
 
   statement {
-    sid = "AMP"
-    actions = ["aps:ListScrapers",
-      "aps:DescribeScraper",
-      "aps:ListWorkspaces",
-      "aps:DescribeAlertManagerDefinition",
-      "aps:DescribeLoggingConfiguration",
-      "aps:DescribeWorkspace",
-      "aps:ListRuleGroupsNamespaces",
-      "aps:DescribeRuleGroupsNamespace",
-      "aps:ListTagsForResource",
+    sid = "QBUSINESS"
+    actions = ["qbusiness:GetApplication",
+      "qbusiness:GetChatControlsConfiguration",
+      "qbusiness:GetPolicy",
+      "qbusiness:ListAttachments",
+      "qbusiness:ListConversations",
+      "qbusiness:ListMessages",
+      "qbusiness:ListDataAccessors",
+      "qbusiness:GetDataAccessor",
+      "qbusiness:GetIndex",
+      "qbusiness:GetDataSource",
+      "qbusiness:GetPlugin",
+      "qbusiness:ListPluginActions",
+      "qbusiness:GetRetriever",
+      "qbusiness:GetWebExperience",
+      "qbusiness:ListPluginTypeMetadata",
+      "qbusiness:ListPluginTypeActions",
     ]
     resources = ["*"]
   }
 
   statement {
-    sid = "APPSTREAM"
-    actions = ["appstream:Describe*",
-      "appstream:List*",
+    sid = "QAPPS"
+    actions = ["qapps:DescribeQAppPermissions",
+      "qapps:GetLibraryItem",
+      "qapps:GetQApp",
+      "qapps:GetQAppSession",
+      "qapps:GetQAppSessionMetadata",
+      "qapps:ListCategories",
+      "qapps:ListLibraryItems",
+      "qapps:ListQAppSessionData",
+      "qapps:ListQApps",
+      "qapps:ListTagsForResource",
     ]
     resources = ["*"]
   }
 
   statement {
-    sid = "PERSONALIZE"
-    actions = ["personalize:Describe*",
-      "personalize:List*",
-      "personalize:GetSolutionMetrics",
+    sid = "QCONNECT"
+    actions = ["wisdom:GetAIAgent",
+      "wisdom:GetAIGuardrail",
+      "wisdom:GetAIPrompt",
+      "wisdom:GetContent",
+      "wisdom:GetImportJob",
+      "wisdom:GetKnowledgeBase",
+      "wisdom:GetMessageTemplate",
+      "wisdom:GetQuickResponse",
+      "wisdom:ListAIAgentVersions",
+      "wisdom:ListAIAgents",
+      "wisdom:ListAIGuardrailVersions",
+      "wisdom:ListAIGuardrails",
+      "wisdom:ListAIPromptVersions",
+      "wisdom:ListAIPrompts",
+      "wisdom:ListAssistantAssociations",
+      "wisdom:ListAssistants",
+      "wisdom:ListContentAssociations",
+      "wisdom:ListContents",
+      "wisdom:ListImportJobs",
+      "wisdom:ListKnowledgeBases",
+      "wisdom:ListMessageTemplateVersions",
+      "wisdom:ListMessageTemplates",
+      "wisdom:ListQuickResponses",
+      "wisdom:ListTagsForResource"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "RESOURCEGROUPS"
+    actions = ["resource-groups:ListGroups",
+      "resource-groups:GetGroupQuery",
+      "resource-groups:GetGroupConfiguration",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "SERVICECATALOGAPPREGISTRY"
+    actions = ["servicecatalog:GetApplication",
+      "servicecatalog:ListApplications",
+      "servicecatalog:GetAssociatedResource",
+      "servicecatalog:ListAssociatedResources",
+      "servicecatalog:ListAssociatedAttributeGroups",
+      "servicecatalog:GetAttributeGroup",
+      "servicecatalog:ListAttributeGroups",
+      "servicecatalog:ListTagsForResource",
+      "servicecatalog:ListAttributeGroupsForApplication",
+      "servicecatalog:GetConfiguration"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "OAM"
+    actions = ["oam:GetLink",
+      "oam:GetSink",
+      "oam:GetSinkPolicy",
+      "oam:ListAttachedLinks",
+      "oam:ListLinks",
+      "oam:ListSinks",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "CLOUDDIRECTORY"
+    actions = ["clouddirectory:GetAppliedSchemaVersion",
+      "clouddirectory:GetDirectory",
+      "clouddirectory:GetFacet",
+      "clouddirectory:GetLinkAttributes",
+      "clouddirectory:GetObjectAttributes",
+      "clouddirectory:GetObjectInformation",
+      "clouddirectory:GetSchemaAsJson",
+      "clouddirectory:GetTypedLinkFacetInformation",
+      "clouddirectory:ListAppliedSchemaArns",
+      "clouddirectory:ListAttachedIndices",
+      "clouddirectory:ListDevelopmentSchemaArns",
+      "clouddirectory:ListFacetAttributes",
+      "clouddirectory:ListFacetNames",
+      "clouddirectory:ListIncomingTypedLinks",
+      "clouddirectory:ListIndex",
+      "clouddirectory:ListManagedSchemaArns",
+      "clouddirectory:ListObjectAttributes",
+      "clouddirectory:ListObjectChildren",
+      "clouddirectory:ListObjectParentPaths",
+      "clouddirectory:ListObjectParents",
+      "clouddirectory:ListObjectPolicies",
+      "clouddirectory:ListOutgoingTypedLinks",
+      "clouddirectory:ListPolicyAttachments",
+      "clouddirectory:ListPublishedSchemaArns",
+      "clouddirectory:ListTagsForResource",
+      "clouddirectory:ListTypedLinkFacetAttributes",
+      "clouddirectory:ListTypedLinkFacetNames",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "COSTOPTIMIZATIONHUB"
+    actions = ["cost-optimization-hub:GetPreferences",
+      "cost-optimization-hub:GetRecommendation",
+      "cost-optimization-hub:ListEnrollmentStatuses",
+      "cost-optimization-hub:ListRecommendationSummaries",
+      "cost-optimization-hub:ListRecommendations",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "BUDGETS"
+    actions = ["budgets:DescribeBudgetAction",
+      "budgets:DescribeBudgetActionHistories",
+      "budgets:DescribeBudgetActionsForAccount",
+      "budgets:DescribeBudgetActionsForBudget",
+      "budgets:ListTagsForResource",
+      "budgets:ViewBudget",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "BILLINGCONSOLE"
+    actions = ["aws-portal:GetConsoleActionSetEnforced",
+      "aws-portal:ViewAccount",
+      "aws-portal:ViewBilling",
+      "aws-portal:ViewPaymentMethods",
+      "aws-portal:ViewUsage",
     ]
     resources = ["*"]
   }
