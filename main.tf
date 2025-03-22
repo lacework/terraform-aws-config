@@ -38,12 +38,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   version = "2012-10-17"
 
   statement {
-    sid       = "GetEbsEncryptionByDefault"
-    actions   = ["ec2:GetEbsEncryptionByDefault"]
-    resources = ["*"]
-  }
-
-  statement {
     sid       = "GetBucketPublicAccessBlock"
     actions   = ["s3:GetBucketPublicAccessBlock"]
     resources = ["*"]
@@ -199,7 +193,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "backup:ListRecoveryPointsByResource",
       "backup:ListReportPlans",
       "backup:ListRestoreJobs",
-      "backup:ListTags",
     ]
     resources = ["*"]
   }
