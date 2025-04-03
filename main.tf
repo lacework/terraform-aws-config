@@ -6,6 +6,7 @@ locals {
     length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
   lacework_audit_policy_name_2025_1 = "${local.lacework_audit_policy_name}-2025-1"
+  lacework_audit_policy_name_2025_2 = "${local.lacework_audit_policy_name}-2025-2"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -512,6 +513,126 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   }
 }
 
+
+# New permission incoming for 20.0.0 release:
+# https://lacework.atlassian.net/browse/RAIN-94565
+data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
+
+  statement {
+    sid = "FREETIER"
+    actions = ["freetier:GetFreeTierUsage"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "ACM-PCA"
+    actions = ["acm-pca:GetCertificateAuthorityCertificate",
+      "acm-pca:GetCertificateAuthorityCsr",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "APPCONFIG"
+    actions = ["appconfig:GetConfigurationProfile",
+      "appconfig:GetDeploymentStrategy",
+      "appconfig:GetExtension",
+      "appconfig:GetExtensionAssociation",
+      "appconfig:GetHostedConfigurationVersion",
+      "appconfig:ListApplications",
+      "appconfig:ListConfigurationProfiles",
+      "appconfig:ListDeployments",
+      "appconfig:ListDeploymentStrategies",
+      "appconfig:ListEnvironments",
+      "appconfig:ListExtensionAssociations",
+      "appconfig:ListExtensions",
+      "appconfig:ListHostedConfigurationVersions",
+      "appconfig:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "APPFLOW"
+    actions = ["appflow:DescribeConnector",
+      "appflow:DescribeConnectorEntity",
+      "appflow:DescribeConnectorFields",
+      "appflow:DescribeConnectorProfiles",
+      "appflow:DescribeConnectors",
+      "appflow:DescribeFlow",
+      "appflow:DescribeFlowExecution",
+      "appflow:DescribeFlowExecutionRecords",
+      "appflow:DescribeFlows",
+      "appflow:ListConnectorEntities",
+      "appflow:ListConnectorFields",
+      "appflow:ListConnectors",
+      "appflow:ListFlows",
+      "appflow:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "DYNAMODB"
+    actions = ["dynamodb:GetResourcePolicy",
+      "dynamodb:DescribeContributorInsights",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "EBS"
+    actions = ["ebs:GetSnapshotBlock",
+      "ebs:ListChangedBlocks",
+      "ebs:ListSnapshotBlocks",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "LAKEFORMATION"
+    actions = ["lakeformation:DescribeLakeFormationIdentityCenterConfiguration",
+      "lakeformation:GetDataLakePrincipal",
+      "lakeformation:GetDataLakeSettings",
+      "lakeformation:GetEffectivePermissionsForPath",
+      "lakeformation:GetTableObjects",
+      "lakeformation:ListDataCellsFilter",
+      "lakeformation:ListPermissions",
+      "lakeformation:ListResources",
+      "lakeformation:ListTableStorageOptimizers",
+      "lakeformation:ListTransactions",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "LAMBDA"
+    actions = ["lambda:GetFunction",
+      "lambda:GetFunctionCodeSigningConfig",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "SCHEDULER"
+    actions = ["scheduler:GetSchedule",
+      "scheduler:GetScheduleGroup",
+      "scheduler:ListScheduleGroups",
+      "scheduler:ListSchedules",
+      "scheduler:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "SCHEMAS"
+    actions = ["schemas:GetCodeBindingSource"]
+    resources = ["*"]
+  }
+}
+
 resource "aws_iam_policy" "lacework_audit_policy" {
   count       = var.use_existing_iam_role_policy ? 0 : 1
   name        = local.lacework_audit_policy_name
@@ -528,6 +649,14 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_1" {
   tags        = var.tags
 }
 
+resource "aws_iam_policy" "lacework_audit_policy_2025_2" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
+  name        = local.lacework_audit_policy_name_2025_2
+  description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the third policy"
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_2[0].json
+  tags        = var.tags
+}
+
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
@@ -539,6 +668,13 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_b" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy_2025_1[0].arn
+  depends_on = [module.lacework_cfg_iam_role]
+}
+
+resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_c" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
+  role       = local.iam_role_name
+  policy_arn = aws_iam_policy.lacework_audit_policy_2025_2[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 

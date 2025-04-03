@@ -351,7 +351,62 @@ The audit policy is comprised of the following permissions:
 |                            | budgets:ListTagsForResource                             |           |
 |                            | budgets:ViewBudget                                      |           |
 | BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                  | *         |
-|                            | aws-portal :ViewAccount                                 |           |
-|                            | aws-portal :ViewBilling                                 |           |
-|                            | aws-portal :ViewPaymentMethods                          |           |
-|                            | aws-portal :ViewUsage                                   |           |
+|                            | aws-portal:ViewAccount                                  |           |
+|                            | aws-portal:ViewBilling                                  |           |
+|                            | aws-portal:ViewPaymentMethods                           |           |
+|                            | aws-portal:ViewUsage                                    |           |
+| ACM-PCA                    | acm-pca:GetCertificateAuthorityCertificate              | *         |
+|                            | acm-pca:GetCertificateAuthorityCertificate              | *         |
+|                            | acm-pca:GetCertificateAuthorityCsr                      |           |
+| APPCONFIG                  | appconfig:GetConfigurationProfile                       | *         |
+|                            | appconfig:GetDeploymentStrategy                         |           |
+|                            | appconfig:GetExtension                                  |           |
+|                            | appconfig:GetExtensionAssociation                       |           |
+|                            | appconfig:GetHostedConfigurationVersion                 |           |
+|                            | appconfig:ListApplications                              |           |
+|                            | appconfig:ListConfigurationProfiles                     |           |
+|                            | appconfig:ListDeployments                               |           |
+|                            | appconfig:ListDeploymentStrategies                      |           |
+|                            | appconfig:ListEnvironments                              |           |
+|                            | appconfig:ListExtensionAssociations                     |           |
+|                            | appconfig:ListExtensions                                |           |
+|                            | appconfig:ListHostedConfigurationVersions               |           |
+|                            | appconfig:ListTagsForResource                           |           |
+| APPFLOW                    | appflow:DescribeConnector                               | *         |
+|                            | appflow:DescribeConnectorEntity                         |           |
+|                            | appflow:DescribeConnectorFields                         |           |
+|                            | appflow:DescribeConnectorProfiles                       |           |
+|                            | appflow:DescribeConnectors                              |           |
+|                            | appflow:DescribeFlow                                    |           |
+|                            | appflow:DescribeFlowExecution                           |           |
+|                            | appflow:DescribeFlowExecutionRecords                    |           |
+|                            | appflow:DescribeFlows                                   |           |
+|                            | appflow:ListConnectorEntities                           |           |
+|                            | appflow:ListConnectorFields                             |           |
+|                            | appflow:ListConnectors                                  |           |
+|                            | appflow:ListFlows                                       |           |
+|                            | appflow:ListTagsForResource                             |           |
+| DYNAMODB                   | dynamodb:DescribeContributorInsights                    | *         |
+|                            | dynamodb:GetResourcePolicy                              |           |
+| EBS                        | ebs:GetSnapshotBlock                                    | *         |
+|                            | ebs:ListChangedBlocks                                   |           |
+|                            | ebs:ListSnapshotBlocks                                  |           |
+| FREETIER                   | freetier:GetFreeTierUsage                               | *         |
+| LAKEFORMATION              | lakeformation:DescribeLakeFormationIdentityCenterConfiguration | *  |
+|                            | lakeformation:GetDataLakePrincipal                      |           |
+|                            | lakeformation:GetDataLakeSettings                       |           |
+|                            | lakeformation:GetEffectivePermissionsForPath            |           |
+|                            | lakeformation:GetTableObjects                           |           |
+|                            | lakeformation:ListDataCellsFilter                       |           |
+|                            | lakeformation:ListPermissions                           |           |
+|                            | lakeformation:ListResources                             |           |
+|                            | lakeformation:ListTableStorageOptimizers                |           |
+|                            | lakeformation:ListTransactions                          |           |
+| LAMBDA                     | lambda:GetFunction                                      | *         |
+|                            | lambda:GetFunctionCodeSigningConfig                     |           |
+| SCHEDULER                  | scheduler:GetSchedule                                   | *         |
+|                            | scheduler:GetScheduleGroup                              |           |
+|                            | scheduler:ListScheduleGroups                            |           |
+|                            | scheduler:ListSchedules                                 |           |
+|                            | scheduler:ListTagsForResource                           |           |
+| SCHEMAS                    | schemas:GetCodeBindingSource                            | *         |
