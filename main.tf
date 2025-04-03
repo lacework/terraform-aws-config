@@ -631,6 +631,33 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     actions = ["schemas:GetCodeBindingSource"]
     resources = ["*"]
   }
+
+    statement {
+    sid = "DATASYNC"
+    actions = ["datasync:DescribeTaskExecution",
+      "datasync:DescribeLocationEfs",
+      "datasync:ListAgents",
+      "datasync:ListLocations",
+      "datasync:ListTaskExecutions",
+      "datasync:ListStorageSystems",
+      "datasync:DescribeLocationSmb",
+      "datasync:DescribeAgent",
+      "datasync:DescribeLocationFsxWindows",
+      "datasync:DescribeTask",
+      "datasync:DescribeLocationS3",
+      "datasync:DescribeDiscoveryJob",
+      "datasync:DescribeLocationObjectStorage",
+      "datasync:DescribeStorageSystem",
+      "datasync:DescribeLocationAzureBlob",
+      "datasync:ListTagsForResource",
+      "datasync:ListTasks",
+      "datasync:DescribeLocationHdfs",
+      "datasync:DescribeLocationFsxLustre",
+      "datasync:ListDiscoveryJobs",
+      "datasync:DescribeLocationNfs"
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {

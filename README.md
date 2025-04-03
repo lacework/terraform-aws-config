@@ -413,3 +413,24 @@ The audit policy is comprised of the following permissions:
 |                            | scheduler:ListSchedules                                 |           |
 |                            | scheduler:ListTagsForResource                           |           |
 | SCHEMAS                    | schemas:GetCodeBindingSource                            | *         |
+| DATASYNC                   | datasync:DescribeTaskExecution                          | *         |
+|                            | datasync:DescribeLocationEfs                            |           |
+|                            | datasync:ListAgents                                     |           |
+|                            | datasync:ListLocations                                  |           |
+|                            | datasync:ListTaskExecutions                             |           |
+|                            | datasync:ListStorageSystems                             |           |
+|                            | datasync:DescribeLocationSmb                            |           |
+|                            | datasync:DescribeAgent                                  |           |
+|                            | datasync:DescribeLocationFsxWindows                     |           |
+|                            | datasync:DescribeTask                                   |           |
+|                            | datasync:DescribeLocationS3                             |           |
+|                            | datasync:DescribeDiscoveryJob                           |           |
+|                            | datasync:DescribeLocationObjectStorage                  |           |
+|                            | datasync:DescribeStorageSystem                          |           |
+|                            | datasync:DescribeLocationAzureBlob                      |           |
+|                            | datasync:ListTagsForResource                            |           |
+|                            | datasync:ListTasks                                      |           |
+|                            | datasync:DescribeLocationHdfs                           |           |
+|                            | datasync:DescribeLocationFsxLustre                      |           |
+|                            | datasync:ListDiscoveryJobs                              |           |
+|                            | datasync:DescribeLocationNfs                            |           |
