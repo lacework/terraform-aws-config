@@ -375,24 +375,16 @@ The audit policy is comprised of the following permissions:
 |                            | appconfig:ListExtensions                                |           |
 |                            | appconfig:ListHostedConfigurationVersions               |           |
 |                            | appconfig:ListTagsForResource                           |           |
-| APPFLOW                    | appflow:DescribeConnector                               | *         |
-|                            | appflow:DescribeConnectorEntity                         |           |
-|                            | appflow:DescribeConnectorFields                         |           |
+| APPFLOW                    | appflow:DescribeConnectorEntity                         | *         |
 |                            | appflow:DescribeConnectorProfiles                       |           |
 |                            | appflow:DescribeConnectors                              |           |
 |                            | appflow:DescribeFlow                                    |           |
-|                            | appflow:DescribeFlowExecution                           |           |
 |                            | appflow:DescribeFlowExecutionRecords                    |           |
-|                            | appflow:DescribeFlows                                   |           |
 |                            | appflow:ListConnectorEntities                           |           |
-|                            | appflow:ListConnectorFields                             |           |
 |                            | appflow:ListConnectors                                  |           |
-|                            | appflow:ListFlows                                       |           |
-|                            | appflow:ListTagsForResource                             |           |
 | DYNAMODB                   | dynamodb:DescribeContributorInsights                    | *         |
 |                            | dynamodb:GetResourcePolicy                              |           |
 | EBS                        | ebs:GetSnapshotBlock                                    | *         |
-|                            | ebs:ListChangedBlocks                                   |           |
 |                            | ebs:ListSnapshotBlocks                                  |           |
 | FREETIER                   | freetier:GetFreeTierUsage                               | *         |
 | LAKEFORMATION              | lakeformation:DescribeLakeFormationIdentityCenterConfiguration | *  |

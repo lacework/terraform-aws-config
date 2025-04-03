@@ -556,20 +556,13 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
 
   statement {
     sid = "APPFLOW"
-    actions = ["appflow:DescribeConnector",
-      "appflow:DescribeConnectorEntity",
-      "appflow:DescribeConnectorFields",
+    actions = ["appflow:DescribeConnectorEntity",
       "appflow:DescribeConnectorProfiles",
       "appflow:DescribeConnectors",
       "appflow:DescribeFlow",
-      "appflow:DescribeFlowExecution",
       "appflow:DescribeFlowExecutionRecords",
-      "appflow:DescribeFlows",
       "appflow:ListConnectorEntities",
-      "appflow:ListConnectorFields",
       "appflow:ListConnectors",
-      "appflow:ListFlows",
-      "appflow:ListTagsForResource",
     ]
     resources = ["*"]
   }
@@ -585,7 +578,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
   statement {
     sid = "EBS"
     actions = ["ebs:GetSnapshotBlock",
-      "ebs:ListChangedBlocks",
       "ebs:ListSnapshotBlocks",
     ]
     resources = ["*"]
