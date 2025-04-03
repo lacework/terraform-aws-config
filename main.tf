@@ -632,7 +632,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     resources = ["*"]
   }
 
-    statement {
+  statement {
     sid = "DATASYNC"
     actions = ["datasync:DescribeTaskExecution",
       "datasync:DescribeLocationEfs",
