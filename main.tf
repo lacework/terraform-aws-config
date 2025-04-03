@@ -527,7 +527,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
   }
 
   statement {
-    sid = "ACM-PCA"
+    sid = "ACMPCA"
     actions = ["acm-pca:GetCertificateAuthorityCertificate",
       "acm-pca:GetCertificateAuthorityCsr",
     ]
