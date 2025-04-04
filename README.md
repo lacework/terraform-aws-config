@@ -39,14 +39,17 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 |------|------|
 | [aws_iam_policy.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.lacework_audit_policy_2025_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_c](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.security_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [lacework_integration_aws_cfg.default](https://registry.terraform.io/providers/lacework/lacework/latest/docs/resources/integration_aws_cfg) | resource |
 | [random_id.uniq](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [time_sleep.wait_time](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [aws_iam_policy_document.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lacework_audit_policy_2025_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [lacework_metric_module.lwmetrics](https://registry.terraform.io/providers/lacework/lacework/latest/docs/data-sources/metric_module) | data source |
 
 ## Inputs
@@ -351,7 +354,75 @@ The audit policy is comprised of the following permissions:
 |                            | budgets:ListTagsForResource                             |           |
 |                            | budgets:ViewBudget                                      |           |
 | BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                  | *         |
-|                            | aws-portal :ViewAccount                                 |           |
-|                            | aws-portal :ViewBilling                                 |           |
-|                            | aws-portal :ViewPaymentMethods                          |           |
-|                            | aws-portal :ViewUsage                                   |           |
+|                            | aws-portal:ViewAccount                                  |           |
+|                            | aws-portal:ViewBilling                                  |           |
+|                            | aws-portal:ViewPaymentMethods                           |           |
+|                            | aws-portal:ViewUsage                                    |           |
+| ACM-PCA                    | acm-pca:GetCertificateAuthorityCertificate              | *         |
+|                            | acm-pca:GetCertificateAuthorityCertificate              | *         |
+|                            | acm-pca:GetCertificateAuthorityCsr                      |           |
+| APPCONFIG                  | appconfig:GetConfigurationProfile                       | *         |
+|                            | appconfig:GetDeploymentStrategy                         |           |
+|                            | appconfig:GetExtension                                  |           |
+|                            | appconfig:GetExtensionAssociation                       |           |
+|                            | appconfig:GetHostedConfigurationVersion                 |           |
+|                            | appconfig:ListApplications                              |           |
+|                            | appconfig:ListConfigurationProfiles                     |           |
+|                            | appconfig:ListDeployments                               |           |
+|                            | appconfig:ListDeploymentStrategies                      |           |
+|                            | appconfig:ListEnvironments                              |           |
+|                            | appconfig:ListExtensionAssociations                     |           |
+|                            | appconfig:ListExtensions                                |           |
+|                            | appconfig:ListHostedConfigurationVersions               |           |
+|                            | appconfig:ListTagsForResource                           |           |
+| APPFLOW                    | appflow:DescribeConnectorEntity                         | *         |
+|                            | appflow:DescribeConnectorProfiles                       |           |
+|                            | appflow:DescribeConnectors                              |           |
+|                            | appflow:DescribeFlow                                    |           |
+|                            | appflow:DescribeFlowExecutionRecords                    |           |
+|                            | appflow:ListConnectorEntities                           |           |
+|                            | appflow:ListConnectors                                  |           |
+| DYNAMODB                   | dynamodb:DescribeContributorInsights                    | *         |
+|                            | dynamodb:GetResourcePolicy                              |           |
+| EBS                        | ebs:GetSnapshotBlock                                    | *         |
+|                            | ebs:ListSnapshotBlocks                                  |           |
+| FREETIER                   | freetier:GetFreeTierUsage                               | *         |
+| LAKEFORMATION              | lakeformation:DescribeLakeFormationIdentityCenterConfiguration | *  |
+|                            | lakeformation:GetDataLakePrincipal                      |           |
+|                            | lakeformation:GetDataLakeSettings                       |           |
+|                            | lakeformation:GetEffectivePermissionsForPath            |           |
+|                            | lakeformation:GetTableObjects                           |           |
+|                            | lakeformation:ListDataCellsFilter                       |           |
+|                            | lakeformation:ListPermissions                           |           |
+|                            | lakeformation:ListResources                             |           |
+|                            | lakeformation:ListTableStorageOptimizers                |           |
+|                            | lakeformation:ListTransactions                          |           |
+| LAMBDA                     | lambda:GetFunction                                      | *         |
+|                            | lambda:GetFunctionCodeSigningConfig                     |           |
+| SCHEDULER                  | scheduler:GetSchedule                                   | *         |
+|                            | scheduler:GetScheduleGroup                              |           |
+|                            | scheduler:ListScheduleGroups                            |           |
+|                            | scheduler:ListSchedules                                 |           |
+|                            | scheduler:ListTagsForResource                           |           |
+| SCHEMAS                    | schemas:GetCodeBindingSource                            | *         |
+| DATASYNC                   | datasync:DescribeTaskExecution                          | *         |
+|                            | datasync:DescribeLocationEfs                            |           |
+|                            | datasync:ListAgents                                     |           |
+|                            | datasync:ListLocations                                  |           |
+|                            | datasync:ListTaskExecutions                             |           |
+|                            | datasync:ListStorageSystems                             |           |
+|                            | datasync:DescribeLocationSmb                            |           |
+|                            | datasync:DescribeAgent                                  |           |
+|                            | datasync:DescribeLocationFsxWindows                     |           |
+|                            | datasync:DescribeTask                                   |           |
+|                            | datasync:DescribeLocationS3                             |           |
+|                            | datasync:DescribeDiscoveryJob                           |           |
+|                            | datasync:DescribeLocationObjectStorage                  |           |
+|                            | datasync:DescribeStorageSystem                          |           |
+|                            | datasync:DescribeLocationAzureBlob                      |           |
+|                            | datasync:ListTagsForResource                            |           |
+|                            | datasync:ListTasks                                      |           |
+|                            | datasync:DescribeLocationHdfs                           |           |
+|                            | datasync:DescribeLocationFsxLustre                      |           |
+|                            | datasync:ListDiscoveryJobs                              |           |
+|                            | datasync:DescribeLocationNfs                            |           |
