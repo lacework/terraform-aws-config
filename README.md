@@ -22,10 +22,10 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.35.0 |
-| <a name="provider_lacework"></a> [lacework](#provider\_lacework) | ~> 2.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | >= 2.1 |
-| <a name="provider_time"></a> [time](#provider\_time) | ~> 0.7 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.94.0 |
+| <a name="provider_lacework"></a> [lacework](#provider\_lacework) | 2.0.6 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.7.1 |
+| <a name="provider_time"></a> [time](#provider\_time) | 0.13.0 |
 
 ## Modules
 
@@ -40,9 +40,11 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | [aws_iam_policy.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.lacework_audit_policy_2025_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.lacework_audit_policy_2025_3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_c](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_d](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.security_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [lacework_integration_aws_cfg.default](https://registry.terraform.io/providers/lacework/lacework/latest/docs/resources/integration_aws_cfg) | resource |
 | [random_id.uniq](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
@@ -50,6 +52,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | [aws_iam_policy_document.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lacework_audit_policy_2025_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lacework_audit_policy_2025_3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [lacework_metric_module.lwmetrics](https://registry.terraform.io/providers/lacework/lacework/latest/docs/data-sources/metric_module) | data source |
 
 ## Inputs
