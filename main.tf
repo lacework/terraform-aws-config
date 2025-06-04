@@ -650,6 +650,230 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "IOT"
+    actions = ["iot:GetCommand",
+      "iot:GetCommandExecution",
+      "iot:GetEffectivePolicies",
+      "iot:GetIndexingConfiguration",
+      "iot:GetJobDocument",
+      "iot:GetV2LoggingOptions",
+      "iot:GetOtaUpdate",
+      "iot:GetPackage",
+      "iot:GetPackageConfiguration",
+      "iot:GetPackageVersion",
+      "iot:GetRegistrationCode",
+      "iot:GetBehaviorModelTrainingSummaries",
+      "iot:GetThingConnectivityData",
+      "iot:GetTopicRule",
+      "iot:GetTopicRuleDestination",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "IOTEVENTS"
+    actions = ["iotevents:DescribeAlarmModel",
+      "iotevents:ListAlarmModels",
+      "iotevents:ListTagsForResource",
+      "iotevents:ListAlarmModelVersions",
+      "iotevents:DescribeDetectorModel",
+      "iotevents:ListDetectorModels",
+      "iotevents:ListDetectorModelVersions",
+      "iotevents:DescribeInput",
+      "iotevents:DescribeLoggingOptions",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "MEDIAPACKAGE"
+    actions = ["mediapackage:ListChannels",
+      "mediapackage:ListHarvestJobs",
+      "mediapackage:ListTagsForResource",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "MEDIAPACKAGEV2"
+    actions = ["mediapackagev2:GetChannel",
+      "mediapackagev2:GetChannelPolicy",
+      "mediapackagev2:ListChannels",
+      "mediapackagev2:ListTagsForResource",
+      "mediapackagev2:GetChannelGroup",
+      "mediapackagev2:ListChannelGroups",
+      "mediapackagev2:ListHarvestJobs",
+      "mediapackagev2:GetOriginEndpoint",
+      "mediapackagev2:GetOriginEndpointPolicy",
+      "mediapackagev2:ListOriginEndpoints",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "MEDIAPACKAGEVOD"
+    actions = ["mediapackage-vod:DescribeAsset",
+      "mediapackage-vod:ListAssets",
+      "mediapackage-vod:ListPackagingConfigurations",
+      "mediapackage-vod:ListPackagingGroups",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "SUPPORT"
+    actions = ["support:DescribeCases",
+      "support:DescribeCommunications",
+      "support:DescribeServices",
+      "support:DescribeSeverityLevels",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "IMAGEBUILDER"
+    actions = ["imagebuilder:GetComponentPolicy",
+      "imagebuilder:ListComponents",
+      "imagebuilder:ListTagsForResource",
+      "imagebuilder:GetComponent",
+      "imagebuilder:ListComponentBuildVersions",
+      "imagebuilder:GetContainerRecipe",
+      "imagebuilder:GetContainerRecipePolicy",
+      "imagebuilder:ListContainerRecipes",
+      "imagebuilder:GetDistributionConfiguration",
+      "imagebuilder:ListDistributionConfigurations",
+      "imagebuilder:GetImagePolicy",
+      "imagebuilder:ListImages",
+      "imagebuilder:GetImage",
+      "imagebuilder:ListImageBuildVersions",
+      "imagebuilder:ListImagePackages",
+      "imagebuilder:GetImagePipeline",
+      "imagebuilder:ListImagePipelines",
+      "imagebuilder:GetImageRecipe",
+      "imagebuilder:GetImageRecipePolicy",
+      "imagebuilder:ListImageRecipes",
+      "imagebuilder:ListImageScanFindings",
+      "imagebuilder:ListImageScanFindingAggregations",
+      "imagebuilder:GetInfrastructureConfiguration",
+      "imagebuilder:ListInfrastructureConfigurations",
+      "imagebuilder:ListLifecycleExecutions",
+      "imagebuilder:ListLifecycleExecutionResources",
+      "imagebuilder:GetLifecyclePolicy",
+      "imagebuilder:ListLifecyclePolicies",
+      "imagebuilder:ListWorkflows",
+      "imagebuilder:GetWorkflow",
+      "imagebuilder:ListWorkflowBuildVersions",
+      "imagebuilder:ListWorkflowExecutions",
+      "imagebuilder:GetWorkflowStepExecution",
+      "imagebuilder:ListWorkflowStepExecutions",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "DETECTIVE"
+    actions = ["detective:BatchGetMembershipDatasources",
+      "detective:ListDatasourcePackages",
+      "detective:ListTagsForResource",
+      "detective:GetInvestigation",
+      "detective:ListIndicators",
+      "detective:ListInvestigations",
+      "detective:ListInvitations",
+      "detective:BatchGetGraphMemberDatasources",
+      "detective:ListOrganizationAdminAccounts",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "BATCH"
+    actions = ["batch:DescribeJobs",
+      "batch:ListJobs",
+      "batch:ListTagsForResource",
+      "batch:DescribeJobQueues",
+      "batch:DescribeSchedulingPolicies",
+      "batch:ListSchedulingPolicies",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "NETWORKMANAGER"
+    actions = ["networkmanager:GetConnectAttachment",
+      "networkmanager:GetSiteToSiteVpnAttachment",
+      "networkmanager:GetTransitGatewayRouteTableAttachment",
+      "networkmanager:GetVpcAttachment",
+      "networkmanager:ListAttachments",
+      "networkmanager:GetConnectPeer",
+      "networkmanager:ListConnectPeers",
+      "networkmanager:GetCoreNetwork",
+      "networkmanager:GetCoreNetworkChangeEvents",
+      "networkmanager:GetCoreNetworkChangeSet",
+      "networkmanager:GetCoreNetworkPolicy",
+      "networkmanager:GetNetworkRoutes",
+      "networkmanager:ListCoreNetworkPolicyVersions",
+      "networkmanager:ListCoreNetworks",
+      "networkmanager:GetConnectPeerAssociations",
+      "networkmanager:GetConnections",
+      "networkmanager:GetCustomerGatewayAssociations",
+      "networkmanager:GetDevices",
+      "networkmanager:GetLinkAssociations",
+      "networkmanager:GetLinks",
+      "networkmanager:GetNetworkResourceCounts",
+      "networkmanager:GetNetworkResourceRelationships",
+      "networkmanager:GetNetworkResources",
+      "networkmanager:GetNetworkTelemetry",
+      "networkmanager:GetResourcePolicy",
+      "networkmanager:GetSites",
+      "networkmanager:GetTransitGatewayConnectPeerAssociations",
+      "networkmanager:GetTransitGatewayRegistrations",
+      "networkmanager:GetTransitGatewayPeering",
+      "networkmanager:ListPeerings",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "CODEPIPELINE"
+    actions = ["codepipeline:ListActionExecutions",
+      "codepipeline:GetActionType",
+      "codepipeline:ListActionTypes",
+      "codepipeline:ListTagsForResource",
+      "codepipeline:ListPipelineExecutions",
+      "codepipeline:ListRuleExecutions",
+      "codepipeline:ListRuleTypes",
+      "codepipeline:ListWebhooks",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "GREENGRASS"
+    actions = ["greengrass:GetBulkDeploymentStatus",
+      "greengrass:GetGroupCertificateAuthority",
+      "greengrass:GetConnectorDefinitionVersion",
+      "greengrass:GetCoreDefinitionVersion",
+      "greengrass:GetDeploymentStatus",
+      "greengrass:GetDeviceDefinitionVersion",
+      "greengrass:GetFunctionDefinitionVersion",
+      "greengrass:GetAssociatedRole",
+      "greengrass:GetGroupCertificateConfiguration",
+      "greengrass:GetGroupVersion",
+      "greengrass:GetLoggerDefinitionVersion",
+      "greengrass:GetResourceDefinitionVersion",
+      "greengrass:GetServiceRoleForAccount",
+      "greengrass:GetSubscriptionDefinitionVersion",
+      "greengrass:DescribeComponent",
+      "greengrass:GetComponent",
+      "greengrass:GetConnectivityInfo",
+      "greengrass:GetCoreDevice",
+      "greengrass:GetDeployment",
+      "greengrass:GetServiceRoleForAccount",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
