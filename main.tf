@@ -7,6 +7,7 @@ locals {
   )
   lacework_audit_policy_name_2025_1 = "${local.lacework_audit_policy_name}-2025-1"
   lacework_audit_policy_name_2025_2 = "${local.lacework_audit_policy_name}-2025-2"
+  lacework_audit_policy_name_2025_3 = "${local.lacework_audit_policy_name}-2025-3"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -650,6 +651,13 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     ]
     resources = ["*"]
   }
+}
+
+# New permission incoming for 21.0.0 release contain 13 new services:
+# https://lacework.atlassian.net/browse/RAIN-95014
+data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
 
   statement {
     sid = "IOT"
@@ -900,6 +908,14 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_2" {
   tags        = var.tags
 }
 
+resource "aws_iam_policy" "lacework_audit_policy_2025_3" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
+  name        = local.lacework_audit_policy_name_2025_3
+  description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the fourth policy"
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_3[0].json
+  tags        = var.tags
+}
+
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
@@ -921,6 +937,13 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_c" {
   depends_on = [module.lacework_cfg_iam_role]
 }
 
+resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_d" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
+  role       = local.iam_role_name
+  policy_arn = aws_iam_policy.lacework_audit_policy_2025_3[0].arn
+  depends_on = [module.lacework_cfg_iam_role]
+}
+
 # wait for X seconds for things to settle down in the AWS side
 # before trying to create the Lacework external integration
 resource "time_sleep" "wait_time" {
@@ -929,6 +952,8 @@ resource "time_sleep" "wait_time" {
     aws_iam_role_policy_attachment.security_audit_policy_attachment,
     aws_iam_role_policy_attachment.lacework_audit_policy_attachment,
     aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b,
+    aws_iam_role_policy_attachment.lacework_audit_policy_attachment_c,
+    aws_iam_role_policy_attachment.lacework_audit_policy_attachment_d,
   ]
 }
 
