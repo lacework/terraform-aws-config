@@ -22,10 +22,10 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.94.0 |
-| <a name="provider_lacework"></a> [lacework](#provider\_lacework) | 2.0.6 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.7.1 |
-| <a name="provider_time"></a> [time](#provider\_time) | 0.13.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.35.0 |
+| <a name="provider_lacework"></a> [lacework](#provider\_lacework) | ~> 2.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 2.1 |
+| <a name="provider_time"></a> [time](#provider\_time) | ~> 0.7 |
 
 ## Modules
 
