@@ -40,9 +40,11 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | [aws_iam_policy.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.lacework_audit_policy_2025_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.lacework_audit_policy_2025_3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_c](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.lacework_audit_policy_attachment_d](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.security_audit_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [lacework_integration_aws_cfg.default](https://registry.terraform.io/providers/lacework/lacework/latest/docs/resources/integration_aws_cfg) | resource |
 | [random_id.uniq](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
@@ -50,6 +52,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | [aws_iam_policy_document.lacework_audit_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lacework_audit_policy_2025_1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lacework_audit_policy_2025_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lacework_audit_policy_2025_3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [lacework_metric_module.lwmetrics](https://registry.terraform.io/providers/lacework/lacework/latest/docs/data-sources/metric_module) | data source |
 
 ## Inputs
@@ -426,3 +429,155 @@ The audit policy is comprised of the following permissions:
 |                            | datasync:DescribeLocationFsxLustre                      |           |
 |                            | datasync:ListDiscoveryJobs                              |           |
 |                            | datasync:DescribeLocationNfs                            |           |
+| IOT                        | iot:GetCommand                                          | *         |
+|                            | iot:GetCommandExecution                                 |           |
+|                            | iot:GetEffectivePolicies                                |           |
+|                            | iot:GetIndexingConfiguration                            |           |
+|                            | iot:GetJobDocument                                      |           |
+|                            | iot:GetV2LoggingOptions                                 |           |
+|                            | iot:GetOtaUpdate                                        |           |
+|                            | iot:GetPackage                                          |           |
+|                            | iot:GetPackageConfiguration                             |           |
+|                            | iot:GetPackageVersion                                   |           |
+|                            | iot:GetRegistrationCode                                 |           |
+|                            | iot:GetBehaviorModelTrainingSummaries                   |           |
+|                            | iot:GetThingConnectivityData                            |           |
+|                            | iot:GetTopicRule                                        |           |
+|                            | iot:GetTopicRuleDestination                             |           |
+|                            | iotevents:DescribeAlarmModel                            |           |
+| IOTEVENTS                  | iotevents:ListAlarmModels                               | *         |
+|                            | iotevents:ListTagsForResource                           |           |
+|                            | iotevents:ListAlarmModelVersions                        |           |
+|                            | iotevents:DescribeDetectorModel                         |           |
+|                            | iotevents:ListDetectorModels                            |           |
+|                            | iotevents:ListDetectorModelVersions                     |           |
+|                            | iotevents:DescribeInput                                 |           |
+|                            | iotevents:DescribeLoggingOptions                        |           |
+| MEDIAPACKAGE               | mediapackage:ListChannels                               | *         |
+|                            | mediapackage:ListHarvestJobs                            |           |
+|                            | mediapackage:ListTagsForResource                        |           |
+| MEDIAPACKAGEV2             | mediapackagev2:GetChannel                               | *         |
+|                            | mediapackagev2:GetChannelPolicy                         |           |
+|                            | mediapackagev2:ListChannels                             |           |
+|                            | mediapackagev2:ListTagsForResource                      |           |
+|                            | mediapackagev2:GetChannelGroup                          |           |
+|                            | mediapackagev2:ListChannelGroups                        |           |
+|                            | mediapackagev2:ListHarvestJobs                          |           |
+|                            | mediapackagev2:GetOriginEndpoint                        |           |
+|                            | mediapackagev2:GetOriginEndpointPolicy                  |           |
+|                            | mediapackagev2:ListOriginEndpoints                      |           |
+| MEDIAPACKAGE-VOD           | mediapackage-vod:DescribeAsset                          | *         |
+|                            | mediapackage-vod:ListAssets                             |           |
+|                            | mediapackage-vod:ListPackagingConfigurations            |           |
+|                            | mediapackage-vod:ListPackagingGroups                    |           |
+| SUPPORT                    | support:DescribeCases                                   | *         |
+|                            | support:DescribeCommunications                          |           |
+|                            | support:DescribeServices                                |           |
+|                            | support:DescribeSeverityLevels                          |           |
+| IMAGEBUILDER               | imagebuilder:GetComponentPolicy                         | *         |
+|                            | imagebuilder:ListComponents                             |           |
+|                            | imagebuilder:ListTagsForResource                        |           |
+|                            | imagebuilder:GetComponent                               |           |
+|                            | imagebuilder:ListComponentBuildVersions                 |           |
+|                            | imagebuilder:GetContainerRecipe                         |           |
+|                            | imagebuilder:GetContainerRecipePolicy                   |           |
+|                            | imagebuilder:ListContainerRecipes                       |           |
+|                            | imagebuilder:GetDistributionConfiguration               |           |
+|                            | imagebuilder:ListDistributionConfigurations             |           |
+|                            | imagebuilder:GetImagePolicy                             |           |
+|                            | imagebuilder:ListImages                                 |           |
+|                            | imagebuilder:GetImage                                   |           |
+|                            | imagebuilder:ListImageBuildVersions                     |           |
+|                            | imagebuilder:ListImagePackages                          |           |
+|                            | imagebuilder:GetImagePipeline                           |           |
+|                            | imagebuilder:ListImagePipelines                         |           |
+|                            | imagebuilder:GetImageRecipe                             |           |
+|                            | imagebuilder:GetImageRecipePolicy                       |           |
+|                            | imagebuilder:ListImageRecipes                           |           |
+|                            | imagebuilder:ListImageScanFindings                      |           |
+|                            | imagebuilder:ListImageScanFindingAggregations           |           |
+|                            | imagebuilder:GetInfrastructureConfiguration             |           |
+|                            | imagebuilder:ListInfrastructureConfigurations           |           |
+|                            | imagebuilder:ListLifecycleExecutions                    |           |
+|                            | imagebuilder:ListLifecycleExecutionResources            |           |
+|                            | imagebuilder:GetLifecyclePolicy                         |           |
+|                            | imagebuilder:ListLifecyclePolicies                      |           |
+|                            | imagebuilder:ListWorkflows                              |           |
+|                            | imagebuilder:GetWorkflow                                |           |
+|                            | imagebuilder:ListWorkflowBuildVersions                  |           |
+|                            | imagebuilder:ListWorkflowExecutions                     |           |
+|                            | imagebuilder:GetWorkflowStepExecution                   |           |
+|                            | imagebuilder:ListWorkflowStepExecutions                 |           |
+| DETECTIVE                  | detective:BatchGetMembershipDatasources                 | *         |
+|                            | detective:ListDatasourcePackages                        |           |
+|                            | detective:ListTagsForResource                           |           |
+|                            | detective:GetInvestigation                              |           |
+|                            | detective:ListIndicators                                |           |
+|                            | detective:ListInvestigations                            |           |
+|                            | detective:ListInvitations                               |           |
+|                            | detective:BatchGetGraphMemberDatasources                |           |
+|                            | detective:ListOrganizationAdminAccounts                 |           |
+| BATCH                      | batch:DescribeJobs                                      | *         |
+|                            | batch:ListJobs                                          |           |
+|                            | batch:ListTagsForResource                               |           |
+|                            | batch:DescribeJobQueues                                 |           |
+|                            | batch:DescribeSchedulingPolicies                        |           |
+|                            | batch:ListSchedulingPolicies                            |           |
+| NETWORKMANAGER             | networkmanager:GetConnectAttachment                     | *         |
+|                            | networkmanager:GetSiteToSiteVpnAttachment               |           |
+|                            | networkmanager:GetTransitGatewayRouteTableAttachment    |           |
+|                            | networkmanager:GetVpcAttachment                         |           |
+|                            | networkmanager:ListAttachments                          |           |
+|                            | networkmanager:GetConnectPeer                           |           |
+|                            | networkmanager:ListConnectPeers                         |           |
+|                            | networkmanager:GetCoreNetwork                           |           |
+|                            | networkmanager:GetCoreNetworkChangeEvents               |           |
+|                            | networkmanager:GetCoreNetworkChangeSet                  |           |
+|                            | networkmanager:GetCoreNetworkPolicy                     |           |
+|                            | networkmanager:GetNetworkRoutes                         |           |
+|                            | networkmanager:ListCoreNetworkPolicyVersions            |           |
+|                            | networkmanager:ListCoreNetworks                         |           |
+|                            | networkmanager:GetConnectPeerAssociations               |           |
+|                            | networkmanager:GetConnections                           |           |
+|                            | networkmanager:GetCustomerGatewayAssociations           |           |
+|                            | networkmanager:GetDevices                               |           |
+|                            | networkmanager:GetLinkAssociations                      |           |
+|                            | networkmanager:GetLinks                                 |           |
+|                            | networkmanager:GetNetworkResourceCounts                 |           |
+|                            | networkmanager:GetNetworkResourceRelationships          |           |
+|                            | networkmanager:GetNetworkResources                      |           |
+|                            | networkmanager:GetNetworkTelemetry                      |           |
+|                            | networkmanager:GetResourcePolicy                        |           |
+|                            | networkmanager:GetSites                                 |           |
+|                            | networkmanager:GetTransitGatewayConnectPeerAssociations |           |
+|                            | networkmanager:GetTransitGatewayRegistrations           |           |
+|                            | networkmanager:GetTransitGatewayPeering                 |           |
+|                            | networkmanager:ListPeerings                             |           |
+| CODEPIPELINE               | codepipeline:ListActionExecutions                       | *         |
+|                            | codepipeline:GetActionType                              |           |
+|                            | codepipeline:ListActionTypes                            |           |
+|                            | codepipeline:ListTagsForResource                        |           |
+|                            | codepipeline:ListPipelineExecutions                     |           |
+|                            | codepipeline:ListRuleExecutions                         |           |
+|                            | codepipeline:ListRuleTypes                              |           |
+|                            | codepipeline:ListWebhooks                               |           |
+| GREENGRASS                 | greengrass:GetBulkDeploymentStatus                      | *         |
+|                            | greengrass:GetGroupCertificateAuthority                 |           |
+|                            | greengrass:GetConnectorDefinitionVersion                |           |
+|                            | greengrass:GetCoreDefinitionVersion                     |           |
+|                            | greengrass:GetDeploymentStatus                          |           |
+|                            | greengrass:GetDeviceDefinitionVersion                   |           |
+|                            | greengrass:GetFunctionDefinitionVersion                 |           |
+|                            | greengrass:GetAssociatedRole                            |           |
+|                            | greengrass:GetGroupCertificateConfiguration             |           |
+|                            | greengrass:GetGroupVersion                              |           |
+|                            | greengrass:GetLoggerDefinitionVersion                   |           |
+|                            | greengrass:GetResourceDefinitionVersion                 |           |
+|                            | greengrass:GetServiceRoleForAccount                     |           |
+|                            | greengrass:GetSubscriptionDefinitionVersion             |           |
+|                            | greengrass:DescribeComponent                            |           |
+| GREENGRASSV2               | greengrass:GetComponent                                 | *         |
+|                            | greengrass:GetConnectivityInfo                          |           |
+|                            | greengrass:GetCoreDevice                                |           |
+|                            | greengrass:GetDeployment                                |           |
+|                            | greengrass:GetServiceRoleForAccount                     |           |
