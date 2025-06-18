@@ -1,7 +1,7 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.20.0`.
+Another day, another release. These are the release notes for the version `v0.21.0`.
 
 ## Features
-* feat(RAIN-94565): Added 11 services for TF permissions 20.0.0 (#131) (LMAX-iwnf)([2207b0a](https://github.com/lacework/terraform-aws-config/commit/2207b0a556f296a84f2922a15a2794d82f30d9da))
+* feat(): Adding permission for 0.21 (#133) (LMAX-iwnf)([0e3e710](https://github.com/lacework/terraform-aws-config/commit/0e3e710b07eabe962204d209bbaaa0bc179eec8b))
 ## Other Changes
-* ci: version bump to v0.19.1-dev (Lacework)([2443622](https://github.com/lacework/terraform-aws-config/commit/2443622dc2e4d91d8fccce65616c50e4d77364aa))
+* ci: version bump to v0.20.1-dev (Lacework)([3080e86](https://github.com/lacework/terraform-aws-config/commit/3080e86e7bb03a332edd3782fd131572ead2c96b))
