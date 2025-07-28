@@ -585,3 +585,38 @@ The audit policy is comprised of the following permissions:
 |                            | greengrass:GetCoreDevice                                |           |
 |                            | greengrass:GetDeployment                                |           |
 |                            | greengrass:GetServiceRoleForAccount                     |           |
+| INSPECTOR2                 | inspector2:BatchGetCodeSnippet                          |           |
+|                            | inspector2:ListCisScanResultsAggregatedByChecks         |           |
+|                            | inspector2:ListCisScanResultsAggregatedByTargetResource |           |
+|                            | inspector2:ListCisScanConfigurations                    |           |
+|                            | inspector2:ListMembers                                  |           |
+|                            | inspector2:BatchGetFindingDetails                       |           |
+|                            | inspector2:GetCisScanReport                             |           |
+|                            | inspector2:GetCisScanResultDetails                      |           |
+|                            | inspector2:ListCisScans                                 |           |
+|                            | inspector2:GetEncryptionKey                             |           |
+| SSM                        | ssm:GetConnectionStatus                                 |           |
+| EKS                        | ssm:DescribeAddon                                       |           |
+| WAF                        | waf:GetRegexPatternSet                                  |           |
+|                            | waf:GetPermissionPolicy                                 |           |
+|                            | waf:ListIPSets                                          |           |
+|                            | waf:ListTagsForResource                                 |           |
+|                            | waf:ListRuleGroups                                      |           |
+|                            | waf:GetRuleGroup                                        |           |
+|                            | waf:GetLoggingConfiguration                             |           |
+|                            | waf:ListRegexPatternSets                                |           |
+|                            | waf:GetWebACL                                           |           |
+| WAFV2                      | wafv2:ListResourcesForWebACL                            |           |
+|                            | wafv2:ListRuleGroups                                    |           |
+|                            | wafv2:ListWebACL                                        |           |
+|                            | wafv2:ListTagsForResource                               |           |
+|                            | wafv2:GetLoggingConfiguration                           |           |
+|                            | wafv2:GetIPSet                                          |           |
+|                            | wafv2:ListIPSets                                        |           |
+|                            | wafv2:GetWebACL                                         |           |
+|                            | wafv2:ListManagedRuleSet                                |           |
+|                            | wafv2:GetRuleGroup                                      |           |
+|                            | wafv2:ListRegexPatternSets                              |           |
+|                            | wafv2:GetManagedRuleSet                                 |           |
+|                            | wafv2:GetRegexPatternSet                                |           |
+|                            | wafv2:ListRegexPatternSets                              |
