@@ -107,20 +107,28 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "WAFREGIONAL"
     actions = ["waf-regional:ListRules",
-      "waf-regional:GetIPSet",
       "waf-regional:GetRule",
       "waf-regional:ListRuleGroups",
       "waf-regional:GetRuleGroup",
       "waf-regional:ListActivatedRulesInRuleGroup",
-      "waf-regional:ListWebACLs",
-      "waf-regional:ListTagsForResource",
-      "waf-regional:ListResourcesForWebACL",
-      "waf-regional:ListRegexPatternSets",
-      "waf-regional:GetRegexPatternSet",
+      "waf-regional:GetByteMatchSet",
       "waf-regional:GetPermissionPolicy",
-      "waf-regional:GetWebACL",
-      "waf-regional:ListIPSets",
-      "waf-regional:GetLoggingConfiguration"]
+      "waf-regional:GetRateBasedRule",
+      "waf-regional:ListSizeConstraintSets",
+      "waf-regional:ListByteMatchSets",
+      "waf-regional:ListGeoMatchSets",
+      "waf-regional:GetLoggingConfiguration",
+      "waf-regional:GetSqlInjectionMatchSet",
+      "waf-regional:ListRateBasedRules",
+      "waf-regional:GetSizeConstraintSet",
+      "waf-regional:GetRegexMatchSet",
+      "waf-regional:GetGeoMatchSet",
+      "waf-regional:GetRegexPatternSet",
+      "waf-regional:ListRegexMatchSets",
+      "waf-regional:GetIPSet",
+      "waf-regional:ListSqlInjectionMatchSets",
+      "waf-regional:ListXssMatchSets",
+      "waf-regional:GetXssMatchSet"]
      resources = ["*"]
   }
 
@@ -895,7 +903,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
     resources = ["*"]
   }
 }
-  # New permission incoming for 21.0.0 release contain 5 new services:
+  # New permission incoming for 22.0.0 release contain 5 new services:
 # https://lacework.atlassian.net/browse/RAIN-95426
 data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   count   = var.use_existing_iam_role_policy ? 0 : 1
@@ -911,6 +919,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   statement {
       sid = "EKS"
       actions = ["eks:DescribeAddon",
+        "eks:ListAddons",
       ]
       resources = ["*"]
     }
@@ -933,35 +942,25 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
 
   statement {
     sid = "WAF"
-    actions = ["waf:ListWebACLs",
-      "waf:GetRegexPatternSet",
+    actions = ["waf:GetRegexPatternSet",
       "waf:GetPermissionPolicy",
       "waf:ListIPSets",
-      "waf:ListTagsForResource",
-      "waf:ListRuleGroups",
-      "waf:GetRuleGroup",
-      "waf:GetLoggingConfiguration",
-      "waf:ListRegexPatternSets",
-      "waf:GetWebACL"]
+      "waf:GetIPSet",
+      "waf:GetRuleGroup"
+    ]
      resources = ["*"]
   }
 
   statement {
     sid = "WAFV2"
-    actions = ["wafv2:ListResourcesForWebACL",
-      "wafv2:ListRuleGroups",
-      "wafv2:ListWebACLs",
-      "wafv2:ListTagsForResource",
-      "wafv2:GetLoggingConfiguration",
+    actions = ["wafv2:GetManagedRuleSet",
+      "wafv2:GetRegexPatternSet",
+      "wafv2:GetPermissionPolicy",
       "wafv2:GetIPSet",
       "wafv2:ListIPSets",
-      "wafv2:GetWebACL",
       "wafv2:ListManagedRuleSets",
-      "wafv2:GetRuleGroup",
-      "wafv2:ListRegexPatternSets",
-      "wafv2:GetManagedRuleSet",
-      "wafv2:GetRegexPatternSet",
-      "wafv2:GetPermissionPolicy"]
+      "wafv2:GetRuleGroup"
+    ]
      resources = ["*"]
   }
 }
