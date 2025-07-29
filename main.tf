@@ -1,15 +1,14 @@
-data "aws_caller_identity" "current_aws_account" {}
-
 locals {
   iam_role_arn         = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.arn : var.iam_role_arn
   iam_role_name        = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.name : var.iam_role_name
   iam_role_external_id = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.external_id : var.iam_role_external_id
   lacework_audit_policy_name = (
-    length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}-${data.aws_caller_identity.current_aws_account.account_id}"
+    length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
   lacework_audit_policy_name_2025_1 = "${local.lacework_audit_policy_name}-2025-1"
   lacework_audit_policy_name_2025_2 = "${local.lacework_audit_policy_name}-2025-2"
   lacework_audit_policy_name_2025_3 = "${local.lacework_audit_policy_name}-2025-3"
+  lacework_audit_policy_name_2025_4 = "${local.lacework_audit_policy_name}-2025-4"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -108,12 +107,32 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "WAFREGIONAL"
     actions = ["waf-regional:ListRules",
+      "waf-regional:GetIPSet",
       "waf-regional:GetRule",
       "waf-regional:ListRuleGroups",
       "waf-regional:GetRuleGroup",
-      "waf-regional:ListActivatedRulesInRuleGroup"]
+      "waf-regional:ListActivatedRulesInRuleGroup",
+      "waf-regional:GetByteMatchSet",
+      "waf-regional:GetPermissionPolicy",
+      "waf-regional:GetRateBasedRule",
+      "waf-regional:ListSizeConstraintSets",
+      "waf-regional:ListByteMatchSets",
+      "waf-regional:ListGeoMatchSets",
+      "waf-regional:GetLoggingConfiguration",
+      "waf-regional:GetSqlInjectionMatchSet",
+      "waf-regional:ListRateBasedRules",
+      "waf-regional:GetSizeConstraintSet",
+      "waf-regional:GetRegexMatchSet",
+      "waf-regional:GetGeoMatchSet",
+      "waf-regional:GetRegexPatternSet",
+      "waf-regional:ListRegexMatchSets",
+      "waf-regional:GetIPSet",
+      "waf-regional:ListSqlInjectionMatchSets",
+      "waf-regional:ListXssMatchSets",
+      "waf-regional:GetXssMatchSet"]
      resources = ["*"]
   }
+
   statement {
     sid = "GLUE"
     actions = ["glue:ListWorkflows",
@@ -885,6 +904,68 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
     resources = ["*"]
   }
 }
+  # New permission incoming for 22.0.0 release contain 5 new services:
+# https://lacework.atlassian.net/browse/RAIN-95426
+data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
+
+  statement {
+    sid = "SSM"
+    actions = ["ssm:GetConnectionStatus",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+      sid = "EKS"
+      actions = ["eks:DescribeAddon",
+        "eks:ListAddons",
+      ]
+      resources = ["*"]
+    }
+
+  statement {
+    sid = "INSPECTOR2"
+    actions = [	"inspector2:BatchGetCodeSnippet",
+      "inspector2:ListCisScanResultsAggregatedByChecks",
+      "inspector2:ListCisScanResultsAggregatedByTargetResource",
+      "inspector2:ListCisScanConfigurations",
+      "inspector2:ListMembers",
+      "inspector2:BatchGetFindingDetails",
+      "inspector2:GetCisScanReport",
+      "inspector2:GetCisScanResultDetails",
+      "inspector2:ListCisScans",
+      "inspector2:GetEncryptionKey",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "WAF"
+    actions = ["waf:GetRegexPatternSet",
+      "waf:GetPermissionPolicy",
+      "waf:ListIPSets",
+      "waf:GetIPSet",
+      "waf:GetRuleGroup"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "WAFV2"
+    actions = ["wafv2:GetManagedRuleSet",
+      "wafv2:GetRegexPatternSet",
+      "wafv2:GetPermissionPolicy",
+      "wafv2:GetIPSet",
+      "wafv2:ListIPSets",
+      "wafv2:ListManagedRuleSets",
+      "wafv2:GetRuleGroup"
+    ]
+     resources = ["*"]
+  }
+}
+
 
 resource "aws_iam_policy" "lacework_audit_policy" {
   count       = var.use_existing_iam_role_policy ? 0 : 1
@@ -918,6 +999,14 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_3" {
   tags        = var.tags
 }
 
+resource "aws_iam_policy" "lacework_audit_policy_2025_4" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
+  name        = local.lacework_audit_policy_name_2025_4
+  description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the fourth policy"
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_4[0].json
+  tags        = var.tags
+}
+
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
@@ -946,6 +1035,13 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_d" {
   depends_on = [module.lacework_cfg_iam_role]
 }
 
+resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_e" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
+  role       = local.iam_role_name
+  policy_arn = aws_iam_policy.lacework_audit_policy_2025_4[0].arn
+  depends_on = [module.lacework_cfg_iam_role]
+}
+
 # wait for X seconds for things to settle down in the AWS side
 # before trying to create the Lacework external integration
 resource "time_sleep" "wait_time" {
@@ -956,6 +1052,7 @@ resource "time_sleep" "wait_time" {
     aws_iam_role_policy_attachment.lacework_audit_policy_attachment_b,
     aws_iam_role_policy_attachment.lacework_audit_policy_attachment_c,
     aws_iam_role_policy_attachment.lacework_audit_policy_attachment_d,
+    aws_iam_role_policy_attachment.lacework_audit_policy_attachment_e,
   ]
 }
 
