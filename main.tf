@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current_aws_account" {}
+
 locals {
   iam_role_arn         = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.arn : var.iam_role_arn
   iam_role_name        = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.name : var.iam_role_name
@@ -5,9 +7,9 @@ locals {
   lacework_audit_policy_name = (
     length(var.lacework_audit_policy_name) > 0 ? var.lacework_audit_policy_name : "lwaudit-policy-${random_id.uniq.hex}"
   )
-  lacework_audit_policy_name_2025_1 = "${local.lacework_audit_policy_name}-2025-1"
-  lacework_audit_policy_name_2025_2 = "${local.lacework_audit_policy_name}-2025-2"
-  lacework_audit_policy_name_2025_3 = "${local.lacework_audit_policy_name}-2025-3"
+  lacework_audit_policy_name_2025_1 = "${local.lacework_audit_policy_name}-2025-1-${data.aws_caller_identity.current_aws_account.account_id}"
+  lacework_audit_policy_name_2025_2 = "${local.lacework_audit_policy_name}-2025-2-${data.aws_caller_identity.current_aws_account.account_id}"
+  lacework_audit_policy_name_2025_3 = "${local.lacework_audit_policy_name}-2025-3-${data.aws_caller_identity.current_aws_account.account_id}"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
