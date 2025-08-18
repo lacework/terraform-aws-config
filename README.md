@@ -94,558 +94,586 @@ Add permissions for future services to come: memoryDB, resource groups, qbusines
 
 The audit policy is comprised of the following permissions:
 
-| sid                        | actions                                                 | resources |
-|----------------------------|---------------------------------------------------------|-----------|
-| GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                           | *         |
-| GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                           | *         |
-| EFS                        | elasticfilesystem:DescribeFileSystemPolicy              | *         |
-|                            | elasticfilesystem:DescribeLifecycleConfiguration        |           |
-|                            | elasticfilesystem:DescribeAccessPoints                  |           |
-|                            | elasticfilesystem:DescribeAccountPreferences            |           |
-|                            | elasticfilesystem:DescribeBackupPolicy                  |           |
-|                            | elasticfilesystem:DescribeReplicationConfigurations     |           |
-|                            | elasticfilesystem:ListTagsForResource                   |           |
-| EMR                        | elasticmapreduce:ListBootstrapActions                   | *         |
-|                            | elasticmapreduce:ListInstanceFleets                     |           |
-|                            | elasticmapreduce:ListInstanceGroups                     |           |
-| SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                    | *         |
-|                            | sagemaker:GetLineageGroupPolicy                         |           |
-| IDENTITYSTORE              | identitystore:DescribeGroup                             | *         |
-|                            | identitystore:DescribeGroupMembership                   |           |
-|                            | identitystore:DescribeUser                              |           |
-|                            | identitystore:ListGroupMemberships                      |           |
-|                            | identitystore:ListGroupMembershipsForMember             |           |
-|                            | identitystore:ListGroups                                |           |
-|                            | identitystore:ListUsers                                 |           |
-| SSO                        | sso:DescribeAccountAssignmentDeletionStatus             | *         |
-|                            | sso:DescribeInstanceAccessControlAttributeConfiguration |           |
-|                            | sso:GetInlinePolicyForPermissionSet                     |           |
-| GLACIER                    | glacier:ListTagsForVault                                | *         |
-| APIGATEWAY                 | apigateway:GET                                          | arn:aws:apigateway:*::/apikeys, arn:aws:apigateway:*::/apikeys/*         |
-| WAFREGIONAL                | waf-regional:ListRules                                  | *         |
-|                            | waf-regional:GetRule                                    |           |
-|                            | waf-regional:ListRuleGroups                             |           |
-|                            | waf-regional:GetRuleGroup                               |           |
-|                            | waf-regional:ListActivatedRulesInRuleGroup              |           |
-| GLUE                       | glue:ListWorkflows                                      | *         |
-|                            | glue:BatchGetWorkflows                                  |           |
-|                            | glue:GetTags                                            |           |
-| CODEBUILD                  | codebuild:ListBuilds                                    | *         |
-|                            | codebuild:BatchGetBuilds                                |           |
-| SNS                        | sns:GetDataProtectionPolicy                             | *         |
-|                            | sns:ListPlatformApplications                            |           |
-|                            | sns:GetSubscriptionAttributes                           |           |
-| SES                        | ses:ListContactLists                                    | *         |
-|                            | ses:GetContactList                                      |           |
-|                            | ses:ListContacts                                        |           |
-|                            | ses:GetContact                                          |           |
-|                            | ses:ListCustomVerificationEmailTemplates                |           |
-|                            | ses:GetCustomVerificationEmailTemplate                  |           |
-|                            | ses:GetDedicatedIpPool                                  |           |
-|                            | ses:GetBlacklistReports                                 |           |
-|                            | ses:GetDedicatedIp                                      |           |
-|                            | ses:ListDeliverabilityTestReports                       |           |
-|                            | ses:GetDeliverabilityTestReport                         |           |
-|                            | ses:ListEmailIdentities                                 |           |
-|                            | ses:GetEmailIdentity                                    |           |
-|                            | ses:GetEmailIdentityPolicies                            |           |
-|                            | ses:ListEmailTemplates                                  |           |
-|                            | ses:GetEmailTemplate                                    |           |
-|                            | ses:ListImportJobs                                      |           |
-|                            | ses:GetImportJob                                        |           |
-|                            | ses:ListRecommendations                                 |           |
-|                            | ses:ListSuppressedDestinations                          |           |
-|                            | ses:GetSuppressedDestination                            |           |
-|                            | ses:ListTagsForResource                                 |           |
-| BACKUP                     | backup:ListBackupJobs                                   | *         |
-|                            | backup:DescribeBackupJob                                |           |
-|                            | backup:ListBackupPlanTemplates                          |           |
-|                            | backup:GetBackupPlanFromTemplate                        |           |
-|                            | backup:ListBackupPlans                                  |           |
-|                            | backup:GetBackupPlan                                    |           |
-|                            | backup:ListBackupPlanVersions                           |           |
-|                            | backup:ListBackupSelections                             |           |
-|                            | backup:GetBackupSelection                               |           |
-|                            | backup:DescribeBackupVault                              |           |
-|                            | backup:ListRecoveryPointsByBackupVault                  |           |
-|                            | backup:DescribeRecoveryPoint                            |           |
-|                            | backup:GetRecoveryPointRestoreMetadata                  |           |
-|                            | backup:ListCopyJobs                                     |           |
-|                            | backup:ListFrameworks                                   |           |
-|                            | backup:DescribeFramework                                |           |
-|                            | backup:ListLegalHolds                                   |           |
-|                            | backup:GetLegalHold                                     |           |
-|                            | backup:ListRecoveryPointsByLegalHold                    |           |
-|                            | backup:ListProtectedResources                           |           |
-|                            | backup:DescribeProtectedResource                        |           |
-|                            | backup:ListRecoveryPointsByResource                     |           |
-|                            | backup:ListReportPlans                                  |           |
-|                            | backup:ListRestoreJobs                                  |           |
-|                            | backup:ListTags                                         |           |
-| COGNITO-IDP                | cognito-idp:GetSigningCertificate                       |           |
-|                            | cognito-idp:GetCSVHeader                                |           |
-|                            | cognito-idp:GetUserPoolMfaConfig                        |           |
-|                            | cognito-idp:GetUICustomization                          |           |
-| COMPUTEOPTIMIZER           | compute-optimizer:DescribeRecommendationExportJobs      | *         |
-|                            | compute-optimizer:GetAutoScalingGroupRecommendations    |           |
-|                            | compute-optimizer:GetEffectiveRecommendationPreferences |           |
-|                            | compute-optimizer:GetEBSVolumeRecommendations           |           |
-|                            | compute-optimizer:GetEC2InstanceRecommendations         |           |
-|                            | compute-optimizer:GetEnrollmentStatus                   |           |
-|                            | compute-optimizer:GetLambdaFunctionRecommendations      |           |
-|                            | compute-optimizer:GetRecommendationPreferences          |           |
-|                            | compute-optimizer:GetRecommendationSummaries            |           |
-|                            | compute-optimizer:GetEcsServiceRecommendations          |           |
-|                            | compute-optimizer:GetLicenseRecommendations             |           |
-| KINESISANALYTICS           | kinesisanalytics:ListApplicationSnapshots               |           |
-|                            | kinesisanalytics:ListApplicationVersions                |           |
-|                            | kinesisanalytics:DescribeApplicationVersion             |           |
-|                            | kinesisanalytics:DescribeApplication                    |           |
-| KINESISVIDEO               | kinesisvideo:GetSignalingChannelEndpoint                | *         |
-|                            | kinesisvideo:GetDataEndpoint                            |           |
-|                            | kinesisvideo:DescribeImageGenerationConfiguration       |           |
-| AMP                        | aps:ListScrapers                                        | *         |
-|                            | aps:DescribeScraper                                     |           |
-|                            | aps:ListWorkspaces                                      |           |
-|                            | aps:DescribeAlertManagerDefinition                      |           |
-|                            | aps:DescribeLoggingConfiguration                        |           |
-|                            | aps:DescribeWorkspace                                   |           |
-|                            | aps:ListRuleGroupsNamespaces                            |           |
-|                            | aps:DescribeRuleGroupsNamespace                         |           |
-|                            | aps:ListTagsForResource                                 |           |
-| APPSTREAM                  | appstream:Describe*                                     |           |
-|                            | appstream:List*                                         |           |
-| PERSONALIZE                | personalize:Describe*                                   |           |
-|                            | personalize:List*                                       |           |
-|                            | personalize:GetSolutionMetrics                          |           |
-| CODEARTIFACT               | codeartifact:ListDomains                                | *         |
-|                            | codeartifact:DescribeDomain                             |           |
-|                            | codeartifact:DescribeRepository                         |           |
-|                            | codeartifact:ListPackages                               |           |
-|                            | codeartifact:GetRepositoryEndpoint                      |           |
-|                            | codeartifact:DescribePackage                            |           |
-|                            | codeartifact:ListPackageVersions                        |           |
-|                            | codeartifact:DescribePackageVersion                     |           |
-|                            | codeartifact:GetPackageVersionReadme                    |           |
-|                            | codeartifact:ListPackageVersionDependencies             |           |
-|                            | codeartifact:ListPackageVersionAssets                   |           |
-|                            | codeartifact:GetPackageVersionAsset                     |           |
-|                            | codeartifact:ListTagsForResource                        |           |
-| FIS                        | fis:ListActions                                         | *         |
-|                            | fis:GetAction                                           |           |
-|                            | fis:ListExperimentTemplates                             |           |
-|                            | fis:GetExperimentTemplate                               |           |
-|                            | fis:ListTargetAccountConfigurations                     |           |
-|                            | fis:ListExperiments                                     |           |
-|                            | fis:GetExperiment                                       |           |
-|                            | fis:ListExperimentResolvedTargets                       |           |
-| MEMORYDB                   | memorydb:DescribeMultiRegionClusters                    | *         |
-|                            | memorydb:DescribeSnapshots                              |           |
-|                            | memorydb:DescribeSubnetGroups                           |           |
-|                            | memorydb:DescribeParameterGroups                        |           |
-|                            | memorydb:DescribeParameters                             |           |
-|                            | memorydb:DescribeUsers                                  |           |
-|                            | memorydb:DescribeACLs                                   |           |
-|                            | memorydb:DescribeServiceUpdates                         |           |
-|                            | memorydb:DescribeEngineVersions                         |           |
-|                            | memorydb:DescribeReservedNodes                          |           |
-|                            | memorydb:DescribeReservedNodesOfferings                 |           |
-|                            | memorydb:ListTags                                       |           |
-|                            | memorydb:ListAllowedNodeTypeUpdates                     |           |
-|                            | memorydb:ListAllowedMultiRegionClusterUpdates           |           |
-| QBUSINESS                  | qbusiness:GetApplication                                | *         |
-|                            | qbusiness:GetChatControlsConfiguration                  |           |
-|                            | qbusiness:GetPolicy                                     |           |
-|                            | qbusiness:ListAttachments                               |           |
-|                            | qbusiness:ListConversations                             |           |
-|                            | qbusiness:ListMessages                                  |           |
-|                            | qbusiness:ListDataAccessors                             |           |
-|                            | qbusiness:GetDataAccessor                               |           |
-|                            | qbusiness:GetIndex                                      |           |
-|                            | qbusiness:GetDataSource                                 |           |
-|                            | qbusiness:GetPlugin                                     |           |
-|                            | qbusiness:ListPluginActions                             |           |
-|                            | qbusiness:GetRetriever                                  |           |
-|                            | qbusiness:GetWebExperience                              |           |
-|                            | qbusiness:ListPluginTypeMetadata                        |           |
-|                            | qbusiness:ListPluginTypeActions                         |           |
-| QAPPS                      | qapps:DescribeQAppPermissions                           | *         |
-|                            | qapps:GetLibraryItem                                    |           |
-|                            | qapps:GetQApp                                           |           |
-|                            | qapps:GetQAppSession                                    |           |
-|                            | qapps:GetQAppSessionMetadata                            |           |
-|                            | qapps:ListCategories                                    |           |
-|                            | qapps:ListLibraryItems                                  |           |
-|                            | qapps:ListQAppSessionData                               |           |
-|                            | qapps:ListQApps                                         |           |
-|                            | qapps:ListTagsForResource                               |           |
-| QCONNECT                   | wisdom:GetAIAgent                                       | *         |
-|                            | wisdom:GetAIGuardrail                                   |           |
-|                            | wisdom:GetAIPrompt                                      |           |
-|                            | wisdom:GetContent                                       |           |
-|                            | wisdom:GetImportJob                                     |           |
-|                            | wisdom:GetKnowledgeBase                                 |           |
-|                            | wisdom:GetMessageTemplate                               |           |
-|                            | wisdom:GetQuickResponse                                 |           |
-|                            | wisdom:ListAIAgentVersions                              |           |
-|                            | wisdom:ListAIAgents                                     |           |
-|                            | wisdom:ListAIGuardrailVersions                          |           |
-|                            | wisdom:ListAIGuardrails                                 |           |
-|                            | wisdom:ListAIPromptVersions                             |           |
-|                            | wisdom:ListAIPrompts                                    |           |
-|                            | wisdom:ListAssistantAssociations                        |           |
-|                            | wisdom:ListAssistants                                   |           |
-|                            | wisdom:ListContentAssociations                          |           |
-|                            | wisdom:ListContents                                     |           |
-|                            | wisdom:ListImportJobs                                   |           |
-|                            | wisdom:ListKnowledgeBases                               |           |
-|                            | wisdom:ListMessageTemplateVersions                      |           |
-|                            | wisdom:ListMessageTemplates                             |           |
-|                            | wisdom:ListQuickResponses                               |           |
-|                            | wisdom:ListTagsForResource                              |           |
-| RESOURCEGROUPS             | resource-groups:ListGroups                              | *         |
-|                            | resource-groups:GetGroupQuery                           |           |
-|                            | resource-groups:GetGroupConfiguration                   |           |
-| SERVICECATALOGAPPREGISTRY  | servicecatalog:GetApplication                           | *         |
-|                            | servicecatalog:ListApplications                         |           |
-|                            | servicecatalog:GetAssociatedResource                    |           |
-|                            | servicecatalog:ListAssociatedResources                  |           |
-|                            | servicecatalog:ListAssociatedAttributeGroups            |           |
-|                            | servicecatalog:GetAttributeGroup                        |           |
-|                            | servicecatalog:ListAttributeGroups                      |           |
-|                            | servicecatalog:ListTagsForResource                      |           |
-|                            | servicecatalog:ListAttributeGroupsForApplication        |           |
-|                            | servicecatalog:GetConfiguration                         |           |
-| OAM                        | oam:GetLink                                             | *         |
-|                            | oam:GetSink                                             |           |
-|                            | oam:GetSinkPolicy                                       |           |
-|                            | oam:ListAttachedLinks                                   |           |
-|                            | oam:ListLinks                                           |           |
-|                            | oam:ListSinks                                           |           |
-| CLOUDDIRECTORY             | clouddirectory:GetAppliedSchemaVersion                  | *         |
-|                            | clouddirectory:GetDirectory                             |           |
-|                            | clouddirectory:GetFacet                                 |           |
-|                            | clouddirectory:GetLinkAttributes                        |           |
-|                            | clouddirectory:GetObjectAttributes                      |           |
-|                            | clouddirectory:GetObjectInformation                     |           |
-|                            | clouddirectory:GetSchemaAsJson                          |           |
-|                            | clouddirectory:GetTypedLinkFacetInformation             |           |
-|                            | clouddirectory:ListAppliedSchemaArns                    |           |
-|                            | clouddirectory:ListAttachedIndices                      |           |
-|                            | clouddirectory:ListDevelopmentSchemaArns                |           |
-|                            | clouddirectory:ListFacetAttributes                      |           |
-|                            | clouddirectory:ListFacetNames                           |           |
-|                            | clouddirectory:ListIncomingTypedLinks                   |           |
-|                            | clouddirectory:ListIndex                                |           |
-|                            | clouddirectory:ListManagedSchemaArns                    |           |
-|                            | clouddirectory:ListObjectAttributes                     |           |
-|                            | clouddirectory:ListObjectChildren                       |           |
-|                            | clouddirectory:ListObjectParentPaths                    |           |
-|                            | clouddirectory:ListObjectParents                        |           |
-|                            | clouddirectory:ListObjectPolicies                       |           |
-|                            | clouddirectory:ListOutgoingTypedLinks                   |           |
-|                            | clouddirectory:ListPolicyAttachments                    |           |
-|                            | clouddirectory:ListPublishedSchemaArns                  |           |
-|                            | clouddirectory:ListTagsForResource                      |           |
-|                            | clouddirectory:ListTypedLinkFacetAttributes             |           |
-|                            | clouddirectory:ListTypedLinkFacetNames                  |           |
-| COSTOPTIMIZATIONHUB        | cost-optimization-hub:GetPreferences                    | *         |
-|                            | cost-optimization-hub:GetRecommendation                 |           |
-|                            | cost-optimization-hub:ListEnrollmentStatuses            |           |
-|                            | cost-optimization-hub:ListRecommendationSummaries       |           |
-|                            | cost-optimization-hub:ListRecommendations               |           |
-| BUDGETS                    | budgets:DescribeBudgetAction                            | *         |
-|                            | budgets:DescribeBudgetActionHistories                   |           |
-|                            | budgets:DescribeBudgetActionsForAccount                 |           |
-|                            | budgets:DescribeBudgetActionsForBudget                  |           |
-|                            | budgets:ListTagsForResource                             |           |
-|                            | budgets:ViewBudget                                      |           |
-| BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                  | *         |
-|                            | aws-portal:ViewAccount                                  |           |
-|                            | aws-portal:ViewBilling                                  |           |
-|                            | aws-portal:ViewPaymentMethods                           |           |
-|                            | aws-portal:ViewUsage                                    |           |
-| ACM-PCA                    | acm-pca:GetCertificateAuthorityCertificate              | *         |
-|                            | acm-pca:GetCertificateAuthorityCertificate              | *         |
-|                            | acm-pca:GetCertificateAuthorityCsr                      |           |
-| APPCONFIG                  | appconfig:GetConfigurationProfile                       | *         |
-|                            | appconfig:GetDeploymentStrategy                         |           |
-|                            | appconfig:GetExtension                                  |           |
-|                            | appconfig:GetExtensionAssociation                       |           |
-|                            | appconfig:GetHostedConfigurationVersion                 |           |
-|                            | appconfig:ListApplications                              |           |
-|                            | appconfig:ListConfigurationProfiles                     |           |
-|                            | appconfig:ListDeployments                               |           |
-|                            | appconfig:ListDeploymentStrategies                      |           |
-|                            | appconfig:ListEnvironments                              |           |
-|                            | appconfig:ListExtensionAssociations                     |           |
-|                            | appconfig:ListExtensions                                |           |
-|                            | appconfig:ListHostedConfigurationVersions               |           |
-|                            | appconfig:ListTagsForResource                           |           |
-| APPFLOW                    | appflow:DescribeConnectorEntity                         | *         |
-|                            | appflow:DescribeConnectorProfiles                       |           |
-|                            | appflow:DescribeConnectors                              |           |
-|                            | appflow:DescribeFlow                                    |           |
-|                            | appflow:DescribeFlowExecutionRecords                    |           |
-|                            | appflow:ListConnectorEntities                           |           |
-|                            | appflow:ListConnectors                                  |           |
-| DYNAMODB                   | dynamodb:DescribeContributorInsights                    | *         |
-|                            | dynamodb:GetResourcePolicy                              |           |
-| EBS                        | ebs:GetSnapshotBlock                                    | *         |
-|                            | ebs:ListSnapshotBlocks                                  |           |
-| FREETIER                   | freetier:GetFreeTierUsage                               | *         |
-| LAKEFORMATION              | lakeformation:DescribeLakeFormationIdentityCenterConfiguration | *  |
-|                            | lakeformation:GetDataLakePrincipal                      |           |
-|                            | lakeformation:GetDataLakeSettings                       |           |
-|                            | lakeformation:GetEffectivePermissionsForPath            |           |
-|                            | lakeformation:GetTableObjects                           |           |
-|                            | lakeformation:ListDataCellsFilter                       |           |
-|                            | lakeformation:ListPermissions                           |           |
-|                            | lakeformation:ListResources                             |           |
-|                            | lakeformation:ListTableStorageOptimizers                |           |
-|                            | lakeformation:ListTransactions                          |           |
-| LAMBDA                     | lambda:GetFunction                                      | *         |
-|                            | lambda:GetFunctionCodeSigningConfig                     |           |
-| SCHEDULER                  | scheduler:GetSchedule                                   | *         |
-|                            | scheduler:GetScheduleGroup                              |           |
-|                            | scheduler:ListScheduleGroups                            |           |
-|                            | scheduler:ListSchedules                                 |           |
-|                            | scheduler:ListTagsForResource                           |           |
-| SCHEMAS                    | schemas:GetCodeBindingSource                            | *         |
-| DATASYNC                   | datasync:DescribeTaskExecution                          | *         |
-|                            | datasync:DescribeLocationEfs                            |           |
-|                            | datasync:ListAgents                                     |           |
-|                            | datasync:ListLocations                                  |           |
-|                            | datasync:ListTaskExecutions                             |           |
-|                            | datasync:ListStorageSystems                             |           |
-|                            | datasync:DescribeLocationSmb                            |           |
-|                            | datasync:DescribeAgent                                  |           |
-|                            | datasync:DescribeLocationFsxWindows                     |           |
-|                            | datasync:DescribeTask                                   |           |
-|                            | datasync:DescribeLocationS3                             |           |
-|                            | datasync:DescribeDiscoveryJob                           |           |
-|                            | datasync:DescribeLocationObjectStorage                  |           |
-|                            | datasync:DescribeStorageSystem                          |           |
-|                            | datasync:DescribeLocationAzureBlob                      |           |
-|                            | datasync:ListTagsForResource                            |           |
-|                            | datasync:ListTasks                                      |           |
-|                            | datasync:DescribeLocationHdfs                           |           |
-|                            | datasync:DescribeLocationFsxLustre                      |           |
-|                            | datasync:ListDiscoveryJobs                              |           |
-|                            | datasync:DescribeLocationNfs                            |           |
-| IOT                        | iot:GetCommand                                          | *         |
-|                            | iot:GetCommandExecution                                 |           |
-|                            | iot:GetEffectivePolicies                                |           |
-|                            | iot:GetIndexingConfiguration                            |           |
-|                            | iot:GetJobDocument                                      |           |
-|                            | iot:GetV2LoggingOptions                                 |           |
-|                            | iot:GetOtaUpdate                                        |           |
-|                            | iot:GetPackage                                          |           |
-|                            | iot:GetPackageConfiguration                             |           |
-|                            | iot:GetPackageVersion                                   |           |
-|                            | iot:GetRegistrationCode                                 |           |
-|                            | iot:GetBehaviorModelTrainingSummaries                   |           |
-|                            | iot:GetThingConnectivityData                            |           |
-|                            | iot:GetTopicRule                                        |           |
-|                            | iot:GetTopicRuleDestination                             |           |
-|                            | iotevents:DescribeAlarmModel                            |           |
-| IOTEVENTS                  | iotevents:ListAlarmModels                               | *         |
-|                            | iotevents:ListTagsForResource                           |           |
-|                            | iotevents:ListAlarmModelVersions                        |           |
-|                            | iotevents:DescribeDetectorModel                         |           |
-|                            | iotevents:ListDetectorModels                            |           |
-|                            | iotevents:ListDetectorModelVersions                     |           |
-|                            | iotevents:DescribeInput                                 |           |
-|                            | iotevents:DescribeLoggingOptions                        |           |
-| MEDIAPACKAGE               | mediapackage:ListChannels                               | *         |
-|                            | mediapackage:ListHarvestJobs                            |           |
-|                            | mediapackage:ListTagsForResource                        |           |
-| MEDIAPACKAGEV2             | mediapackagev2:GetChannel                               | *         |
-|                            | mediapackagev2:GetChannelPolicy                         |           |
-|                            | mediapackagev2:ListChannels                             |           |
-|                            | mediapackagev2:ListTagsForResource                      |           |
-|                            | mediapackagev2:GetChannelGroup                          |           |
-|                            | mediapackagev2:ListChannelGroups                        |           |
-|                            | mediapackagev2:ListHarvestJobs                          |           |
-|                            | mediapackagev2:GetOriginEndpoint                        |           |
-|                            | mediapackagev2:GetOriginEndpointPolicy                  |           |
-|                            | mediapackagev2:ListOriginEndpoints                      |           |
-| MEDIAPACKAGE-VOD           | mediapackage-vod:DescribeAsset                          | *         |
-|                            | mediapackage-vod:ListAssets                             |           |
-|                            | mediapackage-vod:ListPackagingConfigurations            |           |
-|                            | mediapackage-vod:ListPackagingGroups                    |           |
-| SUPPORT                    | support:DescribeCases                                   | *         |
-|                            | support:DescribeCommunications                          |           |
-|                            | support:DescribeServices                                |           |
-|                            | support:DescribeSeverityLevels                          |           |
-| IMAGEBUILDER               | imagebuilder:GetComponentPolicy                         | *         |
-|                            | imagebuilder:ListComponents                             |           |
-|                            | imagebuilder:ListTagsForResource                        |           |
-|                            | imagebuilder:GetComponent                               |           |
-|                            | imagebuilder:ListComponentBuildVersions                 |           |
-|                            | imagebuilder:GetContainerRecipe                         |           |
-|                            | imagebuilder:GetContainerRecipePolicy                   |           |
-|                            | imagebuilder:ListContainerRecipes                       |           |
-|                            | imagebuilder:GetDistributionConfiguration               |           |
-|                            | imagebuilder:ListDistributionConfigurations             |           |
-|                            | imagebuilder:GetImagePolicy                             |           |
-|                            | imagebuilder:ListImages                                 |           |
-|                            | imagebuilder:GetImage                                   |           |
-|                            | imagebuilder:ListImageBuildVersions                     |           |
-|                            | imagebuilder:ListImagePackages                          |           |
-|                            | imagebuilder:GetImagePipeline                           |           |
-|                            | imagebuilder:ListImagePipelines                         |           |
-|                            | imagebuilder:GetImageRecipe                             |           |
-|                            | imagebuilder:GetImageRecipePolicy                       |           |
-|                            | imagebuilder:ListImageRecipes                           |           |
-|                            | imagebuilder:ListImageScanFindings                      |           |
-|                            | imagebuilder:ListImageScanFindingAggregations           |           |
-|                            | imagebuilder:GetInfrastructureConfiguration             |           |
-|                            | imagebuilder:ListInfrastructureConfigurations           |           |
-|                            | imagebuilder:ListLifecycleExecutions                    |           |
-|                            | imagebuilder:ListLifecycleExecutionResources            |           |
-|                            | imagebuilder:GetLifecyclePolicy                         |           |
-|                            | imagebuilder:ListLifecyclePolicies                      |           |
-|                            | imagebuilder:ListWorkflows                              |           |
-|                            | imagebuilder:GetWorkflow                                |           |
-|                            | imagebuilder:ListWorkflowBuildVersions                  |           |
-|                            | imagebuilder:ListWorkflowExecutions                     |           |
-|                            | imagebuilder:GetWorkflowStepExecution                   |           |
-|                            | imagebuilder:ListWorkflowStepExecutions                 |           |
-| DETECTIVE                  | detective:BatchGetMembershipDatasources                 | *         |
-|                            | detective:ListDatasourcePackages                        |           |
-|                            | detective:ListTagsForResource                           |           |
-|                            | detective:GetInvestigation                              |           |
-|                            | detective:ListIndicators                                |           |
-|                            | detective:ListInvestigations                            |           |
-|                            | detective:ListInvitations                               |           |
-|                            | detective:BatchGetGraphMemberDatasources                |           |
-|                            | detective:ListOrganizationAdminAccounts                 |           |
-| BATCH                      | batch:DescribeJobs                                      | *         |
-|                            | batch:ListJobs                                          |           |
-|                            | batch:ListTagsForResource                               |           |
-|                            | batch:DescribeJobQueues                                 |           |
-|                            | batch:DescribeSchedulingPolicies                        |           |
-|                            | batch:ListSchedulingPolicies                            |           |
-| NETWORKMANAGER             | networkmanager:GetConnectAttachment                     | *         |
-|                            | networkmanager:GetSiteToSiteVpnAttachment               |           |
-|                            | networkmanager:GetTransitGatewayRouteTableAttachment    |           |
-|                            | networkmanager:GetVpcAttachment                         |           |
-|                            | networkmanager:ListAttachments                          |           |
-|                            | networkmanager:GetConnectPeer                           |           |
-|                            | networkmanager:ListConnectPeers                         |           |
-|                            | networkmanager:GetCoreNetwork                           |           |
-|                            | networkmanager:GetCoreNetworkChangeEvents               |           |
-|                            | networkmanager:GetCoreNetworkChangeSet                  |           |
-|                            | networkmanager:GetCoreNetworkPolicy                     |           |
-|                            | networkmanager:GetNetworkRoutes                         |           |
-|                            | networkmanager:ListCoreNetworkPolicyVersions            |           |
-|                            | networkmanager:ListCoreNetworks                         |           |
-|                            | networkmanager:GetConnectPeerAssociations               |           |
-|                            | networkmanager:GetConnections                           |           |
-|                            | networkmanager:GetCustomerGatewayAssociations           |           |
-|                            | networkmanager:GetDevices                               |           |
-|                            | networkmanager:GetLinkAssociations                      |           |
-|                            | networkmanager:GetLinks                                 |           |
-|                            | networkmanager:GetNetworkResourceCounts                 |           |
-|                            | networkmanager:GetNetworkResourceRelationships          |           |
-|                            | networkmanager:GetNetworkResources                      |           |
-|                            | networkmanager:GetNetworkTelemetry                      |           |
-|                            | networkmanager:GetResourcePolicy                        |           |
-|                            | networkmanager:GetSites                                 |           |
-|                            | networkmanager:GetTransitGatewayConnectPeerAssociations |           |
-|                            | networkmanager:GetTransitGatewayRegistrations           |           |
-|                            | networkmanager:GetTransitGatewayPeering                 |           |
-|                            | networkmanager:ListPeerings                             |           |
-| CODEPIPELINE               | codepipeline:ListActionExecutions                       | *         |
-|                            | codepipeline:GetActionType                              |           |
-|                            | codepipeline:ListActionTypes                            |           |
-|                            | codepipeline:ListTagsForResource                        |           |
-|                            | codepipeline:ListPipelineExecutions                     |           |
-|                            | codepipeline:ListRuleExecutions                         |           |
-|                            | codepipeline:ListRuleTypes                              |           |
-|                            | codepipeline:ListWebhooks                               |           |
-| GREENGRASS                 | greengrass:GetBulkDeploymentStatus                      | *         |
-|                            | greengrass:GetGroupCertificateAuthority                 |           |
-|                            | greengrass:GetConnectorDefinitionVersion                |           |
-|                            | greengrass:GetCoreDefinitionVersion                     |           |
-|                            | greengrass:GetDeploymentStatus                          |           |
-|                            | greengrass:GetDeviceDefinitionVersion                   |           |
-|                            | greengrass:GetFunctionDefinitionVersion                 |           |
-|                            | greengrass:GetAssociatedRole                            |           |
-|                            | greengrass:GetGroupCertificateConfiguration             |           |
-|                            | greengrass:GetGroupVersion                              |           |
-|                            | greengrass:GetLoggerDefinitionVersion                   |           |
-|                            | greengrass:GetResourceDefinitionVersion                 |           |
-|                            | greengrass:GetServiceRoleForAccount                     |           |
-|                            | greengrass:GetSubscriptionDefinitionVersion             |           |
-|                            | greengrass:DescribeComponent                            |           |
-| GREENGRASSV2               | greengrass:GetComponent                                 | *         |
-|                            | greengrass:GetConnectivityInfo                          |           |
-|                            | greengrass:GetCoreDevice                                |           |
-|                            | greengrass:GetDeployment                                |           |
-|                            | greengrass:GetServiceRoleForAccount                     |           |
-| INSPECTOR2                 | inspector2:BatchGetCodeSnippet                          |           |
-|                            | inspector2:ListCisScanResultsAggregatedByChecks         |           |
-|                            | inspector2:ListCisScanResultsAggregatedByTargetResource |           |
-|                            | inspector2:ListCisScanConfigurations                    |           |
-|                            | inspector2:ListMembers                                  |           |
-|                            | inspector2:BatchGetFindingDetails                       |           |
-|                            | inspector2:GetCisScanReport                             |           |
-|                            | inspector2:GetCisScanResultDetails                      |           |
-|                            | inspector2:ListCisScans                                 |           |
-|                            | inspector2:GetEncryptionKey                             |           |
-| SSM                        | ssm:GetConnectionStatus                                 |           |
-| EKS                        | ssm:DescribeAddon                                       |           |
-| WAF                        | waf:GetRegexPatternSet                                  |           |
-|                            | waf:GetPermissionPolicy                                 |           |
-|                            | waf:ListIPSets                                          |           |
-|                            | waf:ListTagsForResource                                 |           |
-|                            | waf:ListRuleGroups                                      |           |
-|                            | waf:GetRuleGroup                                        |           |
-|                            | waf:GetLoggingConfiguration                             |           |
-|                            | waf:ListRegexPatternSets                                |           |
-|                            | waf:GetWebACL                                           |           |
-| WAFV2                      | wafv2:ListResourcesForWebACL                            |           |
-|                            | wafv2:ListRuleGroups                                    |           |
-|                            | wafv2:ListWebACL                                        |           |
-|                            | wafv2:ListTagsForResource                               |           |
-|                            | wafv2:GetLoggingConfiguration                           |           |
-|                            | wafv2:GetIPSet                                          |           |
-|                            | wafv2:ListIPSets                                        |           |
-|                            | wafv2:GetWebACL                                         |           |
-|                            | wafv2:ListManagedRuleSet                                |           |
-|                            | wafv2:GetRuleGroup                                      |           |
-|                            | wafv2:ListRegexPatternSets                              |           |
-|                            | wafv2:GetManagedRuleSet                                 |           |
-|                            | wafv2:GetRegexPatternSet                                |           |
-|                            | wafv2:ListRegexPatternSets                              |           |
-|FORECAST                    | forecast:DescribeDataset                                |*          |
-|                            | forecast:GetAccuracyMetrics                             |           |
-|                            | forecast:DescribeExplainability                         |           |
-|                            | forecast:ListForecastExportJobs                         |           |
-|                            | forecast:ListForecasts                                  |           |
-|                            | forecast:DescribeForecast                               |           |
-|                            | forecast:DescribeMonitor                                |           |
-|                            | forecast:ListMonitorEvaluations                         |           |
-|                            | forecast:DescribePredictor                              |           |
-|                            | forecast:ListWhatIfForecasts                            |           |
-|                            | forecast:DescribeDatasetImportJob                       |           |
-|                            | forecast:ListDatasetGroups                              |           |
-|                            | forecast:ListPredictorBacktestExportJobs                |           |
-|                            | forecast:DescribeExplainabilityExport                   |           |
-|                            | forecast:ListMonitors                                   |           |
-|                            | forecast:DescribePredictorBacktestExportJob             |           |
-|                            | forecast:DescribeDatasetGroup                           |           |
-|                            | forecast:ListWhatIfAnalyses                             |           |
-|                            | forecast:DescribeWhatIfForecastExport                   |           |
-|                            | forecast:DescribeAutoPredictor                          |           |
-|                            | forecast:ListExplainabilities                           |           |
-|                            | forecast:DescribeForecastExportJob                      |           |
-|                            | forecast:DescribeWhatIfForecast                         |           |
-|                            | forecast:DescribeWhatIfAnalysis                         |           |
-|                            | forecast:ListDatasetImportJobs                          |           |
-|                            | forecast:ListExplainabilityExports                      |           |
-|                            | forecast:ListWhatIfForecastExports                      |           |
-|                            | forecast:ListTagsForResource                            |           |
-|                            | forecast:ListPredictors                                 |           |
+| sid                        | actions                                                        | resources |
+|----------------------------|----------------------------------------------------------------|-----------|
+| GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                                  | *         |
+| GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                                  | *         |
+| EFS                        | elasticfilesystem:DescribeFileSystemPolicy                     | *         |
+|                            | elasticfilesystem:DescribeLifecycleConfiguration               |           |
+|                            | elasticfilesystem:DescribeAccessPoints                         |           |
+|                            | elasticfilesystem:DescribeAccountPreferences                   |           |
+|                            | elasticfilesystem:DescribeBackupPolicy                         |           |
+|                            | elasticfilesystem:DescribeReplicationConfigurations            |           |
+|                            | elasticfilesystem:ListTagsForResource                          |           |
+| EMR                        | elasticmapreduce:ListBootstrapActions                          | *         |
+|                            | elasticmapreduce:ListInstanceFleets                            |           |
+|                            | elasticmapreduce:ListInstanceGroups                            |           |
+| SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                           | *         |
+|                            | sagemaker:GetLineageGroupPolicy                                |           |
+| IDENTITYSTORE              | identitystore:DescribeGroup                                    | *         |
+|                            | identitystore:DescribeGroupMembership                          |           |
+|                            | identitystore:DescribeUser                                     |           |
+|                            | identitystore:ListGroupMemberships                             |           |
+|                            | identitystore:ListGroupMembershipsForMember                    |           |
+|                            | identitystore:ListGroups                                       |           |
+|                            | identitystore:ListUsers                                        |           |
+| SSO                        | sso:DescribeAccountAssignmentDeletionStatus                    | *         |
+|                            | sso:DescribeInstanceAccessControlAttributeConfiguration        |           |
+|                            | sso:GetInlinePolicyForPermissionSet                            |           |
+| GLACIER                    | glacier:ListTagsForVault                                       | *         |
+| APIGATEWAY                 | apigateway:GET                                                 | arn:aws:apigateway:*::/apikeys, arn:aws:apigateway:*::/apikeys/* |
+| WAFREGIONAL                | waf-regional:ListRules                                         | *         |
+|                            | waf-regional:GetRule                                           |           |
+|                            | waf-regional:ListRuleGroups                                    |           |
+|                            | waf-regional:GetRuleGroup                                      |           |
+|                            | waf-regional:ListActivatedRulesInRuleGroup                     |           |
+| GLUE                       | glue:ListWorkflows                                             | *         |
+|                            | glue:BatchGetWorkflows                                         |           |
+|                            | glue:GetTags                                                   |           |
+| CODEBUILD                  | codebuild:ListBuilds                                           | *         |
+|                            | codebuild:BatchGetBuilds                                       |           |
+| SNS                        | sns:GetDataProtectionPolicy                                    | *         |
+|                            | sns:ListPlatformApplications                                   |           |
+|                            | sns:GetSubscriptionAttributes                                  |           |
+| SES                        | ses:ListContactLists                                           | *         |
+|                            | ses:GetContactList                                             |           |
+|                            | ses:ListContacts                                               |           |
+|                            | ses:GetContact                                                 |           |
+|                            | ses:ListCustomVerificationEmailTemplates                       |           |
+|                            | ses:GetCustomVerificationEmailTemplate                         |           |
+|                            | ses:GetDedicatedIpPool                                         |           |
+|                            | ses:GetBlacklistReports                                        |           |
+|                            | ses:GetDedicatedIp                                             |           |
+|                            | ses:ListDeliverabilityTestReports                              |           |
+|                            | ses:GetDeliverabilityTestReport                                |           |
+|                            | ses:ListEmailIdentities                                        |           |
+|                            | ses:GetEmailIdentity                                           |           |
+|                            | ses:GetEmailIdentityPolicies                                   |           |
+|                            | ses:ListEmailTemplates                                         |           |
+|                            | ses:GetEmailTemplate                                           |           |
+|                            | ses:ListImportJobs                                             |           |
+|                            | ses:GetImportJob                                               |           |
+|                            | ses:ListRecommendations                                        |           |
+|                            | ses:ListSuppressedDestinations                                 |           |
+|                            | ses:GetSuppressedDestination                                   |           |
+|                            | ses:ListTagsForResource                                        |           |
+| BACKUP                     | backup:ListBackupJobs                                          | *         |
+|                            | backup:DescribeBackupJob                                       |           |
+|                            | backup:ListBackupPlanTemplates                                 |           |
+|                            | backup:GetBackupPlanFromTemplate                               |           |
+|                            | backup:ListBackupPlans                                         |           |
+|                            | backup:GetBackupPlan                                           |           |
+|                            | backup:ListBackupPlanVersions                                  |           |
+|                            | backup:ListBackupSelections                                    |           |
+|                            | backup:GetBackupSelection                                      |           |
+|                            | backup:DescribeBackupVault                                     |           |
+|                            | backup:ListRecoveryPointsByBackupVault                         |           |
+|                            | backup:DescribeRecoveryPoint                                   |           |
+|                            | backup:GetRecoveryPointRestoreMetadata                         |           |
+|                            | backup:ListCopyJobs                                            |           |
+|                            | backup:ListFrameworks                                          |           |
+|                            | backup:DescribeFramework                                       |           |
+|                            | backup:ListLegalHolds                                          |           |
+|                            | backup:GetLegalHold                                            |           |
+|                            | backup:ListRecoveryPointsByLegalHold                           |           |
+|                            | backup:ListProtectedResources                                  |           |
+|                            | backup:DescribeProtectedResource                               |           |
+|                            | backup:ListRecoveryPointsByResource                            |           |
+|                            | backup:ListReportPlans                                         |           |
+|                            | backup:ListRestoreJobs                                         |           |
+|                            | backup:ListTags                                                |           |
+| COGNITO-IDP                | cognito-idp:GetSigningCertificate                              |           |
+|                            | cognito-idp:GetCSVHeader                                       |           |
+|                            | cognito-idp:GetUserPoolMfaConfig                               |           |
+|                            | cognito-idp:GetUICustomization                                 |           |
+| COMPUTEOPTIMIZER           | compute-optimizer:DescribeRecommendationExportJobs             | *         |
+|                            | compute-optimizer:GetAutoScalingGroupRecommendations           |           |
+|                            | compute-optimizer:GetEffectiveRecommendationPreferences        |           |
+|                            | compute-optimizer:GetEBSVolumeRecommendations                  |           |
+|                            | compute-optimizer:GetEC2InstanceRecommendations                |           |
+|                            | compute-optimizer:GetEnrollmentStatus                          |           |
+|                            | compute-optimizer:GetLambdaFunctionRecommendations             |           |
+|                            | compute-optimizer:GetRecommendationPreferences                 |           |
+|                            | compute-optimizer:GetRecommendationSummaries                   |           |
+|                            | compute-optimizer:GetEcsServiceRecommendations                 |           |
+|                            | compute-optimizer:GetLicenseRecommendations                    |           |
+| KINESISANALYTICS           | kinesisanalytics:ListApplicationSnapshots                      |           |
+|                            | kinesisanalytics:ListApplicationVersions                       |           |
+|                            | kinesisanalytics:DescribeApplicationVersion                    |           |
+|                            | kinesisanalytics:DescribeApplication                           |           |
+| KINESISVIDEO               | kinesisvideo:GetSignalingChannelEndpoint                       | *         |
+|                            | kinesisvideo:GetDataEndpoint                                   |           |
+|                            | kinesisvideo:DescribeImageGenerationConfiguration              |           |
+| AMP                        | aps:ListScrapers                                               | *         |
+|                            | aps:DescribeScraper                                            |           |
+|                            | aps:ListWorkspaces                                             |           |
+|                            | aps:DescribeAlertManagerDefinition                             |           |
+|                            | aps:DescribeLoggingConfiguration                               |           |
+|                            | aps:DescribeWorkspace                                          |           |
+|                            | aps:ListRuleGroupsNamespaces                                   |           |
+|                            | aps:DescribeRuleGroupsNamespace                                |           |
+|                            | aps:ListTagsForResource                                        |           |
+| APPSTREAM                  | appstream:Describe*                                            |           |
+|                            | appstream:List*                                                |           |
+| PERSONALIZE                | personalize:Describe*                                          |           |
+|                            | personalize:List*                                              |           |
+|                            | personalize:GetSolutionMetrics                                 |           |
+| CODEARTIFACT               | codeartifact:ListDomains                                       | *         |
+|                            | codeartifact:DescribeDomain                                    |           |
+|                            | codeartifact:DescribeRepository                                |           |
+|                            | codeartifact:ListPackages                                      |           |
+|                            | codeartifact:GetRepositoryEndpoint                             |           |
+|                            | codeartifact:DescribePackage                                   |           |
+|                            | codeartifact:ListPackageVersions                               |           |
+|                            | codeartifact:DescribePackageVersion                            |           |
+|                            | codeartifact:GetPackageVersionReadme                           |           |
+|                            | codeartifact:ListPackageVersionDependencies                    |           |
+|                            | codeartifact:ListPackageVersionAssets                          |           |
+|                            | codeartifact:GetPackageVersionAsset                            |           |
+|                            | codeartifact:ListTagsForResource                               |           |
+| FIS                        | fis:ListActions                                                | *         |
+|                            | fis:GetAction                                                  |           |
+|                            | fis:ListExperimentTemplates                                    |           |
+|                            | fis:GetExperimentTemplate                                      |           |
+|                            | fis:ListTargetAccountConfigurations                            |           |
+|                            | fis:ListExperiments                                            |           |
+|                            | fis:GetExperiment                                              |           |
+|                            | fis:ListExperimentResolvedTargets                              |           |
+| MEMORYDB                   | memorydb:DescribeMultiRegionClusters                           | *         |
+|                            | memorydb:DescribeSnapshots                                     |           |
+|                            | memorydb:DescribeSubnetGroups                                  |           |
+|                            | memorydb:DescribeParameterGroups                               |           |
+|                            | memorydb:DescribeParameters                                    |           |
+|                            | memorydb:DescribeUsers                                         |           |
+|                            | memorydb:DescribeACLs                                          |           |
+|                            | memorydb:DescribeServiceUpdates                                |           |
+|                            | memorydb:DescribeEngineVersions                                |           |
+|                            | memorydb:DescribeReservedNodes                                 |           |
+|                            | memorydb:DescribeReservedNodesOfferings                        |           |
+|                            | memorydb:ListTags                                              |           |
+|                            | memorydb:ListAllowedNodeTypeUpdates                            |           |
+|                            | memorydb:ListAllowedMultiRegionClusterUpdates                  |           |
+| QBUSINESS                  | qbusiness:GetApplication                                       | *         |
+|                            | qbusiness:GetChatControlsConfiguration                         |           |
+|                            | qbusiness:GetPolicy                                            |           |
+|                            | qbusiness:ListAttachments                                      |           |
+|                            | qbusiness:ListConversations                                    |           |
+|                            | qbusiness:ListMessages                                         |           |
+|                            | qbusiness:ListDataAccessors                                    |           |
+|                            | qbusiness:GetDataAccessor                                      |           |
+|                            | qbusiness:GetIndex                                             |           |
+|                            | qbusiness:GetDataSource                                        |           |
+|                            | qbusiness:GetPlugin                                            |           |
+|                            | qbusiness:ListPluginActions                                    |           |
+|                            | qbusiness:GetRetriever                                         |           |
+|                            | qbusiness:GetWebExperience                                     |           |
+|                            | qbusiness:ListPluginTypeMetadata                               |           |
+|                            | qbusiness:ListPluginTypeActions                                |           |
+| QAPPS                      | qapps:DescribeQAppPermissions                                  | *         |
+|                            | qapps:GetLibraryItem                                           |           |
+|                            | qapps:GetQApp                                                  |           |
+|                            | qapps:GetQAppSession                                           |           |
+|                            | qapps:GetQAppSessionMetadata                                   |           |
+|                            | qapps:ListCategories                                           |           |
+|                            | qapps:ListLibraryItems                                         |           |
+|                            | qapps:ListQAppSessionData                                      |           |
+|                            | qapps:ListQApps                                                |           |
+|                            | qapps:ListTagsForResource                                      |           |
+| QCONNECT                   | wisdom:GetAIAgent                                              | *         |
+|                            | wisdom:GetAIGuardrail                                          |           |
+|                            | wisdom:GetAIPrompt                                             |           |
+|                            | wisdom:GetContent                                              |           |
+|                            | wisdom:GetImportJob                                            |           |
+|                            | wisdom:GetKnowledgeBase                                        |           |
+|                            | wisdom:GetMessageTemplate                                      |           |
+|                            | wisdom:GetQuickResponse                                        |           |
+|                            | wisdom:ListAIAgentVersions                                     |           |
+|                            | wisdom:ListAIAgents                                            |           |
+|                            | wisdom:ListAIGuardrailVersions                                 |           |
+|                            | wisdom:ListAIGuardrails                                        |           |
+|                            | wisdom:ListAIPromptVersions                                    |           |
+|                            | wisdom:ListAIPrompts                                           |           |
+|                            | wisdom:ListAssistantAssociations                               |           |
+|                            | wisdom:ListAssistants                                          |           |
+|                            | wisdom:ListContentAssociations                                 |           |
+|                            | wisdom:ListContents                                            |           |
+|                            | wisdom:ListImportJobs                                          |           |
+|                            | wisdom:ListKnowledgeBases                                      |           |
+|                            | wisdom:ListMessageTemplateVersions                             |           |
+|                            | wisdom:ListMessageTemplates                                    |           |
+|                            | wisdom:ListQuickResponses                                      |           |
+|                            | wisdom:ListTagsForResource                                     |           |
+| RESOURCEGROUPS             | resource-groups:ListGroups                                     | *         |
+|                            | resource-groups:GetGroupQuery                                  |           |
+|                            | resource-groups:GetGroupConfiguration                          |           |
+| SERVICECATALOGAPPREGISTRY  | servicecatalog:GetApplication                                  | *         |
+|                            | servicecatalog:ListApplications                                |           |
+|                            | servicecatalog:GetAssociatedResource                           |           |
+|                            | servicecatalog:ListAssociatedResources                         |           |
+|                            | servicecatalog:ListAssociatedAttributeGroups                   |           |
+|                            | servicecatalog:GetAttributeGroup                               |           |
+|                            | servicecatalog:ListAttributeGroups                             |           |
+|                            | servicecatalog:ListTagsForResource                             |           |
+|                            | servicecatalog:ListAttributeGroupsForApplication               |           |
+|                            | servicecatalog:GetConfiguration                                |           |
+| OAM                        | oam:GetLink                                                    | *         |
+|                            | oam:GetSink                                                    |           |
+|                            | oam:GetSinkPolicy                                              |           |
+|                            | oam:ListAttachedLinks                                          |           |
+|                            | oam:ListLinks                                                  |           |
+|                            | oam:ListSinks                                                  |           |
+| CLOUDDIRECTORY             | clouddirectory:GetAppliedSchemaVersion                         | *         |
+|                            | clouddirectory:GetDirectory                                    |           |
+|                            | clouddirectory:GetFacet                                        |           |
+|                            | clouddirectory:GetLinkAttributes                               |           |
+|                            | clouddirectory:GetObjectAttributes                             |           |
+|                            | clouddirectory:GetObjectInformation                            |           |
+|                            | clouddirectory:GetSchemaAsJson                                 |           |
+|                            | clouddirectory:GetTypedLinkFacetInformation                    |           |
+|                            | clouddirectory:ListAppliedSchemaArns                           |           |
+|                            | clouddirectory:ListAttachedIndices                             |           |
+|                            | clouddirectory:ListDevelopmentSchemaArns                       |           |
+|                            | clouddirectory:ListFacetAttributes                             |           |
+|                            | clouddirectory:ListFacetNames                                  |           |
+|                            | clouddirectory:ListIncomingTypedLinks                          |           |
+|                            | clouddirectory:ListIndex                                       |           |
+|                            | clouddirectory:ListManagedSchemaArns                           |           |
+|                            | clouddirectory:ListObjectAttributes                            |           |
+|                            | clouddirectory:ListObjectChildren                              |           |
+|                            | clouddirectory:ListObjectParentPaths                           |           |
+|                            | clouddirectory:ListObjectParents                               |           |
+|                            | clouddirectory:ListObjectPolicies                              |           |
+|                            | clouddirectory:ListOutgoingTypedLinks                          |           |
+|                            | clouddirectory:ListPolicyAttachments                           |           |
+|                            | clouddirectory:ListPublishedSchemaArns                         |           |
+|                            | clouddirectory:ListTagsForResource                             |           |
+|                            | clouddirectory:ListTypedLinkFacetAttributes                    |           |
+|                            | clouddirectory:ListTypedLinkFacetNames                         |           |
+| COSTOPTIMIZATIONHUB        | cost-optimization-hub:GetPreferences                           | *         |
+|                            | cost-optimization-hub:GetRecommendation                        |           |
+|                            | cost-optimization-hub:ListEnrollmentStatuses                   |           |
+|                            | cost-optimization-hub:ListRecommendationSummaries              |           |
+|                            | cost-optimization-hub:ListRecommendations                      |           |
+| BUDGETS                    | budgets:DescribeBudgetAction                                   | *         |
+|                            | budgets:DescribeBudgetActionHistories                          |           |
+|                            | budgets:DescribeBudgetActionsForAccount                        |           |
+|                            | budgets:DescribeBudgetActionsForBudget                         |           |
+|                            | budgets:ListTagsForResource                                    |           |
+|                            | budgets:ViewBudget                                             |           |
+| BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                         | *         |
+|                            | aws-portal:ViewAccount                                         |           |
+|                            | aws-portal:ViewBilling                                         |           |
+|                            | aws-portal:ViewPaymentMethods                                  |           |
+|                            | aws-portal:ViewUsage                                           |           |
+| ACM-PCA                    | acm-pca:GetCertificateAuthorityCertificate                     | *         |
+|                            | acm-pca:GetCertificateAuthorityCertificate                     | *         |
+|                            | acm-pca:GetCertificateAuthorityCsr                             |           |
+| APPCONFIG                  | appconfig:GetConfigurationProfile                              | *         |
+|                            | appconfig:GetDeploymentStrategy                                |           |
+|                            | appconfig:GetExtension                                         |           |
+|                            | appconfig:GetExtensionAssociation                              |           |
+|                            | appconfig:GetHostedConfigurationVersion                        |           |
+|                            | appconfig:ListApplications                                     |           |
+|                            | appconfig:ListConfigurationProfiles                            |           |
+|                            | appconfig:ListDeployments                                      |           |
+|                            | appconfig:ListDeploymentStrategies                             |           |
+|                            | appconfig:ListEnvironments                                     |           |
+|                            | appconfig:ListExtensionAssociations                            |           |
+|                            | appconfig:ListExtensions                                       |           |
+|                            | appconfig:ListHostedConfigurationVersions                      |           |
+|                            | appconfig:ListTagsForResource                                  |           |
+| APPFLOW                    | appflow:DescribeConnectorEntity                                | *         |
+|                            | appflow:DescribeConnectorProfiles                              |           |
+|                            | appflow:DescribeConnectors                                     |           |
+|                            | appflow:DescribeFlow                                           |           |
+|                            | appflow:DescribeFlowExecutionRecords                           |           |
+|                            | appflow:ListConnectorEntities                                  |           |
+|                            | appflow:ListConnectors                                         |           |
+| DYNAMODB                   | dynamodb:DescribeContributorInsights                           | *         |
+|                            | dynamodb:GetResourcePolicy                                     |           |
+| EBS                        | ebs:GetSnapshotBlock                                           | *         |
+|                            | ebs:ListSnapshotBlocks                                         |           |
+| FREETIER                   | freetier:GetFreeTierUsage                                      | *         |
+| LAKEFORMATION              | lakeformation:DescribeLakeFormationIdentityCenterConfiguration | *         |
+|                            | lakeformation:GetDataLakePrincipal                             |           |
+|                            | lakeformation:GetDataLakeSettings                              |           |
+|                            | lakeformation:GetEffectivePermissionsForPath                   |           |
+|                            | lakeformation:GetTableObjects                                  |           |
+|                            | lakeformation:ListDataCellsFilter                              |           |
+|                            | lakeformation:ListPermissions                                  |           |
+|                            | lakeformation:ListResources                                    |           |
+|                            | lakeformation:ListTableStorageOptimizers                       |           |
+|                            | lakeformation:ListTransactions                                 |           |
+| LAMBDA                     | lambda:GetFunction                                             | *         |
+|                            | lambda:GetFunctionCodeSigningConfig                            |           |
+| SCHEDULER                  | scheduler:GetSchedule                                          | *         |
+|                            | scheduler:GetScheduleGroup                                     |           |
+|                            | scheduler:ListScheduleGroups                                   |           |
+|                            | scheduler:ListSchedules                                        |           |
+|                            | scheduler:ListTagsForResource                                  |           |
+| SCHEMAS                    | schemas:GetCodeBindingSource                                   | *         |
+| DATASYNC                   | datasync:DescribeTaskExecution                                 | *         |
+|                            | datasync:DescribeLocationEfs                                   |           |
+|                            | datasync:ListAgents                                            |           |
+|                            | datasync:ListLocations                                         |           |
+|                            | datasync:ListTaskExecutions                                    |           |
+|                            | datasync:ListStorageSystems                                    |           |
+|                            | datasync:DescribeLocationSmb                                   |           |
+|                            | datasync:DescribeAgent                                         |           |
+|                            | datasync:DescribeLocationFsxWindows                            |           |
+|                            | datasync:DescribeTask                                          |           |
+|                            | datasync:DescribeLocationS3                                    |           |
+|                            | datasync:DescribeDiscoveryJob                                  |           |
+|                            | datasync:DescribeLocationObjectStorage                         |           |
+|                            | datasync:DescribeStorageSystem                                 |           |
+|                            | datasync:DescribeLocationAzureBlob                             |           |
+|                            | datasync:ListTagsForResource                                   |           |
+|                            | datasync:ListTasks                                             |           |
+|                            | datasync:DescribeLocationHdfs                                  |           |
+|                            | datasync:DescribeLocationFsxLustre                             |           |
+|                            | datasync:ListDiscoveryJobs                                     |           |
+|                            | datasync:DescribeLocationNfs                                   |           |
+| IOT                        | iot:GetCommand                                                 | *         |
+|                            | iot:GetCommandExecution                                        |           |
+|                            | iot:GetEffectivePolicies                                       |           |
+|                            | iot:GetIndexingConfiguration                                   |           |
+|                            | iot:GetJobDocument                                             |           |
+|                            | iot:GetV2LoggingOptions                                        |           |
+|                            | iot:GetOtaUpdate                                               |           |
+|                            | iot:GetPackage                                                 |           |
+|                            | iot:GetPackageConfiguration                                    |           |
+|                            | iot:GetPackageVersion                                          |           |
+|                            | iot:GetRegistrationCode                                        |           |
+|                            | iot:GetBehaviorModelTrainingSummaries                          |           |
+|                            | iot:GetThingConnectivityData                                   |           |
+|                            | iot:GetTopicRule                                               |           |
+|                            | iot:GetTopicRuleDestination                                    |           |
+|                            | iotevents:DescribeAlarmModel                                   |           |
+| IOTEVENTS                  | iotevents:ListAlarmModels                                      | *         |
+|                            | iotevents:ListTagsForResource                                  |           |
+|                            | iotevents:ListAlarmModelVersions                               |           |
+|                            | iotevents:DescribeDetectorModel                                |           |
+|                            | iotevents:ListDetectorModels                                   |           |
+|                            | iotevents:ListDetectorModelVersions                            |           |
+|                            | iotevents:DescribeInput                                        |           |
+|                            | iotevents:DescribeLoggingOptions                               |           |
+| MEDIAPACKAGE               | mediapackage:ListChannels                                      | *         |
+|                            | mediapackage:ListHarvestJobs                                   |           |
+|                            | mediapackage:ListTagsForResource                               |           |
+| MEDIAPACKAGEV2             | mediapackagev2:GetChannel                                      | *         |
+|                            | mediapackagev2:GetChannelPolicy                                |           |
+|                            | mediapackagev2:ListChannels                                    |           |
+|                            | mediapackagev2:ListTagsForResource                             |           |
+|                            | mediapackagev2:GetChannelGroup                                 |           |
+|                            | mediapackagev2:ListChannelGroups                               |           |
+|                            | mediapackagev2:ListHarvestJobs                                 |           |
+|                            | mediapackagev2:GetOriginEndpoint                               |           |
+|                            | mediapackagev2:GetOriginEndpointPolicy                         |           |
+|                            | mediapackagev2:ListOriginEndpoints                             |           |
+| MEDIAPACKAGE-VOD           | mediapackage-vod:DescribeAsset                                 | *         |
+|                            | mediapackage-vod:ListAssets                                    |           |
+|                            | mediapackage-vod:ListPackagingConfigurations                   |           |
+|                            | mediapackage-vod:ListPackagingGroups                           |           |
+| SUPPORT                    | support:DescribeCases                                          | *         |
+|                            | support:DescribeCommunications                                 |           |
+|                            | support:DescribeServices                                       |           |
+|                            | support:DescribeSeverityLevels                                 |           |
+| IMAGEBUILDER               | imagebuilder:GetComponentPolicy                                | *         |
+|                            | imagebuilder:ListComponents                                    |           |
+|                            | imagebuilder:ListTagsForResource                               |           |
+|                            | imagebuilder:GetComponent                                      |           |
+|                            | imagebuilder:ListComponentBuildVersions                        |           |
+|                            | imagebuilder:GetContainerRecipe                                |           |
+|                            | imagebuilder:GetContainerRecipePolicy                          |           |
+|                            | imagebuilder:ListContainerRecipes                              |           |
+|                            | imagebuilder:GetDistributionConfiguration                      |           |
+|                            | imagebuilder:ListDistributionConfigurations                    |           |
+|                            | imagebuilder:GetImagePolicy                                    |           |
+|                            | imagebuilder:ListImages                                        |           |
+|                            | imagebuilder:GetImage                                          |           |
+|                            | imagebuilder:ListImageBuildVersions                            |           |
+|                            | imagebuilder:ListImagePackages                                 |           |
+|                            | imagebuilder:GetImagePipeline                                  |           |
+|                            | imagebuilder:ListImagePipelines                                |           |
+|                            | imagebuilder:GetImageRecipe                                    |           |
+|                            | imagebuilder:GetImageRecipePolicy                              |           |
+|                            | imagebuilder:ListImageRecipes                                  |           |
+|                            | imagebuilder:ListImageScanFindings                             |           |
+|                            | imagebuilder:ListImageScanFindingAggregations                  |           |
+|                            | imagebuilder:GetInfrastructureConfiguration                    |           |
+|                            | imagebuilder:ListInfrastructureConfigurations                  |           |
+|                            | imagebuilder:ListLifecycleExecutions                           |           |
+|                            | imagebuilder:ListLifecycleExecutionResources                   |           |
+|                            | imagebuilder:GetLifecyclePolicy                                |           |
+|                            | imagebuilder:ListLifecyclePolicies                             |           |
+|                            | imagebuilder:ListWorkflows                                     |           |
+|                            | imagebuilder:GetWorkflow                                       |           |
+|                            | imagebuilder:ListWorkflowBuildVersions                         |           |
+|                            | imagebuilder:ListWorkflowExecutions                            |           |
+|                            | imagebuilder:GetWorkflowStepExecution                          |           |
+|                            | imagebuilder:ListWorkflowStepExecutions                        |           |
+| DETECTIVE                  | detective:BatchGetMembershipDatasources                        | *         |
+|                            | detective:ListDatasourcePackages                               |           |
+|                            | detective:ListTagsForResource                                  |           |
+|                            | detective:GetInvestigation                                     |           |
+|                            | detective:ListIndicators                                       |           |
+|                            | detective:ListInvestigations                                   |           |
+|                            | detective:ListInvitations                                      |           |
+|                            | detective:BatchGetGraphMemberDatasources                       |           |
+|                            | detective:ListOrganizationAdminAccounts                        |           |
+| BATCH                      | batch:DescribeJobs                                             | *         |
+|                            | batch:ListJobs                                                 |           |
+|                            | batch:ListTagsForResource                                      |           |
+|                            | batch:DescribeJobQueues                                        |           |
+|                            | batch:DescribeSchedulingPolicies                               |           |
+|                            | batch:ListSchedulingPolicies                                   |           |
+| NETWORKMANAGER             | networkmanager:GetConnectAttachment                            | *         |
+|                            | networkmanager:GetSiteToSiteVpnAttachment                      |           |
+|                            | networkmanager:GetTransitGatewayRouteTableAttachment           |           |
+|                            | networkmanager:GetVpcAttachment                                |           |
+|                            | networkmanager:ListAttachments                                 |           |
+|                            | networkmanager:GetConnectPeer                                  |           |
+|                            | networkmanager:ListConnectPeers                                |           |
+|                            | networkmanager:GetCoreNetwork                                  |           |
+|                            | networkmanager:GetCoreNetworkChangeEvents                      |           |
+|                            | networkmanager:GetCoreNetworkChangeSet                         |           |
+|                            | networkmanager:GetCoreNetworkPolicy                            |           |
+|                            | networkmanager:GetNetworkRoutes                                |           |
+|                            | networkmanager:ListCoreNetworkPolicyVersions                   |           |
+|                            | networkmanager:ListCoreNetworks                                |           |
+|                            | networkmanager:GetConnectPeerAssociations                      |           |
+|                            | networkmanager:GetConnections                                  |           |
+|                            | networkmanager:GetCustomerGatewayAssociations                  |           |
+|                            | networkmanager:GetDevices                                      |           |
+|                            | networkmanager:GetLinkAssociations                             |           |
+|                            | networkmanager:GetLinks                                        |           |
+|                            | networkmanager:GetNetworkResourceCounts                        |           |
+|                            | networkmanager:GetNetworkResourceRelationships                 |           |
+|                            | networkmanager:GetNetworkResources                             |           |
+|                            | networkmanager:GetNetworkTelemetry                             |           |
+|                            | networkmanager:GetResourcePolicy                               |           |
+|                            | networkmanager:GetSites                                        |           |
+|                            | networkmanager:GetTransitGatewayConnectPeerAssociations        |           |
+|                            | networkmanager:GetTransitGatewayRegistrations                  |           |
+|                            | networkmanager:GetTransitGatewayPeering                        |           |
+|                            | networkmanager:ListPeerings                                    |           |
+| CODEPIPELINE               | codepipeline:ListActionExecutions                              | *         |
+|                            | codepipeline:GetActionType                                     |           |
+|                            | codepipeline:ListActionTypes                                   |           |
+|                            | codepipeline:ListTagsForResource                               |           |
+|                            | codepipeline:ListPipelineExecutions                            |           |
+|                            | codepipeline:ListRuleExecutions                                |           |
+|                            | codepipeline:ListRuleTypes                                     |           |
+|                            | codepipeline:ListWebhooks                                      |           |
+| GREENGRASS                 | greengrass:GetBulkDeploymentStatus                             | *         |
+|                            | greengrass:GetGroupCertificateAuthority                        |           |
+|                            | greengrass:GetConnectorDefinitionVersion                       |           |
+|                            | greengrass:GetCoreDefinitionVersion                            |           |
+|                            | greengrass:GetDeploymentStatus                                 |           |
+|                            | greengrass:GetDeviceDefinitionVersion                          |           |
+|                            | greengrass:GetFunctionDefinitionVersion                        |           |
+|                            | greengrass:GetAssociatedRole                                   |           |
+|                            | greengrass:GetGroupCertificateConfiguration                    |           |
+|                            | greengrass:GetGroupVersion                                     |           |
+|                            | greengrass:GetLoggerDefinitionVersion                          |           |
+|                            | greengrass:GetResourceDefinitionVersion                        |           |
+|                            | greengrass:GetServiceRoleForAccount                            |           |
+|                            | greengrass:GetSubscriptionDefinitionVersion                    |           |
+|                            | greengrass:DescribeComponent                                   |           |
+| GREENGRASSV2               | greengrass:GetComponent                                        | *         |
+|                            | greengrass:GetConnectivityInfo                                 |           |
+|                            | greengrass:GetCoreDevice                                       |           |
+|                            | greengrass:GetDeployment                                       |           |
+|                            | greengrass:GetServiceRoleForAccount                            |           |
+| INSPECTOR2                 | inspector2:BatchGetCodeSnippet                                 |           |
+|                            | inspector2:ListCisScanResultsAggregatedByChecks                |           |
+|                            | inspector2:ListCisScanResultsAggregatedByTargetResource        |           |
+|                            | inspector2:ListCisScanConfigurations                           |           |
+|                            | inspector2:ListMembers                                         |           |
+|                            | inspector2:BatchGetFindingDetails                              |           |
+|                            | inspector2:GetCisScanReport                                    |           |
+|                            | inspector2:GetCisScanResultDetails                             |           |
+|                            | inspector2:ListCisScans                                        |           |
+|                            | inspector2:GetEncryptionKey                                    |           |
+| SSM                        | ssm:GetConnectionStatus                                        |           |
+| EKS                        | ssm:DescribeAddon                                              |           |
+| WAF                        | waf:GetRegexPatternSet                                         |           |
+|                            | waf:GetPermissionPolicy                                        |           |
+|                            | waf:ListIPSets                                                 |           |
+|                            | waf:ListTagsForResource                                        |           |
+|                            | waf:ListRuleGroups                                             |           |
+|                            | waf:GetRuleGroup                                               |           |
+|                            | waf:GetLoggingConfiguration                                    |           |
+|                            | waf:ListRegexPatternSets                                       |           |
+|                            | waf:GetWebACL                                                  |           |
+| WAFV2                      | wafv2:ListResourcesForWebACL                                   |           |
+|                            | wafv2:ListRuleGroups                                           |           |
+|                            | wafv2:ListWebACL                                               |           |
+|                            | wafv2:ListTagsForResource                                      |           |
+|                            | wafv2:GetLoggingConfiguration                                  |           |
+|                            | wafv2:GetIPSet                                                 |           |
+|                            | wafv2:ListIPSets                                               |           |
+|                            | wafv2:GetWebACL                                                |           |
+|                            | wafv2:ListManagedRuleSet                                       |           |
+|                            | wafv2:GetRuleGroup                                             |           |
+|                            | wafv2:ListRegexPatternSets                                     |           |
+|                            | wafv2:GetManagedRuleSet                                        |           |
+|                            | wafv2:GetRegexPatternSet                                       |           |
+|                            | wafv2:ListRegexPatternSets                                     |           |
+|FORECAST                    | forecast:DescribeDataset                                       | *         |
+|                            | forecast:GetAccuracyMetrics                                    |           |
+|                            | forecast:DescribeExplainability                                |           |
+|                            | forecast:ListForecastExportJobs                                |           |
+|                            | forecast:ListForecasts                                         |           |
+|                            | forecast:DescribeForecast                                      |           |
+|                            | forecast:DescribeMonitor                                       |           |
+|                            | forecast:ListMonitorEvaluations                                |           |
+|                            | forecast:DescribePredictor                                     |           |
+|                            | forecast:ListWhatIfForecasts                                   |           |
+|                            | forecast:DescribeDatasetImportJob                              |           |
+|                            | forecast:ListDatasetGroups                                     |           |
+|                            | forecast:ListPredictorBacktestExportJobs                       |           |
+|                            | forecast:DescribeExplainabilityExport                          |           |
+|                            | forecast:ListMonitors                                          |           |
+|                            | forecast:DescribePredictorBacktestExportJob                    |           |
+|                            | forecast:DescribeDatasetGroup                                  |           |
+|                            | forecast:ListWhatIfAnalyses                                    |           |
+|                            | forecast:DescribeWhatIfForecastExport                          |           |
+|                            | forecast:DescribeAutoPredictor                                 |           |
+|                            | forecast:ListExplainabilities                                  |           |
+|                            | forecast:DescribeForecastExportJob                             |           |
+|                            | forecast:DescribeWhatIfForecast                                |           |
+|                            | forecast:DescribeWhatIfAnalysis                                |           |
+|                            | forecast:ListDatasetImportJobs                                 |           |
+|                            | forecast:ListExplainabilityExports                             |           |
+|                            | forecast:ListWhatIfForecastExports                             |           |
+|                            | forecast:ListTagsForResource                                   |           |
+|                            | forecast:ListPredictors                                        |           |
+|RESILIENCEHUB               | resiliencehub:ListSopRecommendations                           | *         |
+|                            | resiliencehub:DescribeAppAssessment                            |           |
+|                            | resiliencehub:DescribeApp                                      |           |
+|                            | resiliencehub:DescribeAppVersion                               |           |
+|                            | resiliencehub:ListTestRecommendations                          |           |
+|                            | resiliencehub:ListApps                                         |           |
+|                            | resiliencehub:ListResiliencyPolicies                           |           |
+|                            | resiliencehub:DescribeAppVersionResource                       |           |
+|                            | resiliencehub:ListSuggestedResiliencyPolicies                  |           |
+|                            | resiliencehub:ListAppAssessmentResourceDrifts                  |           |
+|                            | resiliencehub:ListRecommendationTemplates                      |           |
+|                            | resiliencehub:ListAppAssessmentComplianceDrifts                |           |
+|                            | resiliencehub:ListAlarmRecommendations                         |           |
+|                            | resiliencehub:ListTagsForResource                              |           |
+|                            | resiliencehub:DescribeAppVersionTemplate                       |           |
+|                            | resiliencehub:ListAppVersionAppComponents                      |           |
+|                            | resiliencehub:DescribeAppVersionResourcesResolutionStatus      |           |
+|                            | resiliencehub:ListAppComponentCompliances                      |           |
+|                            | resiliencehub:ListUnsupportedAppVersionResources               |           |
+|                            | resiliencehub:ListResourceGroupingRecommendations              |           |
+|                            | resiliencehub:ListAppInputSources                              |           |
+|                            | resiliencehub:ListAppVersionResources                          |           |
+|                            | resiliencehub:DescribeDraftAppVersionResourcesImportStatus     |           |
+|                            | resiliencehub:ListAppVersions                                  |           |
+|                            | resiliencehub:ListAppAssessments                               |           |
+|                            | resiliencehub:ListAppVersionResourceMappings                   |           |
+|                            | resiliencehub:DescribeResourceGroupingRecommendationTask       |           |
+|                            | resiliencehub:ListAppComponentRecommendations                  |           |

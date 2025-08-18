@@ -1000,6 +1000,40 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "RESILIENCEHUB"
+    actions = ["resiliencehub:ListSopRecommendations",
+      "resiliencehub:DescribeAppAssessment",
+      "resiliencehub:DescribeApp",
+      "resiliencehub:DescribeAppVersion",
+      "resiliencehub:ListTestRecommendations",
+      "resiliencehub:ListApps",
+      "resiliencehub:ListResiliencyPolicies",
+      "resiliencehub:DescribeAppVersionResource",
+      "resiliencehub:ListSuggestedResiliencyPolicies",
+      "resiliencehub:ListAppAssessmentResourceDrifts",
+      "resiliencehub:ListRecommendationTemplates",
+      "resiliencehub:ListAppAssessmentComplianceDrifts",
+      "resiliencehub:ListAlarmRecommendations",
+      "resiliencehub:ListTagsForResource",
+      "resiliencehub:DescribeAppVersionTemplate",
+      "resiliencehub:ListAppVersionAppComponents",
+      "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
+      "resiliencehub:ListAppComponentCompliances",
+      "resiliencehub:ListUnsupportedAppVersionResources",
+      "resiliencehub:ListResourceGroupingRecommendations",
+      "resiliencehub:ListAppInputSources",
+      "resiliencehub:ListAppVersionResources",
+      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
+      "resiliencehub:ListAppVersions",
+      "resiliencehub:ListAppAssessments",
+      "resiliencehub:ListAppVersionResourceMappings",
+      "resiliencehub:DescribeResourceGroupingRecommendationTask",
+      "resiliencehub:ListAppComponentRecommendations"
+    ]
+    resources = ["*"]
+  }
 }
 
 
