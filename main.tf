@@ -520,10 +520,13 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
       "budgets:DescribeBudgetActionsForBudget",
       "budgets:ListTagsForResource",
       "budgets:ViewBudget",
-      "budgets:DescribeBudgets",
-      "budgets:DescribeBudgetPerformanceHistory",
-      "budgets:DescribeNotificationsForBudget",
-      "budgets:DescribeSubscribersForNotification"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "BILLING"
+    actions = ["billing:GetBillingViewData",
     ]
     resources = ["*"]
   }
@@ -748,13 +751,13 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
   statement {
     sid = "STEPFUNCTIONS"
     actions = [
-      "stepfunctions:GetActivityTask",
-      "stepfunctions:ListActivities",
-      "stepfunctions:DescribeExecution",
-      "stepfunctions:GetExecutionHistory",
-      "stepfunctions:ListExecutions",
-      "stepfunctions:DescribeMapRun",
-      "stepfunctions:ListMapRuns"
+      "states:GetActivityTask",
+      "states:ListActivities",
+      "states:DescribeExecution",
+      "states:GetExecutionHistory",
+      "states:ListExecutions",
+      "states:DescribeMapRun",
+      "states:ListMapRuns"
     ]
     resources = ["*"]
   }
@@ -897,7 +900,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
       "detective:ListInvestigations",
       "detective:ListInvitations",
       "detective:BatchGetGraphMemberDatasources",
-      "detective:ListOrganizationAdminAccounts",
+      "detective:ListOrganizationAdminAccount",
     ]
     resources = ["*"]
   }
@@ -1204,7 +1207,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
       "resource-explorer-2:ListSupportedResourceTypes",
       "resource-explorer-2:ListViews",
       "resource-explorer-2:GetView",
-      "resource-explorer-2:ListResources",
+      "resource-explorer-2:Search",
       "resource-explorer-2:GetAccountLevelServiceConfiguration",
       "resource-explorer-2:GetDefaultView",
       "resource-explorer-2:GetIndex",
