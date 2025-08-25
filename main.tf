@@ -1,5 +1,4 @@
 data "aws_caller_identity" "current_aws_account" {}
-
 locals {
   iam_role_arn         = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.arn : var.iam_role_arn
   iam_role_name        = module.lacework_cfg_iam_role.created ? module.lacework_cfg_iam_role.name : var.iam_role_name
