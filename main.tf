@@ -1194,52 +1194,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
     ]
     resources = ["*"]
   }
-
-  statement {
-    sid = "RESOURCEEXPLORER2"
-    actions = [
-      "resource-explorer-2:ListIndexes",
-      "resource-explorer-2:ListManagedViews",
-      "resource-explorer-2:GetManagedView",
-      "resource-explorer-2:ListSupportedResourceTypes",
-      "resource-explorer-2:ListViews",
-      "resource-explorer-2:GetView",
-      "resource-explorer-2:ListResources",
-      "resource-explorer-2:GetAccountLevelServiceConfiguration",
-      "resource-explorer-2:GetDefaultView",
-      "resource-explorer-2:GetIndex",
-      "resource-explorer-2:ListTagsForResource"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "ROUTE53DOMAINS"
-    actions = [
-      "route53domains:ViewBilling",
-      "route53domains:CheckDomainAvailability",
-      "route53domains:CheckDomainTransferability",
-      "route53domains:ListPrices"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "SERVICEDISCOVERY"
-    actions = [
-      "servicediscovery:GetInstance",
-      "servicediscovery:ListInstances",
-      "servicediscovery:GetNamespace",
-      "servicediscovery:ListNamespaces",
-      "servicediscovery:ListTagsForResource",
-      "servicediscovery:GetOperation",
-      "servicediscovery:ListOperations",
-      "servicediscovery:GetService",
-      "servicediscovery:GetServiceAttributes",
-      "servicediscovery:ListServices"
-    ]
-    resources = ["*"]
-  }
 }
 
 
