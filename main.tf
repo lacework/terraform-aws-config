@@ -44,7 +44,9 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid       = "GetBucketPublicAccessBlock"
-    actions   = ["s3:GetBucketPublicAccessBlock"]
+    actions   = ["s3:GetBucketPublicAccessBlock",
+      "s3:GetObjectLockConfiguration"
+    ]
     resources = ["*"]
   }
 
@@ -58,14 +60,15 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "EMR"
     actions = ["elasticmapreduce:ListBootstrapActions",
       "elasticmapreduce:ListInstanceFleets",
-    "elasticmapreduce:ListInstanceGroups"]
+      "elasticmapreduce:ListInstanceGroups"]
     resources = ["*"]
   }
 
   statement {
     sid = "SAGEMAKER"
     actions = ["sagemaker:GetModelPackageGroupPolicy",
-    "sagemaker:GetLineageGroupPolicy"]
+      "sagemaker:GetLineageGroupPolicy",
+      "sagemaker:GetDeviceFleetReport"]
     resources = ["*"]
   }
 
@@ -102,7 +105,20 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid = "GLACIER"
-    actions = ["glacier:ListTagsForVault"]
+    actions = ["glacier:ListTagsForVault",
+      "glacier:GetJobOutput",
+      "glacier:ListJobs",
+      "glacier:ListMultipartUploads",
+      "glacier:ListParts",
+      "glacier:ListProvisionedCapacity",
+      "glacier:GetVaultNotifications",
+      "glacier:GetJobOutput",
+      "glacier:ListJobs",
+      "glacier:ListMultipartUploads",
+      "glacier:ListParts",
+      "glacier:ListProvisionedCapacity",
+      "glacier:GetVaultNotifications"
+    ]
     resources = ["*"]
   }
 
@@ -130,7 +146,9 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "waf-regional:GetIPSet",
       "waf-regional:ListSqlInjectionMatchSets",
       "waf-regional:ListXssMatchSets",
-      "waf-regional:GetXssMatchSet"]
+      "waf-regional:GetXssMatchSet",
+      "waf-regional:ListIpSets",
+      "waf-regional:ListRegexPatternSets"]
      resources = ["*"]
   }
 
@@ -138,7 +156,8 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "GLUE"
     actions = ["glue:ListWorkflows",
       "glue:BatchGetWorkflows",
-      "glue:GetWorkflow"]
+      "glue:GetWorkflow",
+      "glue:GetTables"]
     resources = ["*"]
   }
 
@@ -146,6 +165,17 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "CODEBUILD"
     actions = ["codebuild:ListBuilds",
       "codebuild:BatchGetBuilds",
+      "codebuild:BatchGetBuildBatches",
+      "codebuild:ListBuildBatches",
+      "codebuild:DescribeCodeCoverages",
+      "codebuild:ListCuratedEnvironmentImages",
+      "codebuild:BatchGetReports",
+      "codebuild:ListReports",
+      "codebuild:BatchGetReportGroups",
+      "codebuild:ListReportGroups",
+      "codebuild:ListSharedProjects",
+      "codebuild:ListSharedReportGroups",
+      "codebuild:DescribeTestCases"
     ]
     resources = ["*"]
   }
@@ -436,6 +466,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
     actions = ["resource-groups:ListGroups",
       "resource-groups:GetGroupQuery",
       "resource-groups:GetGroupConfiguration",
+      "resource-groups:GetTags"
     ]
     resources = ["*"]
   }
@@ -520,6 +551,10 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
       "budgets:DescribeBudgetActionsForBudget",
       "budgets:ListTagsForResource",
       "budgets:ViewBudget",
+      "budgets:DescribeBudgets",
+      "budgets:DescribeBudgetPerformanceHistory",
+      "budgets:DescribeNotificationsForBudget",
+      "budgets:DescribeSubscribersForNotification"
     ]
     resources = ["*"]
   }
@@ -573,6 +608,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
       "appconfig:ListExtensions",
       "appconfig:ListHostedConfigurationVersions",
       "appconfig:ListTagsForResource",
+      "appconfig:GetDeployment",
     ]
     resources = ["*"]
   }
@@ -581,7 +617,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     sid = "APPFLOW"
     actions = ["appflow:DescribeConnectorEntity",
       "appflow:DescribeConnectorProfiles",
-      "appflow:DescribeConnectors",
+      "appflow:DescribeConnector",
       "appflow:DescribeFlow",
       "appflow:DescribeFlowExecutionRecords",
       "appflow:ListConnectorEntities",
@@ -594,6 +630,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     sid = "DYNAMODB"
     actions = ["dynamodb:GetResourcePolicy",
       "dynamodb:DescribeContributorInsights",
+      "dynamodb:DescribeBackup",
     ]
     resources = ["*"]
   }
@@ -914,6 +951,20 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   statement {
     sid = "SSM"
     actions = ["ssm:GetConnectionStatus",
+      "ssm:ListCommandInvocations",
+      "ssm:GetDocument",
+      "ssm:GetInventory",
+      "ssm:GetMaintenanceWindowExecutionTask",
+      "ssm:GetMaintenanceWindowTask",
+      "ssm:GetOpsItem",
+      "ssm:ListOpsItemEvents",
+      "ssm:ListOpsItemRelatedItems",
+      "ssm:GetOpsMetadata",
+      "ssm:GetParameter",
+      "ssm:GetParameterHistory",
+      "ssm:GetPatchBaseline",
+      "ssm:GetPatchBaselineForPatchGroup",
+      "ssm:GetResourcePolicies"
     ]
     resources = ["*"]
   }
@@ -948,7 +999,29 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
       "waf:GetPermissionPolicy",
       "waf:ListIPSets",
       "waf:GetIPSet",
-      "waf:GetRuleGroup"
+      "waf:GetRuleGroup",
+      "waf:ListActivatedRulesInRuleGroup",
+      "waf:GetByteMatchSet",
+      "waf:ListByteMatchSets",
+      "waf:GetGeoMatchSet",
+      "waf:ListGeoMatchSets",
+      "waf:GetLoggingConfiguration",
+      "waf:ListLoggingConfigurations",
+      "waf:GetRateBasedRule",
+      "waf:GetRateBasedRuleManagedKeys",
+      "waf:ListRateBasedRules",
+      "waf:GetRegexMatchSet",
+      "waf:ListRegexMatchSets",
+      "waf:ListRegexPatternSets",
+      "waf:GetRule",
+      "waf:ListRules",
+      "waf:ListRuleGroups",
+      "waf:GetSizeConstraintSet",
+      "waf:ListSizeConstraintSets",
+      "waf:GetSqlInjectionMatchSet",
+      "waf:ListSqlInjectionMatchSets",
+      "waf:GetXssMatchSet",
+      "waf:ListXssMatchSets"
     ]
      resources = ["*"]
   }
@@ -964,6 +1037,209 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
       "wafv2:GetRuleGroup"
     ]
      resources = ["*"]
+  }
+
+  statement {
+    sid = "APPRUNNER"
+    actions = ["apprunner:ListServicesForAutoScalingConfiguration",
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "APPSYNC"
+    actions = ["appsync:GetApiAssociation",
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "ATHENA"
+    actions = ["athena:GetCalculationExecution",
+      "athena:GetCalculationExecutionCode",
+      "athena:GetCalculationExecutionStatus",
+      "athena:GetDataCatalog",
+      "athena:GetNamedQuery",
+      "athena:GetPreparedStatement",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:GetQueryRuntimeStatistics",
+      "athena:GetSession",
+      "athena:GetSessionStatus"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "CE"
+    actions = ["ce:GetCommitmentPurchaseAnalysis",
+      "ce:ListCommitmentPurchaseAnalyses",
+      "ce:GetAnomalyMonitors",
+      "ce:ListTagsForResource",
+      "ce:GetAnomalySubscriptions",
+      "ce:ListCostAllocationTagBackfillHistory",
+      "ce:ListCostAllocationTags",
+      "ce:DescribeCostCategoryDefinition",
+      "ce:ListCostCategoryDefinitions"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "CLOUDFORMATION"
+    actions = ["cloudformation:DescribeAccountLimits",
+      "cloudformation:DescribeChangeSet",
+      "cloudformation:ListChangeSets",
+      "cloudformation:DescribeChangeSetHooks",
+      "cloudformation:ListExports",
+      "cloudformation:ListImports",
+      "cloudformation:DescribePublisher",
+      "cloudformation:DetectStackDrift",
+      "cloudformation:GetTemplateSummary",
+      "cloudformation:DetectStackSetDrift",
+      "cloudformation:DescribeType",
+      "cloudformation:ListTypes",
+      "cloudformation:DescribeTypeRegistration",
+      "cloudformation:ListTypeRegistrations",
+      "cloudformation:ListTypeVersions"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "ELASTICBEANSTALK"
+    actions = ["elasticbeanstalk:ListAvailableSolutionStacks",
+      "elasticbeanstalk:RetrieveEnvironmentInfo",
+      "elasticbeanstalk:ListPlatformBranches",
+      "elasticbeanstalk:ListPlatformVersions"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "MEDIATAILOR"
+    actions = ["mediatailor:ListAlerts",
+      "mediatailor:DescribeChannel",
+      "mediatailor:DescribeProgram",
+      "mediatailor:GetChannelPolicy",
+      "mediatailor:GetChannelSchedule",
+      "mediatailor:ListChannels",
+      "mediatailor:DescribeLiveSource",
+      "mediatailor:ListLiveSources",
+      "mediatailor:GetPlaybackConfiguration",
+      "mediatailor:ListPlaybackConfigurations",
+      "mediatailor:GetPrefetchSchedule",
+      "mediatailor:ListPrefetchSchedules",
+      "mediatailor:DescribeSourceLocation",
+      "mediatailor:ListSourceLocations",
+      "mediatailor:DescribeVodSource",
+      "mediatailor:ListVodSources"
+    ]
+    resources = ["*"]
+    }
+
+  statement {
+    sid = "NETWORKFIREWALL"
+    actions = [
+      "network-firewall:ListTagsForResource",
+      "network-firewall:DescribeRuleGroupMetadata"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "RESILIENCEHUB"
+    actions = [
+      "resiliencehub:ListAppAssessments",
+      "resiliencehub:DescribeAppAssessment",
+      "resiliencehub:ListAlarmRecommendations",
+      "resiliencehub:ListAppAssessmentComplianceDrifts",
+      "resiliencehub:ListAppAssessmentResourceDrifts",
+      "resiliencehub:ListAppComponentCompliances",
+      "resiliencehub:ListAppComponentRecommendations",
+      "resiliencehub:ListSopRecommendations",
+      "resiliencehub:ListTestRecommendations",
+      "resiliencehub:ListApps",
+      "resiliencehub:DescribeApp",
+      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
+      "resiliencehub:DescribeResourceGroupingRecommendationTask",
+      "resiliencehub:ListAppVersions",
+      "resiliencehub:DescribeAppVersion",
+      "resiliencehub:DescribeAppVersionResource",
+      "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
+      "resiliencehub:DescribeAppVersionTemplate",
+      "resiliencehub:ListAppInputSources",
+      "resiliencehub:ListAppVersionAppComponents",
+      "resiliencehub:ListAppVersionResourceMappings",
+      "resiliencehub:ListAppVersionResources",
+      "resiliencehub:ListUnsupportedAppVersionResources",
+      "resiliencehub:ListRecommendationTemplates",
+      "resiliencehub:ListResiliencyPolicies",
+      "resiliencehub:ListResourceGroupingRecommendations",
+      "resiliencehub:ListTagsForResource",
+      "resiliencehub:ListSuggestedResiliencyPolicies"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "RESOURCEEXPLORER2"
+    actions = [
+      "resource-explorer-2:ListIndexes",
+      "resource-explorer-2:ListManagedViews",
+      "resource-explorer-2:GetManagedView",
+      "resource-explorer-2:ListSupportedResourceTypes",
+      "resource-explorer-2:ListViews",
+      "resource-explorer-2:GetView",
+      "resource-explorer-2:ListResources",
+      "resource-explorer-2:GetAccountLevelServiceConfiguration",
+      "resource-explorer-2:GetDefaultView",
+      "resource-explorer-2:GetIndex",
+      "resource-explorer-2:ListTagsForResource"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "ROUTE53DOMAINS"
+    actions = [
+      "route53domains:ViewBilling",
+      "route53domains:CheckDomainAvailability",
+      "route53domains:CheckDomainTransferability",
+      "route53domains:ListPrices"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "SERVICEDISCOVERY"
+    actions = [
+      "servicediscovery:GetInstance",
+      "servicediscovery:ListInstances",
+      "servicediscovery:GetNamespace",
+      "servicediscovery:ListNamespaces",
+      "servicediscovery:ListTagsForResource",
+      "servicediscovery:GetOperation",
+      "servicediscovery:ListOperations",
+      "servicediscovery:GetService",
+      "servicediscovery:GetServiceAttributes",
+      "servicediscovery:ListServices"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "STEPFUNCTIONS"
+    actions = [
+      "stepfunctions:GetActivityTask",
+      "stepfunctions:ListActivities",
+      "stepfunctions:DescribeExecution",
+      "stepfunctions:GetExecutionHistory",
+      "stepfunctions:ListExecutions",
+      "stepfunctions:DescribeMapRun",
+      "stepfunctions:ListMapRuns"
+    ]
+    resources = ["*"]
   }
 }
 

@@ -98,6 +98,7 @@ The audit policy is comprised of the following permissions:
 |----------------------------|---------------------------------------------------------|-----------|
 | GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                           | *         |
 | GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                           | *         |
+| GetObjectLockConfiguration | s3:GetObjectLockConfiguration                           |           |
 | EFS                        | elasticfilesystem:DescribeFileSystemPolicy              | *         |
 |                            | elasticfilesystem:DescribeLifecycleConfiguration        |           |
 |                            | elasticfilesystem:DescribeAccessPoints                  |           |
@@ -110,6 +111,7 @@ The audit policy is comprised of the following permissions:
 |                            | elasticmapreduce:ListInstanceGroups                     |           |
 | SAGEMAKER                  | sagemaker:GetModelPackageGroupPolicy                    | *         |
 |                            | sagemaker:GetLineageGroupPolicy                         |           |
+|                            | sagemaker:GetDeviceFleetReport                          |           |
 | IDENTITYSTORE              | identitystore:DescribeGroup                             | *         |
 |                            | identitystore:DescribeGroupMembership                   |           |
 |                            | identitystore:DescribeUser                              |           |
@@ -121,17 +123,37 @@ The audit policy is comprised of the following permissions:
 |                            | sso:DescribeInstanceAccessControlAttributeConfiguration |           |
 |                            | sso:GetInlinePolicyForPermissionSet                     |           |
 | GLACIER                    | glacier:ListTagsForVault                                | *         |
+|                            | glacier:GetJobOutput                                    |           |
+|                            | glacier:ListJobs                                        |           |
+|                            | glacier:ListMultipartUploads                            |           |
+|                            | glacier:ListParts                                       |           |
+|                            | glacier:ListProvisionedCapacity                         |           |
+|                            | glacier:GetVaultNotifications                           |           |
 | APIGATEWAY                 | apigateway:GET                                          | arn:aws:apigateway:*::/apikeys, arn:aws:apigateway:*::/apikeys/*         |
 | WAFREGIONAL                | waf-regional:ListRules                                  | *         |
 |                            | waf-regional:GetRule                                    |           |
 |                            | waf-regional:ListRuleGroups                             |           |
 |                            | waf-regional:GetRuleGroup                               |           |
 |                            | waf-regional:ListActivatedRulesInRuleGroup              |           |
+|                            | waf-regional:ListIpSets                                 |           |
+|                            | waf-regional:ListRegexPatternSets                       |           |
 | GLUE                       | glue:ListWorkflows                                      | *         |
 |                            | glue:BatchGetWorkflows                                  |           |
 |                            | glue:GetTags                                            |           |
+|                            | glue:GetTables                                          |           |
 | CODEBUILD                  | codebuild:ListBuilds                                    | *         |
 |                            | codebuild:BatchGetBuilds                                |           |
+|                            | codebuild:BatchGetBuildBatches                          |           |
+|                            | codebuild:ListBuildBatches                              |           |
+|                            | codebuild:DescribeCodeCoverages                         |           |
+|                            | codebuild:ListCuratedEnvironmentImages                  |           |
+|                            | codebuild:BatchGetReports                               |           |
+|                            | codebuild:ListReports                                   |           |
+|                            | codebuild:BatchGetReportGroups                          |           |
+|                            | codebuild:ListReportGroups                              |           |
+|                            | codebuild:ListSharedProjects                            |           |
+|                            | codebuild:ListSharedReportGroups                        |           |
+|                            | codebuild:DescribeTestCases                             |           |
 | SNS                        | sns:GetDataProtectionPolicy                             | *         |
 |                            | sns:ListPlatformApplications                            |           |
 |                            | sns:GetSubscriptionAttributes                           |           |
@@ -306,6 +328,7 @@ The audit policy is comprised of the following permissions:
 | RESOURCEGROUPS             | resource-groups:ListGroups                              | *         |
 |                            | resource-groups:GetGroupQuery                           |           |
 |                            | resource-groups:GetGroupConfiguration                   |           |
+|                            | resource-groups:GetTags                                 |           |
 | SERVICECATALOGAPPREGISTRY  | servicecatalog:GetApplication                           | *         |
 |                            | servicecatalog:ListApplications                         |           |
 |                            | servicecatalog:GetAssociatedResource                    |           |
@@ -360,6 +383,10 @@ The audit policy is comprised of the following permissions:
 |                            | budgets:DescribeBudgetActionsForBudget                  |           |
 |                            | budgets:ListTagsForResource                             |           |
 |                            | budgets:ViewBudget                                      |           |
+|                            | budgets:DescribeBudgets                                 |           |
+|                            | budgets:DescribeBudgetPerformanceHistory                |           |
+|                            | budgets:DescribeNotificationsForBudget                  |           |
+|                            | budgets:DescribeSubscribersForNotification              |           |
 | BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                  | *         |
 |                            | aws-portal:ViewAccount                                  |           |
 |                            | aws-portal:ViewBilling                                  |           |
@@ -382,6 +409,7 @@ The audit policy is comprised of the following permissions:
 |                            | appconfig:ListExtensions                                |           |
 |                            | appconfig:ListHostedConfigurationVersions               |           |
 |                            | appconfig:ListTagsForResource                           |           |
+|                            | appconfig:GetDeployment                                 |           |
 | APPFLOW                    | appflow:DescribeConnectorEntity                         | *         |
 |                            | appflow:DescribeConnectorProfiles                       |           |
 |                            | appflow:DescribeConnectors                              |           |
@@ -389,8 +417,10 @@ The audit policy is comprised of the following permissions:
 |                            | appflow:DescribeFlowExecutionRecords                    |           |
 |                            | appflow:ListConnectorEntities                           |           |
 |                            | appflow:ListConnectors                                  |           |
+|                            | appflow:DescribeConnector                               |           |
 | DYNAMODB                   | dynamodb:DescribeContributorInsights                    | *         |
 |                            | dynamodb:GetResourcePolicy                              |           |
+|                            | dynamodb:DescribeBackup                                 |           |
 | EBS                        | ebs:GetSnapshotBlock                                    | *         |
 |                            | ebs:ListSnapshotBlocks                                  |           |
 | FREETIER                   | freetier:GetFreeTierUsage                               | *         |
@@ -585,7 +615,7 @@ The audit policy is comprised of the following permissions:
 |                            | greengrass:GetCoreDevice                                |           |
 |                            | greengrass:GetDeployment                                |           |
 |                            | greengrass:GetServiceRoleForAccount                     |           |
-| INSPECTOR2                 | inspector2:BatchGetCodeSnippet                          |           |
+| INSPECTOR2                 | inspector2:BatchGetCodeSnippet                          | *         |
 |                            | inspector2:ListCisScanResultsAggregatedByChecks         |           |
 |                            | inspector2:ListCisScanResultsAggregatedByTargetResource |           |
 |                            | inspector2:ListCisScanConfigurations                    |           |
@@ -595,9 +625,23 @@ The audit policy is comprised of the following permissions:
 |                            | inspector2:GetCisScanResultDetails                      |           |
 |                            | inspector2:ListCisScans                                 |           |
 |                            | inspector2:GetEncryptionKey                             |           |
-| SSM                        | ssm:GetConnectionStatus                                 |           |
-| EKS                        | ssm:DescribeAddon                                       |           |
-| WAF                        | waf:GetRegexPatternSet                                  |           |
+| SSM                        | ssm:GetConnectionStatus                                 | *         |
+|                            | ssm:ListCommandInvocations                              |           |
+|                            | ssm:GetDocument                                         |           |
+|                            | ssm:GetInventory                                        |           |
+|                            | ssm:GetMaintenanceWindowExecutionTask                   |           |
+|                            | ssm:GetMaintenanceWindowTask                            |           |
+|                            | ssm:GetOpsItem                                          |           |
+|                            | ssm:ListOpsItemEvents                                   |           |
+|                            | ssm:ListOpsItemRelatedItems                             |           |
+|                            | ssm:GetOpsMetadata                                      |           |
+|                            | ssm:GetParameter                                        |           |
+|                            | ssm:GetParameterHistory                                 |           |
+|                            | ssm:GetPatchBaseline                                    |           |
+|                            | ssm:GetPatchBaselineForPatchGroup                       |           |
+|                            | ssm:GetResourcePolicies                                 |           |
+| EKS                        | ssm:DescribeAddon                                       | *         |
+| WAF                        | waf:GetRegexPatternSet                                  | *         |
 |                            | waf:GetPermissionPolicy                                 |           |
 |                            | waf:ListIPSets                                          |           |
 |                            | waf:ListTagsForResource                                 |           |
@@ -606,7 +650,29 @@ The audit policy is comprised of the following permissions:
 |                            | waf:GetLoggingConfiguration                             |           |
 |                            | waf:ListRegexPatternSets                                |           |
 |                            | waf:GetWebACL                                           |           |
-| WAFV2                      | wafv2:ListResourcesForWebACL                            |           |
+|                            | waf:ListActivatedRulesInRuleGroup                       |           |
+|                            | waf:GetByteMatchSet                                     |           |
+|                            | waf:ListByteMatchSets                                   |           |
+|                            | waf:GetGeoMatchSet                                      |           |
+|                            | waf:ListGeoMatchSets                                    |           |
+|                            | waf:GetLoggingConfiguration                             |           |
+|                            | waf:ListLoggingConfigurations                           |           |
+|                            | waf:GetRateBasedRule                                    |           |
+|                            | waf:GetRateBasedRuleManagedKeys                         |           |
+|                            | waf:ListRateBasedRules                                  |           |
+|                            | waf:GetRegexMatchSet                                    |           |
+|                            | waf:ListRegexMatchSets                                  |           |
+|                            | waf:ListRegexPatternSets                                |           |
+|                            | waf:GetRule                                             |           |
+|                            | waf:ListRules                                           |           |
+|                            | waf:ListRuleGroups                                      |           |
+|                            | waf:GetSizeConstraintSet                                |           |
+|                            | waf:ListSizeConstraintSets                              |           |
+|                            | waf:GetSqlInjectionMatchSet                             |           |
+|                            | waf:ListSqlInjectionMatchSets                           |           |
+|                            | waf:GetXssMatchSet                                      |           |
+|                            | waf:ListXssMatchSets                                    |           |
+| WAFV2                      | wafv2:ListResourcesForWebACL                            | *         |
 |                            | wafv2:ListRuleGroups                                    |           |
 |                            | wafv2:ListWebACL                                        |           |
 |                            | wafv2:ListTagsForResource                               |           |
@@ -619,4 +685,123 @@ The audit policy is comprised of the following permissions:
 |                            | wafv2:ListRegexPatternSets                              |           |
 |                            | wafv2:GetManagedRuleSet                                 |           |
 |                            | wafv2:GetRegexPatternSet                                |           |
-|                            | wafv2:ListRegexPatternSets                              |
+|                            | wafv2:ListRegexPatternSets                              |           |
+| APPRUNNER                  | apprunner:ListServicesForAutoScalingConfiguration       | *         |
+| APPSYNC                    | appsync:GetApiAssociation                               | *         |
+| ATHENA                     | athena:GetCalculationExecution                          | *         |
+|                            | athena:GetCalculationExecutionCode                      |           |
+|                            | athena:GetCalculationExecutionStatus                    |           |
+|                            | athena:GetDataCatalog                                   |           |
+|                            | athena:GetNamedQuery                                    |           |
+|                            | athena:GetPreparedStatement                             |           |
+|                            | athena:GetQueryExecution                                |           |
+|                            | athena:GetQueryResults                                  |           |
+|                            | athena:GetQueryRuntimeStatistics                        |           |
+|                            | athena:GetSession                                       |           |
+|                            | athena:GetSessionStatus                                 |           |
+| CE                         | ce:GetCommitmentPurchaseAnalysis                        | *         |
+|                            | ce:ListCommitmentPurchaseAnalyses                       |           |
+|                            | ce:GetAnomalyMonitors                                   |           |
+|                            | ce:ListTagsForResource                                  |           |
+|                            | ce:GetAnomalySubscriptions                              |           |
+|                            | ce:ListCostAllocationTagBackfillHistory                 |           |
+|                            | ce:ListCostAllocationTags                               |           |
+|                            | ce:DescribeCostCategoryDefinition                       |           |
+|                            | ce:ListCostCategoryDefinitions                          |           |
+| CLOUDFORMATION             | cloudformation:DescribeAccountLimits                    | *         |
+|                            | cloudformation:DescribeChangeSet                        |           |
+|                            | cloudformation:ListChangeSets                           |           |
+|                            | cloudformation:DescribeChangeSetHooks                   |           |
+|                            | cloudformation:ListExports                              |           |
+|                            | cloudformation:ListImports                              |           |
+|                            | cloudformation:DescribePublisher                        |           |
+|                            | cloudformation:DetectStackDrift                         |           |
+|                            | cloudformation:GetTemplateSummary                       |           |
+|                            | cloudformation:DetectStackSetDrift                      |           |
+|                            | cloudformation:DescribeType                             |           |
+|                            | cloudformation:ListTypes                                |           |
+|                            | cloudformation:DescribeTypeRegistration                 |           |
+|                            | cloudformation:ListTypeRegistrations                    |           |
+|                            | cloudformation:ListTypeVersions                         |           |
+| ELASTICBEANSTALK           | elasticbeanstalk:ListAvailableSolutionStacks            | *         |
+|                            | elasticbeanstalk:RetrieveEnvironmentInfo                |           |
+|                            | elasticbeanstalk:ListPlatformBranches                   |           |
+|                            | elasticbeanstalk:ListPlatformVersions                   |           |
+| MEDIATAILOR                | mediatailor:ListAlerts                                  | *         |
+|                            | mediatailor:DescribeChannel                             |           |
+|                            | mediatailor:DescribeProgram                             |           |
+|                            | mediatailor:GetChannelPolicy                            |           |
+|                            | mediatailor:GetChannelSchedule                          |           |
+|                            | mediatailor:ListChannels                                |           |
+|                            | mediatailor:DescribeLiveSource                          |           |
+|                            | mediatailor:ListLiveSources                             |           |
+|                            | mediatailor:GetPlaybackConfiguration                    |           |
+|                            | mediatailor:ListPlaybackConfigurations                  |           |
+|                            | mediatailor:GetPrefetchSchedule                         |           |
+|                            | mediatailor:ListPrefetchSchedules                       |           |
+|                            | mediatailor:DescribeSourceLocation                      |           |
+|                            | mediatailor:ListSourceLocations                         |           |
+|                            | mediatailor:DescribeVodSource                           |           |
+|                            | mediatailor:ListVodSources                              |           |
+| NETWORKFIREWALL            | network-firewall:ListTagsForResource                    | *         |
+|                            | network-firewall:DescribeRuleGroupMetadata              |           |
+| RESILIENCEHUB              | resiliencehub:ListAppAssessments                        | *         |
+|                            | resiliencehub:DescribeAppAssessment                     |           |
+|                            | resiliencehub:ListAlarmRecommendations                  |           |
+|                            | resiliencehub:ListAppAssessmentComplianceDrifts         |           |
+|                            | resiliencehub:ListAppAssessmentResourceDrifts           |           |
+|                            | resiliencehub:ListAppComponentCompliances               |           |
+|                            | resiliencehub:ListAppComponentRecommendations           |           |
+|                            | resiliencehub:ListSopRecommendations                    |           |
+|                            | resiliencehub:ListTestRecommendations                   |           |
+|                            | resiliencehub:ListApps                                  |           |
+|                            | resiliencehub:DescribeApp                               |           |
+|                            | resiliencehub:DescribeDraftAppVersionResourcesImportStatus |        |
+|                            | resiliencehub:DescribeResourceGroupingRecommendationTask|           |
+|                            | resiliencehub:ListAppVersions                           |           |
+|                            | resiliencehub:DescribeAppVersion                        |           |
+|                            | resiliencehub:DescribeAppVersionResource                |           |
+|                            | resiliencehub:DescribeAppVersionResourcesResolutionStatus |         |
+|                            | resiliencehub:DescribeAppVersionTemplate                |           |
+|                            | resiliencehub:ListAppInputSources                       |           |
+|                            | resiliencehub:ListAppVersionAppComponents               |           |
+|                            | resiliencehub:ListAppVersionResourceMappings            |           |
+|                            | resiliencehub:ListAppVersionResources                   |           |
+|                            | resiliencehub:ListUnsupportedAppVersionResources        |           |
+|                            | resiliencehub:ListRecommendationTemplates               |           |
+|                            | resiliencehub:ListResiliencyPolicies                    |           |
+|                            | resiliencehub:ListResourceGroupingRecommendations       |           |
+|                            | resiliencehub:ListTagsForResource                       |           |
+|                            | resiliencehub:ListSuggestedResiliencyPolicies           |           |
+| RESOURCEEXPLORER2          | resource-explorer-2:ListIndexes                         | *         |
+|                            | resource-explorer-2:ListManagedViews                    |           |
+|                            | resource-explorer-2:GetManagedView                      |           |
+|                            | resource-explorer-2:ListSupportedResourceTypes          |           |
+|                            | resource-explorer-2:ListViews                           |           |
+|                            | resource-explorer-2:GetView                             |           |
+|                            | resource-explorer-2:ListResources                       |           |
+|                            | resource-explorer-2:GetAccountLevelServiceConfiguration |           |
+|                            | resource-explorer-2:GetDefaultView                      |           |
+|                            | resource-explorer-2:GetIndex                            |           |
+|                            | resource-explorer-2:ListTagsForResource                 |           |
+| ROUTE53DOMAINS             | route53domains:ViewBilling                              | *         |
+|                            | route53domains:CheckDomainAvailability                  |           |
+|                            | route53domains:CheckDomainTransferability               |           |
+|                            | route53domains:ListPrices                               |           |
+| SERVICEDISCOVERY           | servicediscovery:GetInstance                            | *         |
+|                            | servicediscovery:ListInstances                          |           |
+|                            | servicediscovery:GetNamespace                           |           |
+|                            | servicediscovery:ListNamespaces                         |           |
+|                            | servicediscovery:ListTagsForResource                    |           |
+|                            | servicediscovery:GetOperation                           |           |
+|                            | servicediscovery:ListOperations                         |           |
+|                            | servicediscovery:GetService                             |           |
+|                            | servicediscovery:GetServiceAttributes                   |           |
+|                            | servicediscovery:ListServices                           |           |
+| STEPFUNCTIONS              | stepfunctions:GetActivityTask                           | *         |
+|                            | stepfunctions:ListActivities                            |           |
+|                            | stepfunctions:DescribeExecution                         |           |
+|                            | stepfunctions:GetExecutionHistory                       |           |
+|                            | stepfunctions:ListExecutions                            |           |
+|                            | stepfunctions:DescribeMapRun                            |           |
+|                            | stepfunctions:ListMapRuns                               |           |
