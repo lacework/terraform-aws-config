@@ -710,6 +710,55 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid = "RESILIENCEHUB"
+    actions = [
+      "resiliencehub:ListAppAssessments",
+      "resiliencehub:DescribeAppAssessment",
+      "resiliencehub:ListAlarmRecommendations",
+      "resiliencehub:ListAppAssessmentComplianceDrifts",
+      "resiliencehub:ListAppAssessmentResourceDrifts",
+      "resiliencehub:ListAppComponentCompliances",
+      "resiliencehub:ListAppComponentRecommendations",
+      "resiliencehub:ListSopRecommendations",
+      "resiliencehub:ListTestRecommendations",
+      "resiliencehub:ListApps",
+      "resiliencehub:DescribeApp",
+      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
+      "resiliencehub:DescribeResourceGroupingRecommendationTask",
+      "resiliencehub:ListAppVersions",
+      "resiliencehub:DescribeAppVersion",
+      "resiliencehub:DescribeAppVersionResource",
+      "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
+      "resiliencehub:DescribeAppVersionTemplate",
+      "resiliencehub:ListAppInputSources",
+      "resiliencehub:ListAppVersionAppComponents",
+      "resiliencehub:ListAppVersionResourceMappings",
+      "resiliencehub:ListAppVersionResources",
+      "resiliencehub:ListUnsupportedAppVersionResources",
+      "resiliencehub:ListRecommendationTemplates",
+      "resiliencehub:ListResiliencyPolicies",
+      "resiliencehub:ListResourceGroupingRecommendations",
+      "resiliencehub:ListTagsForResource",
+      "resiliencehub:ListSuggestedResiliencyPolicies"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "STEPFUNCTIONS"
+    actions = [
+      "stepfunctions:GetActivityTask",
+      "stepfunctions:ListActivities",
+      "stepfunctions:DescribeExecution",
+      "stepfunctions:GetExecutionHistory",
+      "stepfunctions:ListExecutions",
+      "stepfunctions:DescribeMapRun",
+      "stepfunctions:ListMapRuns"
+    ]
+    resources = ["*"]
+  }
 }
 
 # New permission incoming for 21.0.0 release contain 13 new services:
@@ -1148,41 +1197,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   }
 
   statement {
-    sid = "RESILIENCEHUB"
-    actions = [
-      "resiliencehub:ListAppAssessments",
-      "resiliencehub:DescribeAppAssessment",
-      "resiliencehub:ListAlarmRecommendations",
-      "resiliencehub:ListAppAssessmentComplianceDrifts",
-      "resiliencehub:ListAppAssessmentResourceDrifts",
-      "resiliencehub:ListAppComponentCompliances",
-      "resiliencehub:ListAppComponentRecommendations",
-      "resiliencehub:ListSopRecommendations",
-      "resiliencehub:ListTestRecommendations",
-      "resiliencehub:ListApps",
-      "resiliencehub:DescribeApp",
-      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
-      "resiliencehub:DescribeResourceGroupingRecommendationTask",
-      "resiliencehub:ListAppVersions",
-      "resiliencehub:DescribeAppVersion",
-      "resiliencehub:DescribeAppVersionResource",
-      "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
-      "resiliencehub:DescribeAppVersionTemplate",
-      "resiliencehub:ListAppInputSources",
-      "resiliencehub:ListAppVersionAppComponents",
-      "resiliencehub:ListAppVersionResourceMappings",
-      "resiliencehub:ListAppVersionResources",
-      "resiliencehub:ListUnsupportedAppVersionResources",
-      "resiliencehub:ListRecommendationTemplates",
-      "resiliencehub:ListResiliencyPolicies",
-      "resiliencehub:ListResourceGroupingRecommendations",
-      "resiliencehub:ListTagsForResource",
-      "resiliencehub:ListSuggestedResiliencyPolicies"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
     sid = "RESOURCEEXPLORER2"
     actions = [
       "resource-explorer-2:ListIndexes",
@@ -1224,20 +1238,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
       "servicediscovery:GetService",
       "servicediscovery:GetServiceAttributes",
       "servicediscovery:ListServices"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "STEPFUNCTIONS"
-    actions = [
-      "stepfunctions:GetActivityTask",
-      "stepfunctions:ListActivities",
-      "stepfunctions:DescribeExecution",
-      "stepfunctions:GetExecutionHistory",
-      "stepfunctions:ListExecutions",
-      "stepfunctions:DescribeMapRun",
-      "stepfunctions:ListMapRuns"
     ]
     resources = ["*"]
   }
