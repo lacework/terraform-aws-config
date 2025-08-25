@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid       = "GetBucketPublicAccessBlock"
     actions   = ["s3:GetBucketPublicAccessBlock",
-      "s3:GetObjectLockConfiguration"
+      "s3:GetBucketObjectLockConfiguration"
     ]
     resources = ["*"]
   }

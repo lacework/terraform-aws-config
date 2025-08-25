@@ -98,7 +98,7 @@ The audit policy is comprised of the following permissions:
 |----------------------------|---------------------------------------------------------|-----------|
 | GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                           | *         |
 | GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                           | *         |
-| GetObjectLockConfiguration | s3:GetObjectLockConfiguration                           |           |
+| GetObjectLockConfiguration | s3:GetBucketObjectLockConfiguration                     |           |
 | EFS                        | elasticfilesystem:DescribeFileSystemPolicy              | *         |
 |                            | elasticfilesystem:DescribeLifecycleConfiguration        |           |
 |                            | elasticfilesystem:DescribeAccessPoints                  |           |
@@ -383,10 +383,7 @@ The audit policy is comprised of the following permissions:
 |                            | budgets:DescribeBudgetActionsForBudget                  |           |
 |                            | budgets:ListTagsForResource                             |           |
 |                            | budgets:ViewBudget                                      |           |
-|                            | budgets:DescribeBudgets                                 |           |
-|                            | budgets:DescribeBudgetPerformanceHistory                |           |
-|                            | budgets:DescribeNotificationsForBudget                  |           |
-|                            | budgets:DescribeSubscribersForNotification              |           |
+| BILLING                    | billing:GetBillingViewData                              | *         |
 | BILLINGCONSOLE             | aws-portal:GetConsoleActionSetEnforced                  | *         |
 |                            | aws-portal:ViewAccount                                  |           |
 |                            | aws-portal:ViewBilling                                  |           |
@@ -550,7 +547,7 @@ The audit policy is comprised of the following permissions:
 |                            | detective:ListInvestigations                            |           |
 |                            | detective:ListInvitations                               |           |
 |                            | detective:BatchGetGraphMemberDatasources                |           |
-|                            | detective:ListOrganizationAdminAccounts                 |           |
+|                            | detective:ListOrganizationAdminAccount                  |           |
 | BATCH                      | batch:DescribeJobs                                      | *         |
 |                            | batch:ListJobs                                          |           |
 |                            | batch:ListTagsForResource                               |           |
