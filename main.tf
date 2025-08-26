@@ -11,6 +11,7 @@ locals {
   lacework_audit_policy_name_2025_2 = "${local.lacework_audit_policy_name}-2025-2"
   lacework_audit_policy_name_2025_3 = "${local.lacework_audit_policy_name}-2025-3"
   lacework_audit_policy_name_2025_4 = "${local.lacework_audit_policy_name}-2025-4"
+  lacework_audit_policy_name_2025_5 = "${local.lacework_audit_policy_name}-2025-5"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -762,41 +763,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     ]
     resources = ["*"]
   }
-
-  statement {
-    sid = "FORECAST"
-    actions = ["forecast:DescribeDataset",
-      "forecast:GetAccuracyMetrics",
-      "forecast:DescribeExplainability",
-      "forecast:ListForecastExportJobs",
-      "forecast:ListForecasts",
-      "forecast:DescribeForecast",
-      "forecast:DescribeMonitor",
-      "forecast:ListMonitorEvaluations",
-      "forecast:DescribePredictor",
-      "forecast:ListWhatIfForecasts",
-      "forecast:DescribeDatasetImportJob",
-      "forecast:ListDatasetGroups",
-      "forecast:ListPredictorBacktestExportJobs",
-      "forecast:DescribeExplainabilityExport",
-      "forecast:ListMonitors",
-      "forecast:DescribePredictorBacktestExportJob",
-      "forecast:DescribeDatasetGroup",
-      "forecast:ListWhatIfAnalyses",
-      "forecast:DescribeWhatIfForecastExport",
-      "forecast:DescribeAutoPredictor",
-      "forecast:ListExplainabilities",
-      "forecast:DescribeForecastExportJob",
-      "forecast:DescribeWhatIfForecast",
-      "forecast:DescribeWhatIfAnalysis",
-      "forecast:ListDatasetImportJobs",
-      "forecast:ListExplainabilityExports",
-      "forecast:ListWhatIfForecastExports",
-      "forecast:ListTagsForResource",
-      "forecast:ListPredictors"
-    ]
-    resources = ["*"]
-  }
 }
 
 # New permission incoming for 21.0.0 release contain 13 new services:
@@ -1025,41 +991,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
       "greengrass:GetCoreDevice",
       "greengrass:GetDeployment",
       "greengrass:GetServiceRoleForAccount",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "FORECAST"
-    actions = ["forecast:DescribeDataset",
-      "forecast:GetAccuracyMetrics",
-      "forecast:DescribeExplainability",
-      "forecast:ListForecastExportJobs",
-      "forecast:ListForecasts",
-      "forecast:DescribeForecast",
-      "forecast:DescribeMonitor",
-      "forecast:ListMonitorEvaluations",
-      "forecast:DescribePredictor",
-      "forecast:ListWhatIfForecasts",
-      "forecast:DescribeDatasetImportJob",
-      "forecast:ListDatasetGroups",
-      "forecast:ListPredictorBacktestExportJobs",
-      "forecast:DescribeExplainabilityExport",
-      "forecast:ListMonitors",
-      "forecast:DescribePredictorBacktestExportJob",
-      "forecast:DescribeDatasetGroup",
-      "forecast:ListWhatIfAnalyses",
-      "forecast:DescribeWhatIfForecastExport",
-      "forecast:DescribeAutoPredictor",
-      "forecast:ListExplainabilities",
-      "forecast:DescribeForecastExportJob",
-      "forecast:DescribeWhatIfForecast",
-      "forecast:DescribeWhatIfAnalysis",
-      "forecast:ListDatasetImportJobs",
-      "forecast:ListExplainabilityExports",
-      "forecast:ListWhatIfForecastExports",
-      "forecast:ListTagsForResource",
-      "forecast:ListPredictors"
     ]
     resources = ["*"]
   }
@@ -1316,6 +1247,46 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   }
 }
 
+# New permission incoming for 23.0.0 release
+# https://lacework.atlassian.net/browse/RAIN-95426
+data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
+  statement {
+    sid = "FORECAST"
+    actions = ["forecast:DescribeDataset",
+      "forecast:GetAccuracyMetrics",
+      "forecast:DescribeExplainability",
+      "forecast:ListForecastExportJobs",
+      "forecast:ListForecasts",
+      "forecast:DescribeForecast",
+      "forecast:DescribeMonitor",
+      "forecast:ListMonitorEvaluations",
+      "forecast:DescribePredictor",
+      "forecast:ListWhatIfForecasts",
+      "forecast:DescribeDatasetImportJob",
+      "forecast:ListDatasetGroups",
+      "forecast:ListPredictorBacktestExportJobs",
+      "forecast:DescribeExplainabilityExport",
+      "forecast:ListMonitors",
+      "forecast:DescribePredictorBacktestExportJob",
+      "forecast:DescribeDatasetGroup",
+      "forecast:ListWhatIfAnalyses",
+      "forecast:DescribeWhatIfForecastExport",
+      "forecast:DescribeAutoPredictor",
+      "forecast:ListExplainabilities",
+      "forecast:DescribeForecastExportJob",
+      "forecast:DescribeWhatIfForecast",
+      "forecast:DescribeWhatIfAnalysis",
+      "forecast:ListDatasetImportJobs",
+      "forecast:ListExplainabilityExports",
+      "forecast:ListWhatIfForecastExports",
+      "forecast:ListTagsForResource",
+      "forecast:ListPredictors"
+    ]
+    resources = ["*"]
+  }
+}
 
 resource "aws_iam_policy" "lacework_audit_policy" {
   count       = var.use_existing_iam_role_policy ? 0 : 1
@@ -1357,6 +1328,14 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_4" {
   tags        = var.tags
 }
 
+resource "aws_iam_policy" "lacework_audit_policy_2025_5" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
+  name        = local.lacework_audit_policy_name_2025_5
+  description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the fourth policy"
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_5[0].json
+  tags        = var.tags
+}
+
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
@@ -1392,6 +1371,12 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_e" {
   depends_on = [module.lacework_cfg_iam_role]
 }
 
+resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_f" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
+  role       = local.iam_role_name
+  policy_arn = aws_iam_policy.lacework_audit_policy_2025_5[0].arn
+  depends_on = [module.lacework_cfg_iam_role]
+}
 # wait for X seconds for things to settle down in the AWS side
 # before trying to create the Lacework external integration
 resource "time_sleep" "wait_time" {
