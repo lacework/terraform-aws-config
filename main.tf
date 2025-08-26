@@ -1078,6 +1078,41 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   }
 
   statement {
+    sid = "FORECAST"
+    actions = ["forecast:DescribeDataset",
+      "forecast:GetAccuracyMetrics",
+      "forecast:DescribeExplainability",
+      "forecast:ListForecastExportJobs",
+      "forecast:ListForecasts",
+      "forecast:DescribeForecast",
+      "forecast:DescribeMonitor",
+      "forecast:ListMonitorEvaluations",
+      "forecast:DescribePredictor",
+      "forecast:ListWhatIfForecasts",
+      "forecast:DescribeDatasetImportJob",
+      "forecast:ListDatasetGroups",
+      "forecast:ListPredictorBacktestExportJobs",
+      "forecast:DescribeExplainabilityExport",
+      "forecast:ListMonitors",
+      "forecast:DescribePredictorBacktestExportJob",
+      "forecast:DescribeDatasetGroup",
+      "forecast:ListWhatIfAnalyses",
+      "forecast:DescribeWhatIfForecastExport",
+      "forecast:DescribeAutoPredictor",
+      "forecast:ListExplainabilities",
+      "forecast:DescribeForecastExportJob",
+      "forecast:DescribeWhatIfForecast",
+      "forecast:DescribeWhatIfAnalysis",
+      "forecast:ListDatasetImportJobs",
+      "forecast:ListExplainabilityExports",
+      "forecast:ListWhatIfForecastExports",
+      "forecast:ListTagsForResource",
+      "forecast:ListPredictors"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
     sid = "WAFV2"
     actions = ["wafv2:GetManagedRuleSet",
       "wafv2:GetRegexPatternSet",
@@ -1240,6 +1275,41 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
       "servicediscovery:GetService",
       "servicediscovery:GetServiceAttributes",
       "servicediscovery:ListServices"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "FORECAST"
+    actions = ["forecast:DescribeDataset",
+      "forecast:GetAccuracyMetrics",
+      "forecast:DescribeExplainability",
+      "forecast:ListForecastExportJobs",
+      "forecast:ListForecasts",
+      "forecast:DescribeForecast",
+      "forecast:DescribeMonitor",
+      "forecast:ListMonitorEvaluations",
+      "forecast:DescribePredictor",
+      "forecast:ListWhatIfForecasts",
+      "forecast:DescribeDatasetImportJob",
+      "forecast:ListDatasetGroups",
+      "forecast:ListPredictorBacktestExportJobs",
+      "forecast:DescribeExplainabilityExport",
+      "forecast:ListMonitors",
+      "forecast:DescribePredictorBacktestExportJob",
+      "forecast:DescribeDatasetGroup",
+      "forecast:ListWhatIfAnalyses",
+      "forecast:DescribeWhatIfForecastExport",
+      "forecast:DescribeAutoPredictor",
+      "forecast:ListExplainabilities",
+      "forecast:DescribeForecastExportJob",
+      "forecast:DescribeWhatIfForecast",
+      "forecast:DescribeWhatIfAnalysis",
+      "forecast:ListDatasetImportJobs",
+      "forecast:ListExplainabilityExports",
+      "forecast:ListWhatIfForecastExports",
+      "forecast:ListTagsForResource",
+      "forecast:ListPredictors"
     ]
     resources = ["*"]
   }
