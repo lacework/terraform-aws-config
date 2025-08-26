@@ -683,6 +683,35 @@ The audit policy is comprised of the following permissions:
 |                            | wafv2:GetManagedRuleSet                                        |           |
 |                            | wafv2:GetRegexPatternSet                                       |           |
 |                            | wafv2:ListRegexPatternSets                                     |           |
+|FORECAST                    | forecast:DescribeDataset                                       | *         |
+|                            | forecast:GetAccuracyMetrics                                    |           |
+|                            | forecast:DescribeExplainability                                |           |
+|                            | forecast:ListForecastExportJobs                                |           |
+|                            | forecast:ListForecasts                                         |           |
+|                            | forecast:DescribeForecast                                      |           |
+|                            | forecast:DescribeMonitor                                       |           |
+|                            | forecast:ListMonitorEvaluations                                |           |
+|                            | forecast:DescribePredictor                                     |           |
+|                            | forecast:ListWhatIfForecasts                                   |           |
+|                            | forecast:DescribeDatasetImportJob                              |           |
+|                            | forecast:ListDatasetGroups                                     |           |
+|                            | forecast:ListPredictorBacktestExportJobs                       |           |
+|                            | forecast:DescribeExplainabilityExport                          |           |
+|                            | forecast:ListMonitors                                          |           |
+|                            | forecast:DescribePredictorBacktestExportJob                    |           |
+|                            | forecast:DescribeDatasetGroup                                  |           |
+|                            | forecast:ListWhatIfAnalyses                                    |           |
+|                            | forecast:DescribeWhatIfForecastExport                          |           |
+|                            | forecast:DescribeAutoPredictor                                 |           |
+|                            | forecast:ListExplainabilities                                  |           |
+|                            | forecast:DescribeForecastExportJob                             |           |
+|                            | forecast:DescribeWhatIfForecast                                |           |
+|                            | forecast:DescribeWhatIfAnalysis                                |           |
+|                            | forecast:ListDatasetImportJobs                                 |           |
+|                            | forecast:ListExplainabilityExports                             |           |
+|                            | forecast:ListWhatIfForecastExports                             |           |
+|                            | forecast:ListTagsForResource                                   |           |
+|                            | forecast:ListPredictors                                        |           |
 | APPRUNNER                  | apprunner:ListServicesForAutoScalingConfiguration              | *         |
 | APPSYNC                    | appsync:GetApiAssociation                                      | *         |
 | ATHENA                     | athena:GetCalculationExecution                                 | *         |
