@@ -683,7 +683,7 @@ The audit policy is comprised of the following permissions:
 |                            | wafv2:GetManagedRuleSet                                        |           |
 |                            | wafv2:GetRegexPatternSet                                       |           |
 |                            | wafv2:ListRegexPatternSets                                     |           |
-|FORECAST                    | forecast:DescribeDataset                                       | *         |
+| FORECAST                   | forecast:DescribeDataset                                       | *         |
 |                            | forecast:GetAccuracyMetrics                                    |           |
 |                            | forecast:DescribeExplainability                                |           |
 |                            | forecast:ListForecastExportJobs                                |           |
