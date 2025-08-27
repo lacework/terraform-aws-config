@@ -44,14 +44,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   version = "2012-10-17"
 
   statement {
-    sid       = "GetBucketPublicAccessBlock"
-    actions   = ["s3:GetBucketPublicAccessBlock",
-      "s3:GetBucketObjectLockConfiguration"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
     sid = "EFS"
     actions = ["elasticfilesystem:ListTagsForResource"]
     resources = ["*"]
@@ -107,12 +99,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "GLACIER"
     actions = ["glacier:ListTagsForVault",
-      "glacier:GetJobOutput",
-      "glacier:ListJobs",
-      "glacier:ListMultipartUploads",
-      "glacier:ListParts",
-      "glacier:ListProvisionedCapacity",
-      "glacier:GetVaultNotifications",
       "glacier:GetJobOutput",
       "glacier:ListJobs",
       "glacier:ListMultipartUploads",

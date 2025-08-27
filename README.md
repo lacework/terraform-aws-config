@@ -100,8 +100,6 @@ The audit policy is comprised of the following permissions:
 | sid                        | actions                                                        | resources |
 |----------------------------|----------------------------------------------------------------|-----------|
 | GetEbsEncryptionByDefault  | ec2:GetEbsEncryptionByDefault                                  | *         |
-| GetBucketPublicAccessBlock | s3:GetBucketPublicAccessBlock                                  | *         |
-| GetObjectLockConfiguration | s3:GetBucketObjectLockConfiguration                            |           |
 | EFS                        | elasticfilesystem:DescribeFileSystemPolicy                     | *         |
 |                            | elasticfilesystem:DescribeLifecycleConfiguration               |           |
 |                            | elasticfilesystem:DescribeAccessPoints                         |           |
