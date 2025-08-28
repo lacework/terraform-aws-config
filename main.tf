@@ -11,6 +11,7 @@ locals {
   lacework_audit_policy_name_2025_2 = "${local.lacework_audit_policy_name}-2025-2"
   lacework_audit_policy_name_2025_3 = "${local.lacework_audit_policy_name}-2025-3"
   lacework_audit_policy_name_2025_4 = "${local.lacework_audit_policy_name}-2025-4"
+  lacework_audit_policy_name_2025_5 = "${local.lacework_audit_policy_name}-2025-5"
   version_file   = "${abspath(path.module)}/VERSION"
   module_name    = "terraform-aws-config"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
@@ -43,12 +44,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   version = "2012-10-17"
 
   statement {
-    sid       = "GetBucketPublicAccessBlock"
-    actions   = ["s3:GetBucketPublicAccessBlock"]
-    resources = ["*"]
-  }
-
-  statement {
     sid = "EFS"
     actions = ["elasticfilesystem:ListTagsForResource"]
     resources = ["*"]
@@ -58,14 +53,15 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "EMR"
     actions = ["elasticmapreduce:ListBootstrapActions",
       "elasticmapreduce:ListInstanceFleets",
-    "elasticmapreduce:ListInstanceGroups"]
+      "elasticmapreduce:ListInstanceGroups"]
     resources = ["*"]
   }
 
   statement {
     sid = "SAGEMAKER"
     actions = ["sagemaker:GetModelPackageGroupPolicy",
-    "sagemaker:GetLineageGroupPolicy"]
+      "sagemaker:GetLineageGroupPolicy",
+      "sagemaker:GetDeviceFleetReport"]
     resources = ["*"]
   }
 
@@ -102,43 +98,23 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid = "GLACIER"
-    actions = ["glacier:ListTagsForVault"]
+    actions = ["glacier:ListTagsForVault",
+      "glacier:GetJobOutput",
+      "glacier:ListJobs",
+      "glacier:ListMultipartUploads",
+      "glacier:ListParts",
+      "glacier:ListProvisionedCapacity",
+      "glacier:GetVaultNotifications"
+    ]
     resources = ["*"]
-  }
-
-  statement {
-    sid = "WAFREGIONAL"
-    actions = ["waf-regional:ListRules",
-      "waf-regional:GetRule",
-      "waf-regional:ListRuleGroups",
-      "waf-regional:GetRuleGroup",
-      "waf-regional:ListActivatedRulesInRuleGroup",
-      "waf-regional:GetByteMatchSet",
-      "waf-regional:GetPermissionPolicy",
-      "waf-regional:GetRateBasedRule",
-      "waf-regional:ListSizeConstraintSets",
-      "waf-regional:ListByteMatchSets",
-      "waf-regional:ListGeoMatchSets",
-      "waf-regional:GetLoggingConfiguration",
-      "waf-regional:GetSqlInjectionMatchSet",
-      "waf-regional:ListRateBasedRules",
-      "waf-regional:GetSizeConstraintSet",
-      "waf-regional:GetRegexMatchSet",
-      "waf-regional:GetGeoMatchSet",
-      "waf-regional:GetRegexPatternSet",
-      "waf-regional:ListRegexMatchSets",
-      "waf-regional:GetIPSet",
-      "waf-regional:ListSqlInjectionMatchSets",
-      "waf-regional:ListXssMatchSets",
-      "waf-regional:GetXssMatchSet"]
-     resources = ["*"]
   }
 
   statement {
     sid = "GLUE"
     actions = ["glue:ListWorkflows",
       "glue:BatchGetWorkflows",
-      "glue:GetWorkflow"]
+      "glue:GetWorkflow",
+      "glue:GetTables"]
     resources = ["*"]
   }
 
@@ -146,6 +122,17 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
     sid = "CODEBUILD"
     actions = ["codebuild:ListBuilds",
       "codebuild:BatchGetBuilds",
+      "codebuild:BatchGetBuildBatches",
+      "codebuild:ListBuildBatches",
+      "codebuild:DescribeCodeCoverages",
+      "codebuild:ListCuratedEnvironmentImages",
+      "codebuild:BatchGetReports",
+      "codebuild:ListReports",
+      "codebuild:BatchGetReportGroups",
+      "codebuild:ListReportGroups",
+      "codebuild:ListSharedProjects",
+      "codebuild:ListSharedReportGroups",
+      "codebuild:DescribeTestCases"
     ]
     resources = ["*"]
   }
@@ -436,6 +423,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
     actions = ["resource-groups:ListGroups",
       "resource-groups:GetGroupQuery",
       "resource-groups:GetGroupConfiguration",
+      "resource-groups:GetTags"
     ]
     resources = ["*"]
   }
@@ -525,6 +513,13 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   }
 
   statement {
+    sid = "BILLING"
+    actions = ["billing:GetBillingViewData",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
     sid = "BILLINGCONSOLE"
     actions = ["aws-portal:GetConsoleActionSetEnforced",
       "aws-portal:ViewAccount",
@@ -547,6 +542,36 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     sid = "FREETIER"
     actions = ["freetier:GetFreeTierUsage"]
     resources = ["*"]
+  }
+
+  statement {
+    sid = "WAFREGIONAL"
+    actions = ["waf-regional:ListRules",
+      "waf-regional:GetRule",
+      "waf-regional:ListRuleGroups",
+      "waf-regional:GetRuleGroup",
+      "waf-regional:ListActivatedRulesInRuleGroup",
+      "waf-regional:GetByteMatchSet",
+      "waf-regional:GetPermissionPolicy",
+      "waf-regional:GetRateBasedRule",
+      "waf-regional:ListSizeConstraintSets",
+      "waf-regional:ListByteMatchSets",
+      "waf-regional:ListGeoMatchSets",
+      "waf-regional:GetLoggingConfiguration",
+      "waf-regional:GetSqlInjectionMatchSet",
+      "waf-regional:ListRateBasedRules",
+      "waf-regional:GetSizeConstraintSet",
+      "waf-regional:GetRegexMatchSet",
+      "waf-regional:GetGeoMatchSet",
+      "waf-regional:GetRegexPatternSet",
+      "waf-regional:ListRegexMatchSets",
+      "waf-regional:GetIPSet",
+      "waf-regional:ListSqlInjectionMatchSets",
+      "waf-regional:ListXssMatchSets",
+      "waf-regional:GetXssMatchSet",
+      "waf-regional:ListIpSets",
+      "waf-regional:ListRegexPatternSets"]
+     resources = ["*"]
   }
 
   statement {
@@ -573,6 +598,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
       "appconfig:ListExtensions",
       "appconfig:ListHostedConfigurationVersions",
       "appconfig:ListTagsForResource",
+      "appconfig:GetDeployment",
     ]
     resources = ["*"]
   }
@@ -581,7 +607,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     sid = "APPFLOW"
     actions = ["appflow:DescribeConnectorEntity",
       "appflow:DescribeConnectorProfiles",
-      "appflow:DescribeConnectors",
+      "appflow:DescribeConnector",
       "appflow:DescribeFlow",
       "appflow:DescribeFlowExecutionRecords",
       "appflow:ListConnectorEntities",
@@ -594,6 +620,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
     sid = "DYNAMODB"
     actions = ["dynamodb:GetResourcePolicy",
       "dynamodb:DescribeContributorInsights",
+      "dynamodb:DescribeBackup",
     ]
     resources = ["*"]
   }
@@ -670,6 +697,55 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
       "datasync:DescribeLocationFsxLustre",
       "datasync:ListDiscoveryJobs",
       "datasync:DescribeLocationNfs"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "RESILIENCEHUB"
+    actions = [
+      "resiliencehub:ListAppAssessments",
+      "resiliencehub:DescribeAppAssessment",
+      "resiliencehub:ListAlarmRecommendations",
+      "resiliencehub:ListAppAssessmentComplianceDrifts",
+      "resiliencehub:ListAppAssessmentResourceDrifts",
+      "resiliencehub:ListAppComponentCompliances",
+      "resiliencehub:ListAppComponentRecommendations",
+      "resiliencehub:ListSopRecommendations",
+      "resiliencehub:ListTestRecommendations",
+      "resiliencehub:ListApps",
+      "resiliencehub:DescribeApp",
+      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
+      "resiliencehub:DescribeResourceGroupingRecommendationTask",
+      "resiliencehub:ListAppVersions",
+      "resiliencehub:DescribeAppVersion",
+      "resiliencehub:DescribeAppVersionResource",
+      "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
+      "resiliencehub:DescribeAppVersionTemplate",
+      "resiliencehub:ListAppInputSources",
+      "resiliencehub:ListAppVersionAppComponents",
+      "resiliencehub:ListAppVersionResourceMappings",
+      "resiliencehub:ListAppVersionResources",
+      "resiliencehub:ListUnsupportedAppVersionResources",
+      "resiliencehub:ListRecommendationTemplates",
+      "resiliencehub:ListResiliencyPolicies",
+      "resiliencehub:ListResourceGroupingRecommendations",
+      "resiliencehub:ListTagsForResource",
+      "resiliencehub:ListSuggestedResiliencyPolicies"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "STEPFUNCTIONS"
+    actions = [
+      "states:GetActivityTask",
+      "states:ListActivities",
+      "states:DescribeExecution",
+      "states:GetExecutionHistory",
+      "states:ListExecutions",
+      "states:DescribeMapRun",
+      "states:ListMapRuns"
     ]
     resources = ["*"]
   }
@@ -812,7 +888,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
       "detective:ListInvestigations",
       "detective:ListInvitations",
       "detective:BatchGetGraphMemberDatasources",
-      "detective:ListOrganizationAdminAccounts",
+      "detective:ListOrganizationAdminAccount",
     ]
     resources = ["*"]
   }
@@ -914,6 +990,20 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   statement {
     sid = "SSM"
     actions = ["ssm:GetConnectionStatus",
+      "ssm:ListCommandInvocations",
+      "ssm:GetDocument",
+      "ssm:GetInventory",
+      "ssm:GetMaintenanceWindowExecutionTask",
+      "ssm:GetMaintenanceWindowTask",
+      "ssm:GetOpsItem",
+      "ssm:ListOpsItemEvents",
+      "ssm:ListOpsItemRelatedItems",
+      "ssm:GetOpsMetadata",
+      "ssm:GetParameter",
+      "ssm:GetParameterHistory",
+      "ssm:GetPatchBaseline",
+      "ssm:GetPatchBaselineForPatchGroup",
+      "ssm:GetResourcePolicies"
     ]
     resources = ["*"]
   }
@@ -948,7 +1038,29 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
       "waf:GetPermissionPolicy",
       "waf:ListIPSets",
       "waf:GetIPSet",
-      "waf:GetRuleGroup"
+      "waf:GetRuleGroup",
+      "waf:ListActivatedRulesInRuleGroup",
+      "waf:GetByteMatchSet",
+      "waf:ListByteMatchSets",
+      "waf:GetGeoMatchSet",
+      "waf:ListGeoMatchSets",
+      "waf:GetLoggingConfiguration",
+      "waf:ListLoggingConfigurations",
+      "waf:GetRateBasedRule",
+      "waf:GetRateBasedRuleManagedKeys",
+      "waf:ListRateBasedRules",
+      "waf:GetRegexMatchSet",
+      "waf:ListRegexMatchSets",
+      "waf:ListRegexPatternSets",
+      "waf:GetRule",
+      "waf:ListRules",
+      "waf:ListRuleGroups",
+      "waf:GetSizeConstraintSet",
+      "waf:ListSizeConstraintSets",
+      "waf:GetSqlInjectionMatchSet",
+      "waf:ListSqlInjectionMatchSets",
+      "waf:GetXssMatchSet",
+      "waf:ListXssMatchSets"
     ]
      resources = ["*"]
   }
@@ -966,6 +1078,166 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
      resources = ["*"]
   }
 
+  statement {
+    sid = "APPRUNNER"
+    actions = ["apprunner:ListServicesForAutoScalingConfiguration",
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "APPSYNC"
+    actions = ["appsync:GetApiAssociation",
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "ATHENA"
+    actions = ["athena:GetCalculationExecution",
+      "athena:GetCalculationExecutionCode",
+      "athena:GetCalculationExecutionStatus",
+      "athena:GetDataCatalog",
+      "athena:GetNamedQuery",
+      "athena:GetPreparedStatement",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:GetQueryRuntimeStatistics",
+      "athena:GetSession",
+      "athena:GetSessionStatus"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "CE"
+    actions = ["ce:GetCommitmentPurchaseAnalysis",
+      "ce:ListCommitmentPurchaseAnalyses",
+      "ce:GetAnomalyMonitors",
+      "ce:ListTagsForResource",
+      "ce:GetAnomalySubscriptions",
+      "ce:ListCostAllocationTagBackfillHistory",
+      "ce:ListCostAllocationTags",
+      "ce:DescribeCostCategoryDefinition",
+      "ce:ListCostCategoryDefinitions"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "CLOUDFORMATION"
+    actions = ["cloudformation:DescribeAccountLimits",
+      "cloudformation:DescribeChangeSet",
+      "cloudformation:ListChangeSets",
+      "cloudformation:DescribeChangeSetHooks",
+      "cloudformation:ListExports",
+      "cloudformation:ListImports",
+      "cloudformation:DescribePublisher",
+      "cloudformation:DetectStackDrift",
+      "cloudformation:GetTemplateSummary",
+      "cloudformation:DetectStackSetDrift",
+      "cloudformation:DescribeType",
+      "cloudformation:ListTypes",
+      "cloudformation:DescribeTypeRegistration",
+      "cloudformation:ListTypeRegistrations",
+      "cloudformation:ListTypeVersions"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "ELASTICBEANSTALK"
+    actions = ["elasticbeanstalk:ListAvailableSolutionStacks",
+      "elasticbeanstalk:RetrieveEnvironmentInfo",
+      "elasticbeanstalk:ListPlatformBranches",
+      "elasticbeanstalk:ListPlatformVersions"
+    ]
+     resources = ["*"]
+  }
+
+  statement {
+    sid = "MEDIATAILOR"
+    actions = ["mediatailor:ListAlerts",
+      "mediatailor:DescribeChannel",
+      "mediatailor:DescribeProgram",
+      "mediatailor:GetChannelPolicy",
+      "mediatailor:GetChannelSchedule",
+      "mediatailor:ListChannels",
+      "mediatailor:DescribeLiveSource",
+      "mediatailor:ListLiveSources",
+      "mediatailor:GetPlaybackConfiguration",
+      "mediatailor:ListPlaybackConfigurations",
+      "mediatailor:GetPrefetchSchedule",
+      "mediatailor:ListPrefetchSchedules",
+      "mediatailor:DescribeSourceLocation",
+      "mediatailor:ListSourceLocations",
+      "mediatailor:DescribeVodSource",
+      "mediatailor:ListVodSources"
+    ]
+    resources = ["*"]
+    }
+
+  statement {
+    sid = "NETWORKFIREWALL"
+    actions = [
+      "network-firewall:ListTagsForResource",
+      "network-firewall:DescribeRuleGroupMetadata"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "RESOURCEEXPLORER2"
+    actions = [
+      "resource-explorer-2:ListIndexes",
+      "resource-explorer-2:ListManagedViews",
+      "resource-explorer-2:GetManagedView",
+      "resource-explorer-2:ListSupportedResourceTypes",
+      "resource-explorer-2:ListViews",
+      "resource-explorer-2:GetView",
+      "resource-explorer-2:Search",
+      "resource-explorer-2:GetAccountLevelServiceConfiguration",
+      "resource-explorer-2:GetDefaultView",
+      "resource-explorer-2:GetIndex",
+      "resource-explorer-2:ListTagsForResource"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "ROUTE53DOMAINS"
+    actions = [
+      "route53domains:ViewBilling",
+      "route53domains:CheckDomainAvailability",
+      "route53domains:CheckDomainTransferability",
+      "route53domains:ListPrices"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "SERVICEDISCOVERY"
+    actions = [
+      "servicediscovery:GetInstance",
+      "servicediscovery:ListInstances",
+      "servicediscovery:GetNamespace",
+      "servicediscovery:ListNamespaces",
+      "servicediscovery:ListTagsForResource",
+      "servicediscovery:GetOperation",
+      "servicediscovery:ListOperations",
+      "servicediscovery:GetService",
+      "servicediscovery:GetServiceAttributes",
+      "servicediscovery:ListServices"
+    ]
+    resources = ["*"]
+  }
+}
+
+# New permission incoming for 23.0.0 release
+# https://lacework.atlassian.net/browse/RAIN-95426
+data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
+  count   = var.use_existing_iam_role_policy ? 0 : 1
+  version = "2012-10-17"
   statement {
     sid = "FORECAST"
     actions = ["forecast:DescribeDataset",
@@ -1000,42 +1272,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
     ]
     resources = ["*"]
   }
-
-  statement {
-    sid = "RESILIENCEHUB"
-    actions = ["resiliencehub:ListSopRecommendations",
-      "resiliencehub:DescribeAppAssessment",
-      "resiliencehub:DescribeApp",
-      "resiliencehub:DescribeAppVersion",
-      "resiliencehub:ListTestRecommendations",
-      "resiliencehub:ListApps",
-      "resiliencehub:ListResiliencyPolicies",
-      "resiliencehub:DescribeAppVersionResource",
-      "resiliencehub:ListSuggestedResiliencyPolicies",
-      "resiliencehub:ListAppAssessmentResourceDrifts",
-      "resiliencehub:ListRecommendationTemplates",
-      "resiliencehub:ListAppAssessmentComplianceDrifts",
-      "resiliencehub:ListAlarmRecommendations",
-      "resiliencehub:ListTagsForResource",
-      "resiliencehub:DescribeAppVersionTemplate",
-      "resiliencehub:ListAppVersionAppComponents",
-      "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
-      "resiliencehub:ListAppComponentCompliances",
-      "resiliencehub:ListUnsupportedAppVersionResources",
-      "resiliencehub:ListResourceGroupingRecommendations",
-      "resiliencehub:ListAppInputSources",
-      "resiliencehub:ListAppVersionResources",
-      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
-      "resiliencehub:ListAppVersions",
-      "resiliencehub:ListAppAssessments",
-      "resiliencehub:ListAppVersionResourceMappings",
-      "resiliencehub:DescribeResourceGroupingRecommendationTask",
-      "resiliencehub:ListAppComponentRecommendations"
-    ]
-    resources = ["*"]
-  }
 }
-
 
 resource "aws_iam_policy" "lacework_audit_policy" {
   count       = var.use_existing_iam_role_policy ? 0 : 1
@@ -1077,6 +1314,14 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_4" {
   tags        = var.tags
 }
 
+resource "aws_iam_policy" "lacework_audit_policy_2025_5" {
+  count       = var.use_existing_iam_role_policy ? 0 : 1
+  name        = local.lacework_audit_policy_name_2025_5
+  description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the fourth policy"
+  policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_5[0].json
+  tags        = var.tags
+}
+
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
   count      = var.use_existing_iam_role_policy ? 0 : 1
   role       = local.iam_role_name
@@ -1112,6 +1357,12 @@ resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_e" {
   depends_on = [module.lacework_cfg_iam_role]
 }
 
+resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_f" {
+  count      = var.use_existing_iam_role_policy ? 0 : 1
+  role       = local.iam_role_name
+  policy_arn = aws_iam_policy.lacework_audit_policy_2025_5[0].arn
+  depends_on = [module.lacework_cfg_iam_role]
+}
 # wait for X seconds for things to settle down in the AWS side
 # before trying to create the Lacework external integration
 resource "time_sleep" "wait_time" {
