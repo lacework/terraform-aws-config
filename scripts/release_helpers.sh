@@ -88,7 +88,7 @@ git_add_version_files() {
 
 verify_release() {
   log "verifying new release"
-  _changed_file=$(git whatchanged --name-only --pretty="" origin..HEAD)
+  _changed_file=$(git whatchanged --name-only --i-still-use-this --pretty="" origin..HEAD)
   for f in "${required_files_for_release[@]}"; do
     if [[ "$_changed_file" =~ "$f" ]]; then
       log "(required) '$f' has been modified. Great!"
