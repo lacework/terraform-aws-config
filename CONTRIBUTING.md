@@ -25,7 +25,7 @@ Include as much relevant information as possible. See the [bug template](https:/
 
 ## Feature Requests
 
-If you wish to submit a request to add new functionality or an improvement to a terraform module then use the the [feature request](https://github.com/lacework/terraform-aws-config/blob/main/.github/ISSUE_TEMPLATE/feature_request.md) template to 
+If you wish to submit a request to add new functionality or an improvement to a terraform module then use the the [feature request](https://github.com/lacework/terraform-aws-config/blob/main/.github/ISSUE_TEMPLATE/feature_request.md) template to
 open a new [issue](https://github.com/lacework/terraform-aws-config/issues/new)
 
 ## Creating a Pull Request

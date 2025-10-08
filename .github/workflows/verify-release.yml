@@ -1,6 +1,6 @@
 name: Verify Release
 
-on: 
+on:
   workflow_dispatch:
   push:
     branches:

@@ -16,7 +16,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.35.0 |
 | <a name="requirement_lacework"></a> [lacework](#requirement\_lacework) | ~> 2.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.1 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.7 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.7 |
 
 ## Providers
 
@@ -25,7 +25,7 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.35.0 |
 | <a name="provider_lacework"></a> [lacework](#provider\_lacework) | ~> 2.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.1 |
-| <a name="provider_time"></a> [time](#provider\_time) | ~> 0.7 |
+| <a name="provider_time"></a> [time](#provider\_time) | >= 0.7 |
 
 ## Modules
 
@@ -66,7 +66,6 @@ Terraform module for configuring an integration with Lacework and AWS for cloud 
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_external_id_length"></a> [external\_id\_length](#input\_external\_id\_length) | **Deprecated** - Will be removed on our next major release v1.0.0 | `number` | `16` | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | The IAM role ARN is required when setting use\_existing\_iam\_role to `true` | `string` | `""` | no |
 | <a name="input_iam_role_external_id"></a> [iam\_role\_external\_id](#input\_iam\_role\_external\_id) | The external ID configured inside the IAM role is required when setting use\_existing\_iam\_role to `true` | `string` | `""` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | The IAM role name. Required to match with iam\_role\_arn if use\_existing\_iam\_role is set to `true` | `string` | `""` | no |

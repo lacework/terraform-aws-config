@@ -12,9 +12,6 @@ locals {
   lacework_audit_policy_name_2025_3 = "${local.lacework_audit_policy_name}-2025-3"
   lacework_audit_policy_name_2025_4 = "${local.lacework_audit_policy_name}-2025-4"
   lacework_audit_policy_name_2025_5 = "${local.lacework_audit_policy_name}-2025-5"
-  version_file   = "${abspath(path.module)}/VERSION"
-  module_name    = "terraform-aws-config"
-  module_version = fileexists(local.version_file) ? file(local.version_file) : ""
 }
 
 resource "random_id" "uniq" {
@@ -32,7 +29,8 @@ module "lacework_cfg_iam_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
-  count      = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   role       = local.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/SecurityAudit"
   depends_on = [module.lacework_cfg_iam_role]
@@ -40,139 +38,153 @@ resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
 
 # Lacework custom configuration policy
 data "aws_iam_policy_document" "lacework_audit_policy" {
-  count   = var.use_existing_iam_role_policy ? 0 : 1
-  version = "2012-10-17"
+  count = var.use_existing_iam_role_policy ? 0 : 1
 
   statement {
-    sid = "EFS"
-    actions = ["elasticfilesystem:ListTagsForResource"]
+    sid       = "EFS"
+    actions   = ["elasticfilesystem:ListTagsForResource"]
     resources = ["*"]
   }
 
   statement {
     sid = "EMR"
-    actions = ["elasticmapreduce:ListBootstrapActions",
+    actions = [
+      "elasticmapreduce:ListBootstrapActions",
       "elasticmapreduce:ListInstanceFleets",
-      "elasticmapreduce:ListInstanceGroups"]
+      "elasticmapreduce:ListInstanceGroups",
+    ]
     resources = ["*"]
   }
 
   statement {
     sid = "SAGEMAKER"
-    actions = ["sagemaker:GetModelPackageGroupPolicy",
+    actions = [
+      "sagemaker:GetDeviceFleetReport",
       "sagemaker:GetLineageGroupPolicy",
-      "sagemaker:GetDeviceFleetReport"]
+      "sagemaker:GetModelPackageGroupPolicy",
+    ]
     resources = ["*"]
   }
 
   statement {
     sid = "IDENTITYSTORE"
-    actions = ["identitystore:DescribeGroup",
-    "identitystore:DescribeGroupMembership",
-    "identitystore:DescribeUser"]
+    actions = [
+      "identitystore:DescribeGroup",
+      "identitystore:DescribeGroupMembership",
+      "identitystore:DescribeUser",
+    ]
     resources = ["*"]
   }
 
   statement {
     sid = "SSO"
-    actions = ["sso:DescribeAccountAssignmentDeletionStatus",
+    actions = [
+      "sso:DescribeAccountAssignmentDeletionStatus",
       "sso:DescribeInstanceAccessControlAttributeConfiguration",
-    "sso:GetInlinePolicyForPermissionSet"]
+      "sso:GetInlinePolicyForPermissionSet",
+    ]
     resources = ["*"]
   }
 
   statement {
-    sid = "APIGATEWAY"
+    sid     = "APIGATEWAY"
     actions = ["apigateway:GET"]
-    resources = ["arn:aws:apigateway:*::/apikeys",
-    "arn:aws:apigateway:*::/apikeys/*",
-    "arn:aws:apigateway:*::/domainnames/*",
-    "arn:aws:apigateway:*::/domainnames/*/basepathmappings",
-    "arn:aws:apigateway:*::/domainnames/*/basepathmappings/*",
-    "arn:aws:apigateway:*::/usageplans",
-    "arn:aws:apigateway:*::/usageplans/*",
-    "arn:aws:apigateway:*::/sdktypes",
-    "arn:aws:apigateway:*::/sdktypes/*"
+    resources = [
+      "arn:aws:apigateway:*::/apikeys",
+      "arn:aws:apigateway:*::/apikeys/*",
+      "arn:aws:apigateway:*::/domainnames/*",
+      "arn:aws:apigateway:*::/domainnames/*/basepathmappings",
+      "arn:aws:apigateway:*::/domainnames/*/basepathmappings/*",
+      "arn:aws:apigateway:*::/sdktypes",
+      "arn:aws:apigateway:*::/sdktypes/*",
+      "arn:aws:apigateway:*::/usageplans",
+      "arn:aws:apigateway:*::/usageplans/*",
     ]
   }
 
   statement {
     sid = "GLACIER"
-    actions = ["glacier:ListTagsForVault",
+    actions = [
       "glacier:GetJobOutput",
+      "glacier:GetVaultNotifications",
       "glacier:ListJobs",
       "glacier:ListMultipartUploads",
       "glacier:ListParts",
       "glacier:ListProvisionedCapacity",
-      "glacier:GetVaultNotifications"
+      "glacier:ListTagsForVault",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "GLUE"
-    actions = ["glue:ListWorkflows",
+    actions = [
       "glue:BatchGetWorkflows",
+      "glue:GetTables",
       "glue:GetWorkflow",
-      "glue:GetTables"]
+      "glue:ListWorkflows",
+    ]
     resources = ["*"]
   }
 
   statement {
     sid = "CODEBUILD"
-    actions = ["codebuild:ListBuilds",
-      "codebuild:BatchGetBuilds",
+    actions = [
       "codebuild:BatchGetBuildBatches",
-      "codebuild:ListBuildBatches",
-      "codebuild:DescribeCodeCoverages",
-      "codebuild:ListCuratedEnvironmentImages",
-      "codebuild:BatchGetReports",
-      "codebuild:ListReports",
+      "codebuild:BatchGetBuilds",
       "codebuild:BatchGetReportGroups",
+      "codebuild:BatchGetReports",
+      "codebuild:DescribeCodeCoverages",
+      "codebuild:DescribeTestCases",
+      "codebuild:ListBuildBatches",
+      "codebuild:ListBuilds",
+      "codebuild:ListCuratedEnvironmentImages",
       "codebuild:ListReportGroups",
+      "codebuild:ListReports",
       "codebuild:ListSharedProjects",
       "codebuild:ListSharedReportGroups",
-      "codebuild:DescribeTestCases"
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "SNS"
-    actions = ["sns:GetDataProtectionPolicy",
-      "sns:ListPlatformApplications",
+    actions = [
+      "sns:GetDataProtectionPolicy",
       "sns:GetSubscriptionAttributes",
+      "sns:ListPlatformApplications",
     ]
     resources = ["*"]
   }
 
   statement {
-    sid = "STATES"
-    actions = ["states:ListTagsForResource"]
+    sid       = "STATES"
+    actions   = ["states:ListTagsForResource"]
     resources = ["*"]
   }
 
   statement {
     sid = "SES"
-    actions = ["ses:ListContactLists",
-      "ses:GetContactList",
-      "ses:ListContacts",
+    actions = [
       "ses:GetContact",
-      "ses:ListCustomVerificationEmailTemplates",
+      "ses:GetContactList",
       "ses:GetCustomVerificationEmailTemplate",
       "ses:GetDedicatedIpPool",
-      "ses:ListDeliverabilityTestReports",
       "ses:GetDeliverabilityTestReport",
-      "ses:ListEmailIdentities",
       "ses:GetEmailIdentity",
       "ses:GetEmailIdentityPolicies",
-      "ses:ListEmailTemplates",
       "ses:GetEmailTemplate",
-      "ses:ListImportJobs",
       "ses:GetImportJob",
+      "ses:GetSuppressedDestination",
+      "ses:ListContactLists",
+      "ses:ListContacts",
+      "ses:ListCustomVerificationEmailTemplates",
+      "ses:ListDeliverabilityTestReports",
+      "ses:ListEmailIdentities",
+      "ses:ListEmailTemplates",
+      "ses:ListImportJobs",
       "ses:ListRecommendations",
       "ses:ListSuppressedDestinations",
-      "ses:GetSuppressedDestination",
       "ses:ListTagsForResource",
     ]
     resources = ["*"]
@@ -180,27 +192,28 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid = "BACKUP"
-    actions = ["backup:ListBackupJobs",
+    actions = [
       "backup:DescribeBackupJob",
-      "backup:ListBackupPlanTemplates",
-      "backup:GetBackupPlanFromTemplate",
-      "backup:ListBackupPlans",
-      "backup:GetBackupPlan",
-      "backup:ListBackupPlanVersions",
-      "backup:ListBackupSelections",
-      "backup:GetBackupSelection",
       "backup:DescribeBackupVault",
-      "backup:ListRecoveryPointsByBackupVault",
+      "backup:DescribeFramework",
+      "backup:DescribeProtectedResource",
       "backup:DescribeRecoveryPoint",
+      "backup:GetBackupPlan",
+      "backup:GetBackupPlanFromTemplate",
+      "backup:GetBackupSelection",
+      "backup:GetLegalHold",
       "backup:GetRecoveryPointRestoreMetadata",
+      "backup:ListBackupJobs",
+      "backup:ListBackupPlanTemplates",
+      "backup:ListBackupPlanVersions",
+      "backup:ListBackupPlans",
+      "backup:ListBackupSelections",
       "backup:ListCopyJobs",
       "backup:ListFrameworks",
-      "backup:DescribeFramework",
       "backup:ListLegalHolds",
-      "backup:GetLegalHold",
-      "backup:ListRecoveryPointsByLegalHold",
       "backup:ListProtectedResources",
-      "backup:DescribeProtectedResource",
+      "backup:ListRecoveryPointsByBackupVault",
+      "backup:ListRecoveryPointsByLegalHold",
       "backup:ListRecoveryPointsByResource",
       "backup:ListReportPlans",
       "backup:ListRestoreJobs",
@@ -210,62 +223,66 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 
   statement {
     sid = "COGNITOIDP"
-    actions = ["cognito-idp:GetSigningCertificate",
+    actions = [
       "cognito-idp:GetCSVHeader",
-      "cognito-idp:GetUserPoolMfaConfig",
+      "cognito-idp:GetSigningCertificate",
       "cognito-idp:GetUICustomization",
+      "cognito-idp:GetUserPoolMfaConfig",
     ]
     resources = ["*"]
   }
 
   statement {
-    sid       = "COMPUTEOPTIMIZER"
-    actions   = [
+    sid = "COMPUTEOPTIMIZER"
+    actions = [
       "compute-optimizer:DescribeRecommendationExportJobs",
       "compute-optimizer:GetAutoScalingGroupRecommendations",
-      "compute-optimizer:GetEffectiveRecommendationPreferences",
       "compute-optimizer:GetEBSVolumeRecommendations",
       "compute-optimizer:GetEC2InstanceRecommendations",
+      "compute-optimizer:GetEcsServiceRecommendations",
+      "compute-optimizer:GetEffectiveRecommendationPreferences",
       "compute-optimizer:GetEnrollmentStatus",
       "compute-optimizer:GetLambdaFunctionRecommendations",
+      "compute-optimizer:GetLicenseRecommendations",
       "compute-optimizer:GetRecommendationPreferences",
       "compute-optimizer:GetRecommendationSummaries",
-      "compute-optimizer:GetEcsServiceRecommendations",
-      "compute-optimizer:GetLicenseRecommendations",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "KINESISANALYTICS"
-    actions = ["kinesisanalytics:ListApplicationSnapshots",
-      "kinesisanalytics:ListApplicationVersions",
-      "kinesisanalytics:DescribeApplicationVersion",
+    actions = [
       "kinesisanalytics:DescribeApplication",
+      "kinesisanalytics:DescribeApplicationVersion",
+      "kinesisanalytics:ListApplicationSnapshots",
+      "kinesisanalytics:ListApplicationVersions",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "KINESISVIDEO"
-    actions = ["kinesisvideo:GetSignalingChannelEndpoint",
-      "kinesisvideo:GetDataEndpoint",
+    actions = [
       "kinesisvideo:DescribeImageGenerationConfiguration",
+      "kinesisvideo:GetDataEndpoint",
+      "kinesisvideo:GetSignalingChannelEndpoint",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "AMP"
-    actions = ["aps:ListScrapers",
-      "aps:DescribeScraper",
-      "aps:ListWorkspaces",
+    actions = [
       "aps:DescribeAlertManagerDefinition",
       "aps:DescribeLoggingConfiguration",
+      "aps:DescribeRuleGroupsNamespace",
+      "aps:DescribeScraper",
       "aps:DescribeWorkspace",
       "aps:ListRuleGroupsNamespaces",
-      "aps:DescribeRuleGroupsNamespace",
+      "aps:ListScrapers",
       "aps:ListTagsForResource",
+      "aps:ListWorkspaces",
     ]
     resources = ["*"]
   }
@@ -276,12 +293,12 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
 # So we needed a new policy to accommodate the overflow of actions, thus we added this new policy "lacework_audit_policy_2025_1"
 # Which representing the first new policy in 2025
 data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
-  count   = var.use_existing_iam_role_policy ? 0 : 1
-  version = "2012-10-17"
+  count = var.use_existing_iam_role_policy ? 0 : 1
 
   statement {
     sid = "APPSTREAM"
-    actions = ["appstream:Describe*",
+    actions = [
+      "appstream:Describe*",
       "appstream:List*",
     ]
     resources = ["*"]
@@ -289,27 +306,29 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
 
   statement {
     sid = "PERSONALIZE"
-    actions = ["personalize:Describe*",
-      "personalize:List*",
+    actions = [
+      "personalize:Describe*",
       "personalize:GetSolutionMetrics",
+      "personalize:List*",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "CODEARTIFACT"
-    actions = ["codeartifact:ListDomains",
+    actions = [
       "codeartifact:DescribeDomain",
-      "codeartifact:DescribeRepository",
-      "codeartifact:ListPackages",
-      "codeartifact:GetRepositoryEndpoint",
       "codeartifact:DescribePackage",
-      "codeartifact:ListPackageVersions",
       "codeartifact:DescribePackageVersion",
-      "codeartifact:GetPackageVersionReadme",
-      "codeartifact:ListPackageVersionDependencies",
-      "codeartifact:ListPackageVersionAssets",
+      "codeartifact:DescribeRepository",
       "codeartifact:GetPackageVersionAsset",
+      "codeartifact:GetPackageVersionReadme",
+      "codeartifact:GetRepositoryEndpoint",
+      "codeartifact:ListDomains",
+      "codeartifact:ListPackageVersionAssets",
+      "codeartifact:ListPackageVersionDependencies",
+      "codeartifact:ListPackageVersions",
+      "codeartifact:ListPackages",
       "codeartifact:ListTagsForResource",
     ]
     resources = ["*"]
@@ -317,64 +336,68 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
 
   statement {
     sid = "FIS"
-    actions = ["fis:ListActions",
-        "fis:GetAction",
-        "fis:ListExperimentTemplates",
-        "fis:GetExperimentTemplate",
-        "fis:ListTargetAccountConfigurations",
-        "fis:ListExperiments",
-        "fis:GetExperiment",
-        "fis:ListExperimentResolvedTargets",
-        "fis:ListTagsForResource",
+    actions = [
+      "fis:GetAction",
+      "fis:GetExperiment",
+      "fis:GetExperimentTemplate",
+      "fis:ListActions",
+      "fis:ListExperimentResolvedTargets",
+      "fis:ListExperimentTemplates",
+      "fis:ListExperiments",
+      "fis:ListTagsForResource",
+      "fis:ListTargetAccountConfigurations",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "MEMORYDB"
-    actions = ["memorydb:DescribeMultiRegionClusters",
-      "memorydb:DescribeSnapshots",
-      "memorydb:DescribeSubnetGroups",
+    actions = [
+      "memorydb:DescribeACLs",
+      "memorydb:DescribeEngineVersions",
+      "memorydb:DescribeMultiRegionClusters",
       "memorydb:DescribeParameterGroups",
       "memorydb:DescribeParameters",
-      "memorydb:DescribeUsers",
-      "memorydb:DescribeACLs",
-      "memorydb:DescribeServiceUpdates",
-      "memorydb:DescribeEngineVersions",
       "memorydb:DescribeReservedNodes",
       "memorydb:DescribeReservedNodesOfferings",
-      "memorydb:ListTags",
-      "memorydb:ListAllowedNodeTypeUpdates",
+      "memorydb:DescribeServiceUpdates",
+      "memorydb:DescribeSnapshots",
+      "memorydb:DescribeSubnetGroups",
+      "memorydb:DescribeUsers",
       "memorydb:ListAllowedMultiRegionClusterUpdates",
+      "memorydb:ListAllowedNodeTypeUpdates",
+      "memorydb:ListTags",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "QBUSINESS"
-    actions = ["qbusiness:GetApplication",
+    actions = [
+      "qbusiness:GetApplication",
       "qbusiness:GetChatControlsConfiguration",
-      "qbusiness:GetPolicy",
-      "qbusiness:ListAttachments",
-      "qbusiness:ListConversations",
-      "qbusiness:ListMessages",
-      "qbusiness:ListDataAccessors",
       "qbusiness:GetDataAccessor",
-      "qbusiness:GetIndex",
       "qbusiness:GetDataSource",
+      "qbusiness:GetIndex",
       "qbusiness:GetPlugin",
-      "qbusiness:ListPluginActions",
+      "qbusiness:GetPolicy",
       "qbusiness:GetRetriever",
       "qbusiness:GetWebExperience",
-      "qbusiness:ListPluginTypeMetadata",
+      "qbusiness:ListAttachments",
+      "qbusiness:ListConversations",
+      "qbusiness:ListDataAccessors",
+      "qbusiness:ListMessages",
+      "qbusiness:ListPluginActions",
       "qbusiness:ListPluginTypeActions",
+      "qbusiness:ListPluginTypeMetadata",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "QAPPS"
-    actions = ["qapps:DescribeQAppPermissions",
+    actions = [
+      "qapps:DescribeQAppPermissions",
       "qapps:GetLibraryItem",
       "qapps:GetQApp",
       "qapps:GetQAppSession",
@@ -390,7 +413,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
 
   statement {
     sid = "QCONNECT"
-    actions = ["wisdom:GetAIAgent",
+    actions = [
+      "wisdom:GetAIAgent",
       "wisdom:GetAIGuardrail",
       "wisdom:GetAIPrompt",
       "wisdom:GetContent",
@@ -413,40 +437,43 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
       "wisdom:ListMessageTemplateVersions",
       "wisdom:ListMessageTemplates",
       "wisdom:ListQuickResponses",
-      "wisdom:ListTagsForResource"
+      "wisdom:ListTagsForResource",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "RESOURCEGROUPS"
-    actions = ["resource-groups:ListGroups",
-      "resource-groups:GetGroupQuery",
+    actions = [
       "resource-groups:GetGroupConfiguration",
-      "resource-groups:GetTags"
+      "resource-groups:GetGroupQuery",
+      "resource-groups:GetTags",
+      "resource-groups:ListGroups",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "SERVICECATALOGAPPREGISTRY"
-    actions = ["servicecatalog:GetApplication",
-      "servicecatalog:ListApplications",
+    actions = [
+      "servicecatalog:GetApplication",
       "servicecatalog:GetAssociatedResource",
-      "servicecatalog:ListAssociatedResources",
-      "servicecatalog:ListAssociatedAttributeGroups",
       "servicecatalog:GetAttributeGroup",
+      "servicecatalog:GetConfiguration",
+      "servicecatalog:ListApplications",
+      "servicecatalog:ListAssociatedAttributeGroups",
+      "servicecatalog:ListAssociatedResources",
       "servicecatalog:ListAttributeGroups",
-      "servicecatalog:ListTagsForResource",
       "servicecatalog:ListAttributeGroupsForApplication",
-      "servicecatalog:GetConfiguration"
+      "servicecatalog:ListTagsForResource",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "OAM"
-    actions = ["oam:GetLink",
+    actions = [
+      "oam:GetLink",
       "oam:GetSink",
       "oam:GetSinkPolicy",
       "oam:ListAttachedLinks",
@@ -458,7 +485,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
 
   statement {
     sid = "CLOUDDIRECTORY"
-    actions = ["clouddirectory:GetAppliedSchemaVersion",
+    actions = [
+      "clouddirectory:GetAppliedSchemaVersion",
       "clouddirectory:GetDirectory",
       "clouddirectory:GetFacet",
       "clouddirectory:GetLinkAttributes",
@@ -491,7 +519,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
 
   statement {
     sid = "COSTOPTIMIZATIONHUB"
-    actions = ["cost-optimization-hub:GetPreferences",
+    actions = [
+      "cost-optimization-hub:GetPreferences",
       "cost-optimization-hub:GetRecommendation",
       "cost-optimization-hub:ListEnrollmentStatuses",
       "cost-optimization-hub:ListRecommendationSummaries",
@@ -502,7 +531,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
 
   statement {
     sid = "BUDGETS"
-    actions = ["budgets:DescribeBudgetAction",
+    actions = [
+      "budgets:DescribeBudgetAction",
       "budgets:DescribeBudgetActionHistories",
       "budgets:DescribeBudgetActionsForAccount",
       "budgets:DescribeBudgetActionsForBudget",
@@ -513,15 +543,15 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
   }
 
   statement {
-    sid = "BILLING"
-    actions = ["billing:GetBillingViewData",
-    ]
+    sid       = "BILLING"
+    actions   = ["billing:GetBillingViewData"]
     resources = ["*"]
   }
 
   statement {
     sid = "BILLINGCONSOLE"
-    actions = ["aws-portal:GetConsoleActionSetEnforced",
+    actions = [
+      "aws-portal:GetConsoleActionSetEnforced",
       "aws-portal:ViewAccount",
       "aws-portal:ViewBilling",
       "aws-portal:ViewPaymentMethods",
@@ -535,48 +565,50 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
 # New permission incoming for 20.0.0 release:
 # https://lacework.atlassian.net/browse/RAIN-94565
 data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
-  count   = var.use_existing_iam_role_policy ? 0 : 1
-  version = "2012-10-17"
+  count = var.use_existing_iam_role_policy ? 0 : 1
 
   statement {
-    sid = "FREETIER"
-    actions = ["freetier:GetFreeTierUsage"]
+    sid       = "FREETIER"
+    actions   = ["freetier:GetFreeTierUsage"]
     resources = ["*"]
   }
 
   statement {
     sid = "WAFREGIONAL"
-    actions = ["waf-regional:ListRules",
-      "waf-regional:GetRule",
-      "waf-regional:ListRuleGroups",
-      "waf-regional:GetRuleGroup",
-      "waf-regional:ListActivatedRulesInRuleGroup",
+    actions = [
       "waf-regional:GetByteMatchSet",
+      "waf-regional:GetGeoMatchSet",
+      "waf-regional:GetIPSet",
+      "waf-regional:GetLoggingConfiguration",
       "waf-regional:GetPermissionPolicy",
       "waf-regional:GetRateBasedRule",
-      "waf-regional:ListSizeConstraintSets",
+      "waf-regional:GetRegexMatchSet",
+      "waf-regional:GetRegexPatternSet",
+      "waf-regional:GetRule",
+      "waf-regional:GetRuleGroup",
+      "waf-regional:GetSizeConstraintSet",
+      "waf-regional:GetSqlInjectionMatchSet",
+      "waf-regional:GetXssMatchSet",
+      "waf-regional:ListActivatedRulesInRuleGroup",
       "waf-regional:ListByteMatchSets",
       "waf-regional:ListGeoMatchSets",
-      "waf-regional:GetLoggingConfiguration",
-      "waf-regional:GetSqlInjectionMatchSet",
+      "waf-regional:ListIpSets",
       "waf-regional:ListRateBasedRules",
-      "waf-regional:GetSizeConstraintSet",
-      "waf-regional:GetRegexMatchSet",
-      "waf-regional:GetGeoMatchSet",
-      "waf-regional:GetRegexPatternSet",
       "waf-regional:ListRegexMatchSets",
-      "waf-regional:GetIPSet",
+      "waf-regional:ListRegexPatternSets",
+      "waf-regional:ListRuleGroups",
+      "waf-regional:ListRules",
+      "waf-regional:ListSizeConstraintSets",
       "waf-regional:ListSqlInjectionMatchSets",
       "waf-regional:ListXssMatchSets",
-      "waf-regional:GetXssMatchSet",
-      "waf-regional:ListIpSets",
-      "waf-regional:ListRegexPatternSets"]
-     resources = ["*"]
+    ]
+    resources = ["*"]
   }
 
   statement {
     sid = "ACMPCA"
-    actions = ["acm-pca:GetCertificateAuthorityCertificate",
+    actions = [
+      "acm-pca:GetCertificateAuthorityCertificate",
       "acm-pca:GetCertificateAuthorityCsr",
     ]
     resources = ["*"]
@@ -584,30 +616,32 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
 
   statement {
     sid = "APPCONFIG"
-    actions = ["appconfig:GetConfigurationProfile",
+    actions = [
+      "appconfig:GetConfigurationProfile",
+      "appconfig:GetDeployment",
       "appconfig:GetDeploymentStrategy",
       "appconfig:GetExtension",
       "appconfig:GetExtensionAssociation",
       "appconfig:GetHostedConfigurationVersion",
       "appconfig:ListApplications",
       "appconfig:ListConfigurationProfiles",
-      "appconfig:ListDeployments",
       "appconfig:ListDeploymentStrategies",
+      "appconfig:ListDeployments",
       "appconfig:ListEnvironments",
       "appconfig:ListExtensionAssociations",
       "appconfig:ListExtensions",
       "appconfig:ListHostedConfigurationVersions",
       "appconfig:ListTagsForResource",
-      "appconfig:GetDeployment",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "APPFLOW"
-    actions = ["appflow:DescribeConnectorEntity",
-      "appflow:DescribeConnectorProfiles",
+    actions = [
       "appflow:DescribeConnector",
+      "appflow:DescribeConnectorEntity",
+      "appflow:DescribeConnectorProfiles",
       "appflow:DescribeFlow",
       "appflow:DescribeFlowExecutionRecords",
       "appflow:ListConnectorEntities",
@@ -618,16 +652,18 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
 
   statement {
     sid = "DYNAMODB"
-    actions = ["dynamodb:GetResourcePolicy",
-      "dynamodb:DescribeContributorInsights",
+    actions = [
       "dynamodb:DescribeBackup",
+      "dynamodb:DescribeContributorInsights",
+      "dynamodb:GetResourcePolicy",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "EBS"
-    actions = ["ebs:GetSnapshotBlock",
+    actions = [
+      "ebs:GetSnapshotBlock",
       "ebs:ListSnapshotBlocks",
     ]
     resources = ["*"]
@@ -635,7 +671,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
 
   statement {
     sid = "LAKEFORMATION"
-    actions = ["lakeformation:DescribeLakeFormationIdentityCenterConfiguration",
+    actions = [
+      "lakeformation:DescribeLakeFormationIdentityCenterConfiguration",
       "lakeformation:GetDataLakePrincipal",
       "lakeformation:GetDataLakeSettings",
       "lakeformation:GetEffectivePermissionsForPath",
@@ -651,7 +688,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
 
   statement {
     sid = "LAMBDA"
-    actions = ["lambda:GetFunction",
+    actions = [
+      "lambda:GetFunction",
       "lambda:GetFunctionCodeSigningConfig",
     ]
     resources = ["*"]
@@ -659,7 +697,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
 
   statement {
     sid = "SCHEDULER"
-    actions = ["scheduler:GetSchedule",
+    actions = [
+      "scheduler:GetSchedule",
       "scheduler:GetScheduleGroup",
       "scheduler:ListScheduleGroups",
       "scheduler:ListSchedules",
@@ -669,34 +708,35 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
   }
 
   statement {
-    sid = "SCHEMAS"
-    actions = ["schemas:GetCodeBindingSource"]
+    sid       = "SCHEMAS"
+    actions   = ["schemas:GetCodeBindingSource"]
     resources = ["*"]
   }
 
   statement {
     sid = "DATASYNC"
-    actions = ["datasync:DescribeTaskExecution",
-      "datasync:DescribeLocationEfs",
-      "datasync:ListAgents",
-      "datasync:ListLocations",
-      "datasync:ListTaskExecutions",
-      "datasync:ListStorageSystems",
-      "datasync:DescribeLocationSmb",
+    actions = [
       "datasync:DescribeAgent",
-      "datasync:DescribeLocationFsxWindows",
-      "datasync:DescribeTask",
-      "datasync:DescribeLocationS3",
       "datasync:DescribeDiscoveryJob",
-      "datasync:DescribeLocationObjectStorage",
-      "datasync:DescribeStorageSystem",
       "datasync:DescribeLocationAzureBlob",
-      "datasync:ListTagsForResource",
-      "datasync:ListTasks",
-      "datasync:DescribeLocationHdfs",
+      "datasync:DescribeLocationEfs",
       "datasync:DescribeLocationFsxLustre",
+      "datasync:DescribeLocationFsxWindows",
+      "datasync:DescribeLocationHdfs",
+      "datasync:DescribeLocationNfs",
+      "datasync:DescribeLocationObjectStorage",
+      "datasync:DescribeLocationS3",
+      "datasync:DescribeLocationSmb",
+      "datasync:DescribeStorageSystem",
+      "datasync:DescribeTask",
+      "datasync:DescribeTaskExecution",
+      "datasync:ListAgents",
       "datasync:ListDiscoveryJobs",
-      "datasync:DescribeLocationNfs"
+      "datasync:ListLocations",
+      "datasync:ListStorageSystems",
+      "datasync:ListTagsForResource",
+      "datasync:ListTaskExecutions",
+      "datasync:ListTasks",
     ]
     resources = ["*"]
   }
@@ -704,34 +744,34 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
   statement {
     sid = "RESILIENCEHUB"
     actions = [
-      "resiliencehub:ListAppAssessments",
-      "resiliencehub:DescribeAppAssessment",
-      "resiliencehub:ListAlarmRecommendations",
-      "resiliencehub:ListAppAssessmentComplianceDrifts",
-      "resiliencehub:ListAppAssessmentResourceDrifts",
-      "resiliencehub:ListAppComponentCompliances",
-      "resiliencehub:ListAppComponentRecommendations",
-      "resiliencehub:ListSopRecommendations",
-      "resiliencehub:ListTestRecommendations",
-      "resiliencehub:ListApps",
       "resiliencehub:DescribeApp",
-      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
-      "resiliencehub:DescribeResourceGroupingRecommendationTask",
-      "resiliencehub:ListAppVersions",
+      "resiliencehub:DescribeAppAssessment",
       "resiliencehub:DescribeAppVersion",
       "resiliencehub:DescribeAppVersionResource",
       "resiliencehub:DescribeAppVersionResourcesResolutionStatus",
       "resiliencehub:DescribeAppVersionTemplate",
+      "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
+      "resiliencehub:DescribeResourceGroupingRecommendationTask",
+      "resiliencehub:ListAlarmRecommendations",
+      "resiliencehub:ListAppAssessmentComplianceDrifts",
+      "resiliencehub:ListAppAssessmentResourceDrifts",
+      "resiliencehub:ListAppAssessments",
+      "resiliencehub:ListAppComponentCompliances",
+      "resiliencehub:ListAppComponentRecommendations",
       "resiliencehub:ListAppInputSources",
       "resiliencehub:ListAppVersionAppComponents",
       "resiliencehub:ListAppVersionResourceMappings",
       "resiliencehub:ListAppVersionResources",
-      "resiliencehub:ListUnsupportedAppVersionResources",
+      "resiliencehub:ListAppVersions",
+      "resiliencehub:ListApps",
       "resiliencehub:ListRecommendationTemplates",
       "resiliencehub:ListResiliencyPolicies",
       "resiliencehub:ListResourceGroupingRecommendations",
+      "resiliencehub:ListSopRecommendations",
+      "resiliencehub:ListSuggestedResiliencyPolicies",
       "resiliencehub:ListTagsForResource",
-      "resiliencehub:ListSuggestedResiliencyPolicies"
+      "resiliencehub:ListTestRecommendations",
+      "resiliencehub:ListUnsupportedAppVersionResources",
     ]
     resources = ["*"]
   }
@@ -739,13 +779,13 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
   statement {
     sid = "STEPFUNCTIONS"
     actions = [
-      "states:GetActivityTask",
-      "states:ListActivities",
       "states:DescribeExecution",
-      "states:GetExecutionHistory",
-      "states:ListExecutions",
       "states:DescribeMapRun",
-      "states:ListMapRuns"
+      "states:GetActivityTask",
+      "states:GetExecutionHistory",
+      "states:ListActivities",
+      "states:ListExecutions",
+      "states:ListMapRuns",
     ]
     resources = ["*"]
   }
@@ -754,48 +794,50 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
 # New permission incoming for 21.0.0 release contain 13 new services:
 # https://lacework.atlassian.net/browse/RAIN-95014
 data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
-  count   = var.use_existing_iam_role_policy ? 0 : 1
-  version = "2012-10-17"
+  count = var.use_existing_iam_role_policy ? 0 : 1
 
   statement {
     sid = "IOT"
-    actions = ["iot:GetCommand",
+    actions = [
+      "iot:GetBehaviorModelTrainingSummaries",
+      "iot:GetCommand",
       "iot:GetCommandExecution",
       "iot:GetEffectivePolicies",
       "iot:GetIndexingConfiguration",
       "iot:GetJobDocument",
-      "iot:GetV2LoggingOptions",
       "iot:GetOtaUpdate",
       "iot:GetPackage",
       "iot:GetPackageConfiguration",
       "iot:GetPackageVersion",
       "iot:GetRegistrationCode",
-      "iot:GetBehaviorModelTrainingSummaries",
       "iot:GetThingConnectivityData",
       "iot:GetTopicRule",
       "iot:GetTopicRuleDestination",
+      "iot:GetV2LoggingOptions",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "IOTEVENTS"
-    actions = ["iotevents:DescribeAlarmModel",
-      "iotevents:ListAlarmModels",
-      "iotevents:ListTagsForResource",
-      "iotevents:ListAlarmModelVersions",
+    actions = [
+      "iotevents:DescribeAlarmModel",
       "iotevents:DescribeDetectorModel",
-      "iotevents:ListDetectorModels",
-      "iotevents:ListDetectorModelVersions",
       "iotevents:DescribeInput",
       "iotevents:DescribeLoggingOptions",
+      "iotevents:ListAlarmModelVersions",
+      "iotevents:ListAlarmModels",
+      "iotevents:ListDetectorModelVersions",
+      "iotevents:ListDetectorModels",
+      "iotevents:ListTagsForResource",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "MEDIAPACKAGE"
-    actions = ["mediapackage:ListChannels",
+    actions = [
+      "mediapackage:ListChannels",
       "mediapackage:ListHarvestJobs",
       "mediapackage:ListTagsForResource",
     ]
@@ -804,23 +846,25 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
 
   statement {
     sid = "MEDIAPACKAGEV2"
-    actions = ["mediapackagev2:GetChannel",
-      "mediapackagev2:GetChannelPolicy",
-      "mediapackagev2:ListChannels",
-      "mediapackagev2:ListTagsForResource",
+    actions = [
+      "mediapackagev2:GetChannel",
       "mediapackagev2:GetChannelGroup",
-      "mediapackagev2:ListChannelGroups",
-      "mediapackagev2:ListHarvestJobs",
+      "mediapackagev2:GetChannelPolicy",
       "mediapackagev2:GetOriginEndpoint",
       "mediapackagev2:GetOriginEndpointPolicy",
+      "mediapackagev2:ListChannelGroups",
+      "mediapackagev2:ListChannels",
+      "mediapackagev2:ListHarvestJobs",
       "mediapackagev2:ListOriginEndpoints",
+      "mediapackagev2:ListTagsForResource",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "MEDIAPACKAGEVOD"
-    actions = ["mediapackage-vod:DescribeAsset",
+    actions = [
+      "mediapackage-vod:DescribeAsset",
       "mediapackage-vod:ListAssets",
       "mediapackage-vod:ListPackagingConfigurations",
       "mediapackage-vod:ListPackagingGroups",
@@ -830,7 +874,8 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
 
   statement {
     sid = "SUPPORT"
-    actions = ["support:DescribeCases",
+    actions = [
+      "support:DescribeCases",
       "support:DescribeCommunications",
       "support:DescribeServices",
       "support:DescribeSeverityLevels",
@@ -840,89 +885,85 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
 
   statement {
     sid = "IMAGEBUILDER"
-    actions = ["imagebuilder:GetComponentPolicy",
-      "imagebuilder:ListComponents",
-      "imagebuilder:ListTagsForResource",
+    actions = [
       "imagebuilder:GetComponent",
-      "imagebuilder:ListComponentBuildVersions",
+      "imagebuilder:GetComponentPolicy",
       "imagebuilder:GetContainerRecipe",
       "imagebuilder:GetContainerRecipePolicy",
-      "imagebuilder:ListContainerRecipes",
       "imagebuilder:GetDistributionConfiguration",
-      "imagebuilder:ListDistributionConfigurations",
-      "imagebuilder:GetImagePolicy",
-      "imagebuilder:ListImages",
       "imagebuilder:GetImage",
-      "imagebuilder:ListImageBuildVersions",
-      "imagebuilder:ListImagePackages",
       "imagebuilder:GetImagePipeline",
-      "imagebuilder:ListImagePipelines",
+      "imagebuilder:GetImagePolicy",
       "imagebuilder:GetImageRecipe",
       "imagebuilder:GetImageRecipePolicy",
-      "imagebuilder:ListImageRecipes",
-      "imagebuilder:ListImageScanFindings",
-      "imagebuilder:ListImageScanFindingAggregations",
       "imagebuilder:GetInfrastructureConfiguration",
-      "imagebuilder:ListInfrastructureConfigurations",
-      "imagebuilder:ListLifecycleExecutions",
-      "imagebuilder:ListLifecycleExecutionResources",
       "imagebuilder:GetLifecyclePolicy",
-      "imagebuilder:ListLifecyclePolicies",
-      "imagebuilder:ListWorkflows",
       "imagebuilder:GetWorkflow",
+      "imagebuilder:GetWorkflowStepExecution",
+      "imagebuilder:ListComponentBuildVersions",
+      "imagebuilder:ListComponents",
+      "imagebuilder:ListContainerRecipes",
+      "imagebuilder:ListDistributionConfigurations",
+      "imagebuilder:ListImageBuildVersions",
+      "imagebuilder:ListImagePackages",
+      "imagebuilder:ListImagePipelines",
+      "imagebuilder:ListImageRecipes",
+      "imagebuilder:ListImageScanFindingAggregations",
+      "imagebuilder:ListImageScanFindings",
+      "imagebuilder:ListImages",
+      "imagebuilder:ListInfrastructureConfigurations",
+      "imagebuilder:ListLifecycleExecutionResources",
+      "imagebuilder:ListLifecycleExecutions",
+      "imagebuilder:ListLifecyclePolicies",
+      "imagebuilder:ListTagsForResource",
       "imagebuilder:ListWorkflowBuildVersions",
       "imagebuilder:ListWorkflowExecutions",
-      "imagebuilder:GetWorkflowStepExecution",
       "imagebuilder:ListWorkflowStepExecutions",
+      "imagebuilder:ListWorkflows",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "DETECTIVE"
-    actions = ["detective:BatchGetMembershipDatasources",
-      "detective:ListDatasourcePackages",
-      "detective:ListTagsForResource",
+    actions = [
+      "detective:BatchGetGraphMemberDatasources",
+      "detective:BatchGetMembershipDatasources",
       "detective:GetInvestigation",
+      "detective:ListDatasourcePackages",
       "detective:ListIndicators",
       "detective:ListInvestigations",
       "detective:ListInvitations",
-      "detective:BatchGetGraphMemberDatasources",
       "detective:ListOrganizationAdminAccount",
+      "detective:ListTagsForResource",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "BATCH"
-    actions = ["batch:DescribeJobs",
-      "batch:ListJobs",
-      "batch:ListTagsForResource",
+    actions = [
       "batch:DescribeJobQueues",
+      "batch:DescribeJobs",
       "batch:DescribeSchedulingPolicies",
+      "batch:ListJobs",
       "batch:ListSchedulingPolicies",
+      "batch:ListTagsForResource",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "NETWORKMANAGER"
-    actions = ["networkmanager:GetConnectAttachment",
-      "networkmanager:GetSiteToSiteVpnAttachment",
-      "networkmanager:GetTransitGatewayRouteTableAttachment",
-      "networkmanager:GetVpcAttachment",
-      "networkmanager:ListAttachments",
+    actions = [
+      "networkmanager:GetConnectAttachment",
       "networkmanager:GetConnectPeer",
-      "networkmanager:ListConnectPeers",
+      "networkmanager:GetConnectPeerAssociations",
+      "networkmanager:GetConnections",
       "networkmanager:GetCoreNetwork",
       "networkmanager:GetCoreNetworkChangeEvents",
       "networkmanager:GetCoreNetworkChangeSet",
       "networkmanager:GetCoreNetworkPolicy",
-      "networkmanager:GetNetworkRoutes",
-      "networkmanager:ListCoreNetworkPolicyVersions",
-      "networkmanager:ListCoreNetworks",
-      "networkmanager:GetConnectPeerAssociations",
-      "networkmanager:GetConnections",
       "networkmanager:GetCustomerGatewayAssociations",
       "networkmanager:GetDevices",
       "networkmanager:GetLinkAssociations",
@@ -930,12 +971,20 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
       "networkmanager:GetNetworkResourceCounts",
       "networkmanager:GetNetworkResourceRelationships",
       "networkmanager:GetNetworkResources",
+      "networkmanager:GetNetworkRoutes",
       "networkmanager:GetNetworkTelemetry",
       "networkmanager:GetResourcePolicy",
+      "networkmanager:GetSiteToSiteVpnAttachment",
       "networkmanager:GetSites",
       "networkmanager:GetTransitGatewayConnectPeerAssociations",
-      "networkmanager:GetTransitGatewayRegistrations",
       "networkmanager:GetTransitGatewayPeering",
+      "networkmanager:GetTransitGatewayRegistrations",
+      "networkmanager:GetTransitGatewayRouteTableAttachment",
+      "networkmanager:GetVpcAttachment",
+      "networkmanager:ListAttachments",
+      "networkmanager:ListConnectPeers",
+      "networkmanager:ListCoreNetworkPolicyVersions",
+      "networkmanager:ListCoreNetworks",
       "networkmanager:ListPeerings",
     ]
     resources = ["*"]
@@ -943,13 +992,14 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
 
   statement {
     sid = "CODEPIPELINE"
-    actions = ["codepipeline:ListActionExecutions",
+    actions = [
       "codepipeline:GetActionType",
+      "codepipeline:ListActionExecutions",
       "codepipeline:ListActionTypes",
-      "codepipeline:ListTagsForResource",
       "codepipeline:ListPipelineExecutions",
       "codepipeline:ListRuleExecutions",
       "codepipeline:ListRuleTypes",
+      "codepipeline:ListTagsForResource",
       "codepipeline:ListWebhooks",
     ]
     resources = ["*"]
@@ -957,144 +1007,148 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_3" {
 
   statement {
     sid = "GREENGRASS"
-    actions = ["greengrass:GetBulkDeploymentStatus",
-      "greengrass:GetGroupCertificateAuthority",
+    actions = [
+      "greengrass:DescribeComponent",
+      "greengrass:GetAssociatedRole",
+      "greengrass:GetBulkDeploymentStatus",
+      "greengrass:GetComponent",
+      "greengrass:GetConnectivityInfo",
       "greengrass:GetConnectorDefinitionVersion",
       "greengrass:GetCoreDefinitionVersion",
+      "greengrass:GetCoreDevice",
+      "greengrass:GetDeployment",
       "greengrass:GetDeploymentStatus",
       "greengrass:GetDeviceDefinitionVersion",
       "greengrass:GetFunctionDefinitionVersion",
-      "greengrass:GetAssociatedRole",
+      "greengrass:GetGroupCertificateAuthority",
       "greengrass:GetGroupCertificateConfiguration",
       "greengrass:GetGroupVersion",
       "greengrass:GetLoggerDefinitionVersion",
       "greengrass:GetResourceDefinitionVersion",
       "greengrass:GetServiceRoleForAccount",
-      "greengrass:GetSubscriptionDefinitionVersion",
-      "greengrass:DescribeComponent",
-      "greengrass:GetComponent",
-      "greengrass:GetConnectivityInfo",
-      "greengrass:GetCoreDevice",
-      "greengrass:GetDeployment",
       "greengrass:GetServiceRoleForAccount",
+      "greengrass:GetSubscriptionDefinitionVersion",
     ]
     resources = ["*"]
   }
 }
-  # New permission incoming for 22.0.0 release contain 5 new services:
+# New permission incoming for 22.0.0 release contain 5 new services:
 # https://lacework.atlassian.net/browse/RAIN-95426
 data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
-  count   = var.use_existing_iam_role_policy ? 0 : 1
-  version = "2012-10-17"
+  count = var.use_existing_iam_role_policy ? 0 : 1
 
   statement {
     sid = "SSM"
-    actions = ["ssm:GetConnectionStatus",
-      "ssm:ListCommandInvocations",
+    actions = [
+      "ssm:GetConnectionStatus",
       "ssm:GetDocument",
       "ssm:GetInventory",
       "ssm:GetMaintenanceWindowExecutionTask",
       "ssm:GetMaintenanceWindowTask",
       "ssm:GetOpsItem",
-      "ssm:ListOpsItemEvents",
-      "ssm:ListOpsItemRelatedItems",
       "ssm:GetOpsMetadata",
       "ssm:GetParameter",
       "ssm:GetParameterHistory",
       "ssm:GetPatchBaseline",
       "ssm:GetPatchBaselineForPatchGroup",
-      "ssm:GetResourcePolicies"
+      "ssm:GetResourcePolicies",
+      "ssm:ListCommandInvocations",
+      "ssm:ListOpsItemEvents",
+      "ssm:ListOpsItemRelatedItems",
     ]
     resources = ["*"]
   }
 
   statement {
-      sid = "EKS"
-      actions = ["eks:DescribeAddon",
-        "eks:ListAddons",
-      ]
-      resources = ["*"]
-    }
+    sid = "EKS"
+    actions = [
+      "eks:DescribeAddon",
+      "eks:ListAddons",
+    ]
+    resources = ["*"]
+  }
 
   statement {
     sid = "INSPECTOR2"
-    actions = [	"inspector2:BatchGetCodeSnippet",
-      "inspector2:ListCisScanResultsAggregatedByChecks",
-      "inspector2:ListCisScanResultsAggregatedByTargetResource",
-      "inspector2:ListCisScanConfigurations",
-      "inspector2:ListMembers",
+    actions = [
+      "inspector2:BatchGetCodeSnippet",
       "inspector2:BatchGetFindingDetails",
       "inspector2:GetCisScanReport",
       "inspector2:GetCisScanResultDetails",
-      "inspector2:ListCisScans",
       "inspector2:GetEncryptionKey",
+      "inspector2:ListCisScanConfigurations",
+      "inspector2:ListCisScanResultsAggregatedByChecks",
+      "inspector2:ListCisScanResultsAggregatedByTargetResource",
+      "inspector2:ListCisScans",
+      "inspector2:ListMembers",
     ]
     resources = ["*"]
   }
 
   statement {
     sid = "WAF"
-    actions = ["waf:GetRegexPatternSet",
-      "waf:GetPermissionPolicy",
-      "waf:ListIPSets",
-      "waf:GetIPSet",
-      "waf:GetRuleGroup",
-      "waf:ListActivatedRulesInRuleGroup",
+    actions = [
       "waf:GetByteMatchSet",
-      "waf:ListByteMatchSets",
       "waf:GetGeoMatchSet",
-      "waf:ListGeoMatchSets",
+      "waf:GetIPSet",
       "waf:GetLoggingConfiguration",
-      "waf:ListLoggingConfigurations",
+      "waf:GetPermissionPolicy",
       "waf:GetRateBasedRule",
       "waf:GetRateBasedRuleManagedKeys",
-      "waf:ListRateBasedRules",
       "waf:GetRegexMatchSet",
+      "waf:GetRegexPatternSet",
+      "waf:GetRule",
+      "waf:GetRuleGroup",
+      "waf:GetSizeConstraintSet",
+      "waf:GetSqlInjectionMatchSet",
+      "waf:GetXssMatchSet",
+      "waf:ListActivatedRulesInRuleGroup",
+      "waf:ListByteMatchSets",
+      "waf:ListGeoMatchSets",
+      "waf:ListIPSets",
+      "waf:ListLoggingConfigurations",
+      "waf:ListRateBasedRules",
       "waf:ListRegexMatchSets",
       "waf:ListRegexPatternSets",
-      "waf:GetRule",
-      "waf:ListRules",
       "waf:ListRuleGroups",
-      "waf:GetSizeConstraintSet",
+      "waf:ListRules",
       "waf:ListSizeConstraintSets",
-      "waf:GetSqlInjectionMatchSet",
       "waf:ListSqlInjectionMatchSets",
-      "waf:GetXssMatchSet",
-      "waf:ListXssMatchSets"
+      "waf:ListXssMatchSets",
     ]
-     resources = ["*"]
+    resources = ["*"]
   }
 
   statement {
     sid = "WAFV2"
-    actions = ["wafv2:GetManagedRuleSet",
-      "wafv2:GetRegexPatternSet",
-      "wafv2:GetPermissionPolicy",
+    actions = [
       "wafv2:GetIPSet",
+      "wafv2:GetManagedRuleSet",
+      "wafv2:GetPermissionPolicy",
+      "wafv2:GetRegexPatternSet",
+      "wafv2:GetRuleGroup",
       "wafv2:ListIPSets",
       "wafv2:ListManagedRuleSets",
-      "wafv2:GetRuleGroup"
     ]
-     resources = ["*"]
+    resources = ["*"]
   }
 
   statement {
-    sid = "APPRUNNER"
-    actions = ["apprunner:ListServicesForAutoScalingConfiguration",
-    ]
-     resources = ["*"]
+    sid       = "APPRUNNER"
+    actions   = ["apprunner:ListServicesForAutoScalingConfiguration"]
+    resources = ["*"]
   }
 
   statement {
-    sid = "APPSYNC"
-    actions = ["appsync:GetApiAssociation",
-    ]
-     resources = ["*"]
+    sid       = "APPSYNC"
+    actions   = ["appsync:GetApiAssociation"]
+    resources = ["*"]
   }
 
   statement {
     sid = "ATHENA"
-    actions = ["athena:GetCalculationExecution",
+    actions = [
+      "athena:GetCalculationExecution",
       "athena:GetCalculationExecutionCode",
       "athena:GetCalculationExecutionStatus",
       "athena:GetDataCatalog",
@@ -1104,84 +1158,88 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
       "athena:GetQueryResults",
       "athena:GetQueryRuntimeStatistics",
       "athena:GetSession",
-      "athena:GetSessionStatus"
+      "athena:GetSessionStatus",
     ]
-     resources = ["*"]
+    resources = ["*"]
   }
 
   statement {
     sid = "CE"
-    actions = ["ce:GetCommitmentPurchaseAnalysis",
-      "ce:ListCommitmentPurchaseAnalyses",
+    actions = [
+      "ce:DescribeCostCategoryDefinition",
       "ce:GetAnomalyMonitors",
-      "ce:ListTagsForResource",
       "ce:GetAnomalySubscriptions",
+      "ce:GetCommitmentPurchaseAnalysis",
+      "ce:ListCommitmentPurchaseAnalyses",
       "ce:ListCostAllocationTagBackfillHistory",
       "ce:ListCostAllocationTags",
-      "ce:DescribeCostCategoryDefinition",
-      "ce:ListCostCategoryDefinitions"
+      "ce:ListCostCategoryDefinitions",
+      "ce:ListTagsForResource",
     ]
-     resources = ["*"]
+    resources = ["*"]
   }
 
   statement {
     sid = "CLOUDFORMATION"
-    actions = ["cloudformation:DescribeAccountLimits",
+    actions = [
+      "cloudformation:DescribeAccountLimits",
       "cloudformation:DescribeChangeSet",
-      "cloudformation:ListChangeSets",
       "cloudformation:DescribeChangeSetHooks",
+      "cloudformation:DescribePublisher",
+      "cloudformation:DescribeType",
+      "cloudformation:DescribeTypeRegistration",
+      "cloudformation:DetectStackDrift",
+      "cloudformation:DetectStackSetDrift",
+      "cloudformation:GetTemplateSummary",
+      "cloudformation:ListChangeSets",
       "cloudformation:ListExports",
       "cloudformation:ListImports",
-      "cloudformation:DescribePublisher",
-      "cloudformation:DetectStackDrift",
-      "cloudformation:GetTemplateSummary",
-      "cloudformation:DetectStackSetDrift",
-      "cloudformation:DescribeType",
-      "cloudformation:ListTypes",
-      "cloudformation:DescribeTypeRegistration",
       "cloudformation:ListTypeRegistrations",
-      "cloudformation:ListTypeVersions"
+      "cloudformation:ListTypeVersions",
+      "cloudformation:ListTypes",
     ]
-     resources = ["*"]
+    resources = ["*"]
   }
 
   statement {
     sid = "ELASTICBEANSTALK"
-    actions = ["elasticbeanstalk:ListAvailableSolutionStacks",
-      "elasticbeanstalk:RetrieveEnvironmentInfo",
+    actions = [
+      "elasticbeanstalk:ListAvailableSolutionStacks",
       "elasticbeanstalk:ListPlatformBranches",
-      "elasticbeanstalk:ListPlatformVersions"
+      "elasticbeanstalk:ListPlatformVersions",
+      "elasticbeanstalk:RetrieveEnvironmentInfo",
     ]
-     resources = ["*"]
+    resources = ["*"]
   }
 
   statement {
     sid = "MEDIATAILOR"
-    actions = ["mediatailor:ListAlerts",
+    actions = [
       "mediatailor:DescribeChannel",
+      "mediatailor:DescribeLiveSource",
       "mediatailor:DescribeProgram",
+      "mediatailor:DescribeSourceLocation",
+      "mediatailor:DescribeVodSource",
       "mediatailor:GetChannelPolicy",
       "mediatailor:GetChannelSchedule",
-      "mediatailor:ListChannels",
-      "mediatailor:DescribeLiveSource",
-      "mediatailor:ListLiveSources",
       "mediatailor:GetPlaybackConfiguration",
-      "mediatailor:ListPlaybackConfigurations",
       "mediatailor:GetPrefetchSchedule",
+      "mediatailor:ListAlerts",
+      "mediatailor:ListChannels",
+      "mediatailor:ListLiveSources",
+      "mediatailor:ListPlaybackConfigurations",
       "mediatailor:ListPrefetchSchedules",
-      "mediatailor:DescribeSourceLocation",
       "mediatailor:ListSourceLocations",
-      "mediatailor:DescribeVodSource",
-      "mediatailor:ListVodSources"
+      "mediatailor:ListVodSources",
     ]
     resources = ["*"]
-    }
+  }
 
   statement {
     sid = "NETWORKFIREWALL"
     actions = [
+      "network-firewall:DescribeRuleGroupMetadata",
       "network-firewall:ListTagsForResource",
-      "network-firewall:DescribeRuleGroupMetadata"
     ]
     resources = ["*"]
   }
@@ -1189,17 +1247,17 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   statement {
     sid = "RESOURCEEXPLORER2"
     actions = [
-      "resource-explorer-2:ListIndexes",
-      "resource-explorer-2:ListManagedViews",
-      "resource-explorer-2:GetManagedView",
-      "resource-explorer-2:ListSupportedResourceTypes",
-      "resource-explorer-2:ListViews",
-      "resource-explorer-2:GetView",
-      "resource-explorer-2:Search",
       "resource-explorer-2:GetAccountLevelServiceConfiguration",
       "resource-explorer-2:GetDefaultView",
       "resource-explorer-2:GetIndex",
-      "resource-explorer-2:ListTagsForResource"
+      "resource-explorer-2:GetManagedView",
+      "resource-explorer-2:GetView",
+      "resource-explorer-2:ListIndexes",
+      "resource-explorer-2:ListManagedViews",
+      "resource-explorer-2:ListSupportedResourceTypes",
+      "resource-explorer-2:ListTagsForResource",
+      "resource-explorer-2:ListViews",
+      "resource-explorer-2:Search",
     ]
     resources = ["*"]
   }
@@ -1207,10 +1265,10 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
   statement {
     sid = "ROUTE53DOMAINS"
     actions = [
-      "route53domains:ViewBilling",
       "route53domains:CheckDomainAvailability",
       "route53domains:CheckDomainTransferability",
-      "route53domains:ListPrices"
+      "route53domains:ListPrices",
+      "route53domains:ViewBilling",
     ]
     resources = ["*"]
   }
@@ -1219,15 +1277,15 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
     sid = "SERVICEDISCOVERY"
     actions = [
       "servicediscovery:GetInstance",
-      "servicediscovery:ListInstances",
       "servicediscovery:GetNamespace",
-      "servicediscovery:ListNamespaces",
-      "servicediscovery:ListTagsForResource",
       "servicediscovery:GetOperation",
-      "servicediscovery:ListOperations",
       "servicediscovery:GetService",
       "servicediscovery:GetServiceAttributes",
-      "servicediscovery:ListServices"
+      "servicediscovery:ListInstances",
+      "servicediscovery:ListNamespaces",
+      "servicediscovery:ListOperations",
+      "servicediscovery:ListServices",
+      "servicediscovery:ListTagsForResource",
     ]
     resources = ["*"]
   }
@@ -1236,46 +1294,48 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_4" {
 # New permission incoming for 23.0.0 release
 # https://lacework.atlassian.net/browse/RAIN-95426
 data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
-  count   = var.use_existing_iam_role_policy ? 0 : 1
-  version = "2012-10-17"
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   statement {
     sid = "FORECAST"
-    actions = ["forecast:DescribeDataset",
-      "forecast:GetAccuracyMetrics",
+    actions = [
+      "forecast:DescribeAutoPredictor",
+      "forecast:DescribeDataset",
+      "forecast:DescribeDatasetGroup",
+      "forecast:DescribeDatasetImportJob",
       "forecast:DescribeExplainability",
+      "forecast:DescribeExplainabilityExport",
+      "forecast:DescribeForecast",
+      "forecast:DescribeForecastExportJob",
+      "forecast:DescribeMonitor",
+      "forecast:DescribePredictor",
+      "forecast:DescribePredictorBacktestExportJob",
+      "forecast:DescribeWhatIfAnalysis",
+      "forecast:DescribeWhatIfForecast",
+      "forecast:DescribeWhatIfForecastExport",
+      "forecast:GetAccuracyMetrics",
+      "forecast:ListDatasetGroups",
+      "forecast:ListDatasetImportJobs",
+      "forecast:ListExplainabilities",
+      "forecast:ListExplainabilityExports",
       "forecast:ListForecastExportJobs",
       "forecast:ListForecasts",
-      "forecast:DescribeForecast",
-      "forecast:DescribeMonitor",
       "forecast:ListMonitorEvaluations",
-      "forecast:DescribePredictor",
-      "forecast:ListWhatIfForecasts",
-      "forecast:DescribeDatasetImportJob",
-      "forecast:ListDatasetGroups",
-      "forecast:ListPredictorBacktestExportJobs",
-      "forecast:DescribeExplainabilityExport",
       "forecast:ListMonitors",
-      "forecast:DescribePredictorBacktestExportJob",
-      "forecast:DescribeDatasetGroup",
-      "forecast:ListWhatIfAnalyses",
-      "forecast:DescribeWhatIfForecastExport",
-      "forecast:DescribeAutoPredictor",
-      "forecast:ListExplainabilities",
-      "forecast:DescribeForecastExportJob",
-      "forecast:DescribeWhatIfForecast",
-      "forecast:DescribeWhatIfAnalysis",
-      "forecast:ListDatasetImportJobs",
-      "forecast:ListExplainabilityExports",
-      "forecast:ListWhatIfForecastExports",
+      "forecast:ListPredictorBacktestExportJobs",
+      "forecast:ListPredictors",
       "forecast:ListTagsForResource",
-      "forecast:ListPredictors"
+      "forecast:ListWhatIfAnalyses",
+      "forecast:ListWhatIfForecastExports",
+      "forecast:ListWhatIfForecasts",
     ]
     resources = ["*"]
   }
 }
 
 resource "aws_iam_policy" "lacework_audit_policy" {
-  count       = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   name        = local.lacework_audit_policy_name
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit)"
   policy      = data.aws_iam_policy_document.lacework_audit_policy[0].json
@@ -1283,7 +1343,8 @@ resource "aws_iam_policy" "lacework_audit_policy" {
 }
 
 resource "aws_iam_policy" "lacework_audit_policy_2025_1" {
-  count       = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   name        = local.lacework_audit_policy_name_2025_1
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the second policy"
   policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_1[0].json
@@ -1291,7 +1352,8 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_1" {
 }
 
 resource "aws_iam_policy" "lacework_audit_policy_2025_2" {
-  count       = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   name        = local.lacework_audit_policy_name_2025_2
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the third policy"
   policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_2[0].json
@@ -1299,7 +1361,8 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_2" {
 }
 
 resource "aws_iam_policy" "lacework_audit_policy_2025_3" {
-  count       = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   name        = local.lacework_audit_policy_name_2025_3
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the fourth policy"
   policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_3[0].json
@@ -1307,7 +1370,8 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_3" {
 }
 
 resource "aws_iam_policy" "lacework_audit_policy_2025_4" {
-  count       = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   name        = local.lacework_audit_policy_name_2025_4
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the fourth policy"
   policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_4[0].json
@@ -1315,7 +1379,8 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_4" {
 }
 
 resource "aws_iam_policy" "lacework_audit_policy_2025_5" {
-  count       = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   name        = local.lacework_audit_policy_name_2025_5
   description = "An audit policy to allow Lacework to read configs (extends SecurityAudit), this is the fourth policy"
   policy      = data.aws_iam_policy_document.lacework_audit_policy_2025_5[0].json
@@ -1323,46 +1388,53 @@ resource "aws_iam_policy" "lacework_audit_policy_2025_5" {
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment" {
-  count      = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_b" {
-  count      = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy_2025_1[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_c" {
-  count      = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy_2025_2[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_d" {
-  count      = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy_2025_3[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_e" {
-  count      = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy_2025_4[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
 
 resource "aws_iam_role_policy_attachment" "lacework_audit_policy_attachment_f" {
-  count      = var.use_existing_iam_role_policy ? 0 : 1
+  count = var.use_existing_iam_role_policy ? 0 : 1
+
   role       = local.iam_role_name
   policy_arn = aws_iam_policy.lacework_audit_policy_2025_5[0].arn
   depends_on = [module.lacework_cfg_iam_role]
 }
+
 # wait for X seconds for things to settle down in the AWS side
 # before trying to create the Lacework external integration
 resource "time_sleep" "wait_time" {
@@ -1384,9 +1456,4 @@ resource "lacework_integration_aws_cfg" "default" {
     external_id = local.iam_role_external_id
   }
   depends_on = [time_sleep.wait_time]
-}
-
-data "lacework_metric_module" "lwmetrics" {
-  name    = local.module_name
-  version = local.module_version
 }

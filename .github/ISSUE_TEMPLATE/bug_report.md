@@ -19,7 +19,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Please complete the following information):**
  - Terraform Version: [e.g. v1.0.0 ]
- - Module Version [e.g. v0.15.0] 
+ - Module Version [e.g. v0.15.0]
 
 Run `terraform version` to find your Terraform version.
 You can find the module version by running `terraform providers` or in your terraform configuration. If developing locally you can check the `VERSION` file in the project root directory.

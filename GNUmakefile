@@ -22,4 +22,3 @@ release: ci ## *CI ONLY* Prepares a release of the Terraform module
 .PHONY: terraform-docs
 terraform-docs:
 	scripts/terraform-docs.sh
-
