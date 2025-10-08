@@ -1,6 +1,6 @@
 # Configures a compliance integration of the AWS account-1 to
 # the Lacework sub-account account-1
-module "aws_config_account-1" {
+module "aws_config_account_1" {
   source = "../../"
 
   providers = {
@@ -13,7 +13,7 @@ module "aws_config_account-1" {
 
 # Configures a compliance integration of the AWS account-2 to
 # the Lacework sub-account account-2
-module "aws_config_account-2" {
+module "aws_config_account_2" {
   source = "../../"
 
   providers = {
@@ -26,7 +26,7 @@ module "aws_config_account-2" {
 
 # Configures a compliance integration of the AWS account-3 to
 # the Lacework sub-account account-3
-module "aws_config_account-3" {
+module "aws_config_account_3" {
   source = "../../"
 
   providers = {

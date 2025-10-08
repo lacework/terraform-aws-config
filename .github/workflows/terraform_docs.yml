@@ -4,11 +4,11 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
       with:
         ref: ${{ github.event.pull_request.head.ref }}
     - name: Install terraform-docs
-      run: curl -L https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz | (cd /usr/local/bin; tar zxvf -; chmod +x /usr/local/bin/terraform-docs)
+      run: curl -L https://github.com/terraform-docs/terraform-docs/releases/download/v0.20.0/terraform-docs-v0.20.0-linux-amd64.tar.gz | (cd /usr/local/bin; tar zxvf -; chmod +x /usr/local/bin/terraform-docs)
     - name: store hash of orig README.md
       id: old_hash
       run: echo "README_HASH=$(md5sum README.md)" >> $GITHUB_OUTPUT
@@ -23,7 +23,7 @@ jobs:
         echo ${{ steps.new_hash.outputs.README_HASH }}
     - name: test to see of hashs are the same
       if: ${{ steps.old_hash.outputs.README_HASH != steps.new_hash.outputs.README_HASH }}
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           core.setFailed('Please run "make terraform-docs" and try again')

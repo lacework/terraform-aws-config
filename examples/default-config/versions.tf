@@ -1,8 +1,21 @@
-# required for Terraform 13
 terraform {
   required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 3.35.0"
+    }
     lacework = {
-      source = "lacework/lacework"
+      source  = "lacework/lacework"
+      version = "~> 2.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 2.1"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.7"
     }
   }
+  required_version = ">= 0.14"
 }
