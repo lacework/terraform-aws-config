@@ -283,6 +283,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_1" {
     sid = "APPSTREAM"
     actions = ["appstream:Describe*",
       "appstream:List*",
+      "appstream:ListTagsForResource",
     ]
     resources = ["*"]
   }
@@ -1269,6 +1270,24 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
       "forecast:ListWhatIfForecastExports",
       "forecast:ListTagsForResource",
       "forecast:ListPredictors"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "NOTIFICATIONS"
+    actions = ["notifications:ListEventRules",
+      "notifications:ListManagedNotificationChildEvents",
+      "notifications:ListOrganizationalUnits",
+      "notifications:ListMemberAccounts",
+      "notifications:ListNotificationConfigurations",
+      "notifications:ListManagedNotificationConfigurations",
+      "notifications:ListManagedNotificationEvents",
+      "notifications:ListTagsForResource",
+      "notifications:ListManagedNotificationChannelAssociations",
+      "notifications:ListNotificationEvents",
+      "notifications:ListChannels",
+      "notifications:ListNotificationHubs",
     ]
     resources = ["*"]
   }

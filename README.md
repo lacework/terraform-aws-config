@@ -238,6 +238,7 @@ The audit policy is comprised of the following permissions:
 |                            | aps:ListTagsForResource                                        |           |
 | APPSTREAM                  | appstream:Describe*                                            |           |
 |                            | appstream:List*                                                |           |
+|                            | appstream:ListTagsForResource                                  |           |
 | PERSONALIZE                | personalize:Describe*                                          |           |
 |                            | personalize:List*                                              |           |
 |                            | personalize:GetSolutionMetrics                                 |           |
@@ -832,3 +833,15 @@ The audit policy is comprised of the following permissions:
 |                            | stepfunctions:ListExecutions                                   |           |
 |                            | stepfunctions:DescribeMapRun                                   |           |
 |                            | stepfunctions:ListMapRuns                                      |           |
+| NOTIFICATIONS              | notifications:ListEventRules                                   | *         |
+|                            | notifications:ListManagedNotificationChildEvents               |           |
+|                            | notifications:ListOrganizationalUnits                          |           |
+|                            | notifications:ListMemberAccounts                               |           |
+|                            | notifications:ListNotificationConfigurations                   |           |
+|                            | notifications:ListManagedNotificationConfigurations            |           |
+|                            | notifications:ListManagedNotificationEvents                    |           |
+|                            | notifications:ListTagsForResource                              |           |
+|                            | notifications:ListManagedNotificationChannelAssociations       |           |
+|                            | notifications:ListNotificationEvents                           |           |
+|                            | notifications:ListChannels                                     |           |
+|                            | notifications:ListNotificationHubs                             |           |
