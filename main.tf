@@ -147,8 +147,15 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   }
 
   statement {
-    sid = "STATES"
-    actions = ["states:ListTagsForResource"]
+    sid = "STEPFUNCTIONS"
+    actions = ["states:ListTagsForResource",
+      "states:GetActivityTask",
+      "states:ListActivities",
+      "states:DescribeExecution",
+      "states:GetExecutionHistory",
+      "states:ListExecutions",
+      "states:DescribeMapRun",
+      "states:ListMapRuns"]
     resources = ["*"]
   }
 
@@ -174,6 +181,10 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
       "ses:ListSuppressedDestinations",
       "ses:GetSuppressedDestination",
       "ses:ListTagsForResource",
+      "ses:GetExportJob",
+      "ses:GetMultiRegionEndpoint",
+      "ses:ListExportJobs",
+      "ses:ListMultiRegionEndpoints"
     ]
     resources = ["*"]
   }
@@ -733,20 +744,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_2" {
       "resiliencehub:ListResourceGroupingRecommendations",
       "resiliencehub:ListTagsForResource",
       "resiliencehub:ListSuggestedResiliencyPolicies"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    sid = "STEPFUNCTIONS"
-    actions = [
-      "states:GetActivityTask",
-      "states:ListActivities",
-      "states:DescribeExecution",
-      "states:GetExecutionHistory",
-      "states:ListExecutions",
-      "states:DescribeMapRun",
-      "states:ListMapRuns"
     ]
     resources = ["*"]
   }
