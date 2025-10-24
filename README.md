@@ -138,10 +138,29 @@ The audit policy is comprised of the following permissions:
 |                            | waf-regional:ListActivatedRulesInRuleGroup                     |           |
 |                            | waf-regional:ListIpSets                                        |           |
 |                            | waf-regional:ListRegexPatternSets                              |           |
+|                            | waf-regional:GetByteMatchSet                                   |           |
+|                            | waf-regional:GetPermissionPolicy                               |           |
+|                            | waf-regional:GetRateBasedRule                                  |           |
+|                            | waf-regional:ListSizeConstraintSets                            |           |
+|                            | waf-regional:ListByteMatchSets                                 |           |
+|                            | waf-regional:ListGeoMatchSets                                  |           |
+|                            | waf-regional:GetLoggingConfiguration                           |           |
+|                            | waf-regional:GetSqlInjectionMatchSet                           |           |
+|                            | waf-regional:ListRateBasedRules                                |           |
+|                            | waf-regional:GetSizeConstraintSet                              |           |
+|                            | waf-regional:GetRegexMatchSet                                  |           |
+|                            | waf-regional:GetGeoMatchSet                                    |           |
+|                            | waf-regional:GetRegexPatternSet                                |           |
+|                            | waf-regional:ListRegexMatchSets                                |           |
+|                            | waf-regional:GetIPSet                                          |           |
+|                            | waf-regional:ListSqlInjectionMatchSets                         |           |
+|                            | waf-regional:ListXssMatchSets                                  |           |
+|                            | waf-regional:GetXssMatchSet                                    |           |
 | GLUE                       | glue:ListWorkflows                                             | *         |
 |                            | glue:BatchGetWorkflows                                         |           |
 |                            | glue:GetTags                                                   |           |
 |                            | glue:GetTables                                                 |           |
+|                            | glue:GetWorkflow                                               |           |
 | CODEBUILD                  | codebuild:ListBuilds                                           | *         |
 |                            | codebuild:BatchGetBuilds                                       |           |
 |                            | codebuild:BatchGetBuildBatches                                 |           |
@@ -180,6 +199,10 @@ The audit policy is comprised of the following permissions:
 |                            | ses:ListSuppressedDestinations                                 |           |
 |                            | ses:GetSuppressedDestination                                   |           |
 |                            | ses:ListTagsForResource                                        |           |
+|                            | ses:GetExportJob                                               |           |
+|                            | ses:GetMultiRegionEndpoint                                     |           |
+|                            | ses:ListExportJobs                                             |           |
+|                            | ses:ListMultiRegionEndpoints                                   |           |
 | BACKUP                     | backup:ListBackupJobs                                          | *         |
 |                            | backup:DescribeBackupJob                                       |           |
 |                            | backup:ListBackupPlanTemplates                                 |           |
@@ -238,6 +261,7 @@ The audit policy is comprised of the following permissions:
 |                            | aps:ListTagsForResource                                        |           |
 | APPSTREAM                  | appstream:Describe*                                            |           |
 |                            | appstream:List*                                                |           |
+|                            | appstream:ListTagsForResource                                  |           |
 | PERSONALIZE                | personalize:Describe*                                          |           |
 |                            | personalize:List*                                              |           |
 |                            | personalize:GetSolutionMetrics                                 |           |
@@ -262,6 +286,7 @@ The audit policy is comprised of the following permissions:
 |                            | fis:ListExperiments                                            |           |
 |                            | fis:GetExperiment                                              |           |
 |                            | fis:ListExperimentResolvedTargets                              |           |
+|                            | fis:ListTagsForResource                                        |           |
 | MEMORYDB                   | memorydb:DescribeMultiRegionClusters                           | *         |
 |                            | memorydb:DescribeSnapshots                                     |           |
 |                            | memorydb:DescribeSubnetGroups                                  |           |
@@ -638,7 +663,8 @@ The audit policy is comprised of the following permissions:
 |                            | ssm:GetPatchBaseline                                           |           |
 |                            | ssm:GetPatchBaselineForPatchGroup                              |           |
 |                            | ssm:GetResourcePolicies                                        |           |
-| EKS                        | ssm:DescribeAddon                                              | *         |
+| EKS                        | eks:DescribeAddon                                              | *         |
+|                            | eks:ListAddons                                                 |           |
 | WAF                        | waf:GetRegexPatternSet                                         | *         |
 |                            | waf:GetPermissionPolicy                                        |           |
 |                            | waf:ListIPSets                                                 |           |
@@ -670,6 +696,7 @@ The audit policy is comprised of the following permissions:
 |                            | waf:ListSqlInjectionMatchSets                                  |           |
 |                            | waf:GetXssMatchSet                                             |           |
 |                            | waf:ListXssMatchSets                                           |           |
+|                            | waf:GetIPSet                                                   |           |
 | WAFV2                      | wafv2:ListResourcesForWebACL                                   | *         |
 |                            | wafv2:ListRuleGroups                                           |           |
 |                            | wafv2:ListWebACL                                               |           |
@@ -684,6 +711,8 @@ The audit policy is comprised of the following permissions:
 |                            | wafv2:GetManagedRuleSet                                        |           |
 |                            | wafv2:GetRegexPatternSet                                       |           |
 |                            | wafv2:ListRegexPatternSets                                     |           |
+|                            | wafv2:GetPermissionPolicy                                      |           |
+|                            | wafv2:ListManagedRuleSets                                      |           |
 | FORECAST                   | forecast:DescribeDataset                                       | *         |
 |                            | forecast:GetAccuracyMetrics                                    |           |
 |                            | forecast:DescribeExplainability                                |           |
@@ -800,6 +829,8 @@ The audit policy is comprised of the following permissions:
 |                            | resiliencehub:ListResourceGroupingRecommendations              |           |
 |                            | resiliencehub:ListTagsForResource                              |           |
 |                            | resiliencehub:ListSuggestedResiliencyPolicies                  |           |
+|                            | resiliencehub:DescribeDraftAppVersionResourcesImportStatus     |           |
+|                            | resiliencehub:DescribeAppVersionResourcesResolutionStatus      |           |
 | RESOURCEEXPLORER2          | resource-explorer-2:ListIndexes                                | *         |
 |                            | resource-explorer-2:ListManagedViews                           |           |
 |                            | resource-explorer-2:GetManagedView                             |           |
@@ -811,6 +842,7 @@ The audit policy is comprised of the following permissions:
 |                            | resource-explorer-2:GetDefaultView                             |           |
 |                            | resource-explorer-2:GetIndex                                   |           |
 |                            | resource-explorer-2:ListTagsForResource                        |           |
+|                            | resource-explorer-2:Search                                     |           |
 | ROUTE53DOMAINS             | route53domains:ViewBilling                                     | *         |
 |                            | route53domains:CheckDomainAvailability                         |           |
 |                            | route53domains:CheckDomainTransferability                      |           |
@@ -825,10 +857,23 @@ The audit policy is comprised of the following permissions:
 |                            | servicediscovery:GetService                                    |           |
 |                            | servicediscovery:GetServiceAttributes                          |           |
 |                            | servicediscovery:ListServices                                  |           |
-| STEPFUNCTIONS              | stepfunctions:GetActivityTask                                  | *         |
-|                            | stepfunctions:ListActivities                                   |           |
-|                            | stepfunctions:DescribeExecution                                |           |
-|                            | stepfunctions:GetExecutionHistory                              |           |
-|                            | stepfunctions:ListExecutions                                   |           |
-|                            | stepfunctions:DescribeMapRun                                   |           |
-|                            | stepfunctions:ListMapRuns                                      |           |
+| STEPFUNCTIONS              | states:GetActivityTask                                         | *         |
+|                            | states:ListActivities                                          |           |
+|                            | states:DescribeExecution                                       |           |
+|                            | states:GetExecutionHistory                                     |           |
+|                            | states:ListExecutions                                          |           |
+|                            | states:DescribeMapRun                                          |           |
+|                            | states:ListMapRuns                                             |           |
+|                            | states:ListTagsForResource                                     |           |
+| NOTIFICATIONS              | notifications:ListEventRules                                   | *         |
+|                            | notifications:ListManagedNotificationChildEvents               |           |
+|                            | notifications:ListOrganizationalUnits                          |           |
+|                            | notifications:ListMemberAccounts                               |           |
+|                            | notifications:ListNotificationConfigurations                   |           |
+|                            | notifications:ListManagedNotificationConfigurations            |           |
+|                            | notifications:ListManagedNotificationEvents                    |           |
+|                            | notifications:ListTagsForResource                              |           |
+|                            | notifications:ListManagedNotificationChannelAssociations       |           |
+|                            | notifications:ListNotificationEvents                           |           |
+|                            | notifications:ListChannels                                     |           |
+|                            | notifications:ListNotificationHubs                             |           |
