@@ -1274,17 +1274,14 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
   statement {
     sid = "NOTIFICATIONS"
     actions = ["notifications:ListEventRules",
-      "notifications:ListManagedNotificationChildEvents",
-      "notifications:ListOrganizationalUnits",
-      "notifications:ListMemberAccounts",
       "notifications:ListNotificationConfigurations",
-      "notifications:ListManagedNotificationConfigurations",
-      "notifications:ListManagedNotificationEvents",
       "notifications:ListTagsForResource",
-      "notifications:ListManagedNotificationChannelAssociations",
       "notifications:ListNotificationEvents",
       "notifications:ListChannels",
       "notifications:ListNotificationHubs",
+      "notifications:GetNotificationConfiguration",
+      "notifications:GetEventRule",
+      "notifications:GetNotificationEvent"
     ]
     resources = ["*"]
   }
