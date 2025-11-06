@@ -866,14 +866,11 @@ The audit policy is comprised of the following permissions:
 |                            | states:ListMapRuns                                             |           |
 |                            | states:ListTagsForResource                                     |           |
 | NOTIFICATIONS              | notifications:ListEventRules                                   | *         |
-|                            | notifications:ListManagedNotificationChildEvents               |           |
-|                            | notifications:ListOrganizationalUnits                          |           |
-|                            | notifications:ListMemberAccounts                               |           |
 |                            | notifications:ListNotificationConfigurations                   |           |
-|                            | notifications:ListManagedNotificationConfigurations            |           |
-|                            | notifications:ListManagedNotificationEvents                    |           |
 |                            | notifications:ListTagsForResource                              |           |
-|                            | notifications:ListManagedNotificationChannelAssociations       |           |
 |                            | notifications:ListNotificationEvents                           |           |
 |                            | notifications:ListChannels                                     |           |
 |                            | notifications:ListNotificationHubs                             |           |
+|                            | notifications:GetNotificationConfiguration                     |           |
+|                            | notifications:GetEventRule                                     |           |
+|                            | notifications:GetNotificationEvent                             |           |
