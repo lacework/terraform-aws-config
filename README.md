@@ -874,3 +874,6 @@ The audit policy is comprised of the following permissions:
 |                            | notifications:GetNotificationConfiguration                     |           |
 |                            | notifications:GetEventRule                                     |           |
 |                            | notifications:GetNotificationEvent                             |           |
+| KEYSPACES                  | cassandra:ListKeyspaces                                        | *         |
+|                            | cassandra:GetKeyspaces                                         |           |
+|                            | cassandra:ListTagsForResource                                  |           |

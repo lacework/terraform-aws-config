@@ -1270,7 +1270,6 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
     ]
     resources = ["*"]
   }
-
   statement {
     sid = "NOTIFICATIONS"
     actions = ["notifications:ListEventRules",
@@ -1282,6 +1281,15 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
       "notifications:GetNotificationConfiguration",
       "notifications:GetEventRule",
       "notifications:GetNotificationEvent"
+    ]
+    resources = ["*"]
+  }
+
+    statement {
+    sid = "KEYSPACE"
+    actions = ["cassandra:ListKeyspaces",
+      "cassandra:GetKeyspaces",
+      "cassandra:ListTagsForResource"
     ]
     resources = ["*"]
   }
