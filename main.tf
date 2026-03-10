@@ -1286,7 +1286,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
   }
 
     statement {
-    sid = "KEYSPACE"
+    sid = "KEYSPACES"
     actions = ["cassandra:Select",
     ]
     resources = ["*"]
