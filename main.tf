@@ -1285,9 +1285,16 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
     resources = ["*"]
   }
 
-    statement {
-    sid = "KEYSPACES"
+  statement {
+    sid = "KEYSPACE"
     actions = ["cassandra:Select",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "lightsail"
+    actions = ["lightsail:GetInstancePortStates"
     ]
     resources = ["*"]
   }
