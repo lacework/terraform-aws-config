@@ -1293,7 +1293,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
   }
 
   statement {
-    sid = "lightsail"
+    sid = "LIGHTSAIL"
     actions = ["lightsail:GetInstancePortStates"
     ]
     resources = ["*"]
