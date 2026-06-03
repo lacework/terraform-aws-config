@@ -875,4 +875,4 @@ The audit policy is comprised of the following permissions:
 |                            | notifications:GetEventRule                                     |           |
 |                            | notifications:GetNotificationEvent                             |           |
 | KEYSPACES                  | cassandra:Select                                               | *         |
-| LIGHTSAIL                  | lightsail:GetInstancePortStates                                | *.        |
+| LIGHTSAIL                  | lightsail:GetInstancePortStates                                | *         |
