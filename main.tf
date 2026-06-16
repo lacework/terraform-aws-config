@@ -1288,6 +1288,7 @@ data "aws_iam_policy_document" "lacework_audit_policy_2025_5" {
   statement {
     sid = "KEYSPACES"
     actions = ["cassandra:Select",
+    "cassandra:ListTagsForResource"
     ]
     resources = ["*"]
   }
