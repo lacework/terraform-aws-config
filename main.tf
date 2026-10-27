@@ -149,7 +149,6 @@ data "aws_iam_policy_document" "lacework_audit_policy" {
   statement {
     sid = "STEPFUNCTIONS"
     actions = ["states:ListTagsForResource",
-      "states:GetActivityTask",
       "states:ListActivities",
       "states:DescribeExecution",
       "states:GetExecutionHistory",

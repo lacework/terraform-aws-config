@@ -857,8 +857,7 @@ The audit policy is comprised of the following permissions:
 |                            | servicediscovery:GetService                                    |           |
 |                            | servicediscovery:GetServiceAttributes                          |           |
 |                            | servicediscovery:ListServices                                  |           |
-| STEPFUNCTIONS              | states:GetActivityTask                                         | *         |
-|                            | states:ListActivities                                          |           |
+| STEPFUNCTIONS              | states:ListActivities                                          | *         |
 |                            | states:DescribeExecution                                       |           |
 |                            | states:GetExecutionHistory                                     |           |
 |                            | states:ListExecutions                                          |           |
